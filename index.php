@@ -53,7 +53,7 @@ include './connection/db_connect.php';
             </div>
         </div>
         <!-- latest blogs -->
-        <h1 class="text-center mt-4 heading1">Latest Blogs and more</h1>
+        <h1 class="text-center mt-4 heading1">Latest Blogs</h1>
         
         <div class="container mt-2 blog mx-auto text-center">    
             
@@ -70,7 +70,7 @@ include './connection/db_connect.php';
                             <div class="col-md-6 text-left p-4">
                                 <h1 class="h1">'.$row["heading"].'</h1>
                                 <p>'.$row["hashtags"].'</p>
-                                <button class="btn btn-info">Know More</button>
+                                <a class="btn btn-info" href="./pages/blogs.php">Know More</a>
                             </div>
                             <div class="col-md-6 p-4 text-center mx-auto">
                                 <div class="thumbnail">
