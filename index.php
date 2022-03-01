@@ -53,7 +53,7 @@ include './connection/db_connect.php';
             </div>
         </div>
         <!-- latest blogs -->
-        <h1 class="text-center mt-4 heading1">Latest Blogs</h1>
+        <h1 class="text-center mt-4 heading1">Latest Blogs and more</h1>
         
         <div class="container mt-2 blog mx-auto text-center">    
             
