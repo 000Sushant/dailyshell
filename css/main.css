@@ -1,0 +1,28 @@
+body{
+    font-family: 'Source Sans Pro', sans-serif;
+}
+.head{
+    background-color: rgb(103, 6, 110);
+}
+.head h1{
+    font-family: 'ZCOOL QingKe HuangYou';
+    letter-spacing: 1.6px;
+    font-size: 42px;
+}
+.head p{
+    font-family: 'Source Sans Pro', sans-serif;
+    letter-spacing: 1.1px;
+}
+.heading1{
+    font-family: 'ZCOOL QingKe HuangYou';
+    color: rgb(103, 6, 110);
+    text-decoration: underline gold 3px;
+}
+.blog h1{
+    font-family: 'Monoton', cursive;
+    word-spacing: 5px;
+    width: 60%;
+}
+.blog .thumbnailImg{
+    width: 100%;
+}
