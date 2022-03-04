@@ -1,17 +1,22 @@
 <?php 
 
-include './connection/db_connect.php';
+include './db_connect.php';
+// $heading = $database->getReference('heading');
+// $content = $database->getReference('content');
+// $hashtags = $database->getReference('hashtags');
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CyberBlog</title>
-
+    
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -26,12 +31,13 @@ include './connection/db_connect.php';
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Source+Sans+Pro&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <?php include './others/nav.php'?> 
     <div class="container-fluid">
         <!-- head -->
-        <div class="row head">
+        <div class="row head bg-info">
             <div class="container  mb-4 mx-auto">
                 <i class="fab fa-android w-100 text-center" style='font-size:48px;color:black'></i>
                 <h1 class="text-warning text-center">CyberbloG</h1>
@@ -52,40 +58,49 @@ include './connection/db_connect.php';
                 </div>
             </div>
         </div>
+        
         <!-- latest blogs -->
-        <h1 class="text-center mt-4 heading1">Latest Blogs</h1>
+        <h1 class="text-center mt-4 heading1">Latest Blogs</h1>  
         
         <div class="container mt-2 blog mx-auto text-center">    
-            
+            <div class="latest">
             <!-- fetching latest blogs from db -->
             <?php
-                $sql = "SELECT * FROM blogs";
-                $result=mysqli_query($conn,$sql);
-                
-                if($result){
-                    
-                    while($row = mysqli_fetch_assoc($result)){
-                        echo '
-                        <div class="row border border-info bg-light my-2">
-                            <div class="col-md-6 text-left p-4">
-                                <h1 class="h1">'.$row["heading"].'</h1>
-                                <p>'.$row["hashtags"].'</p>
-                                <a class="btn btn-info" href="./pages/blogs.php">Know More</a>
-                            </div>
-                            <div class="col-md-6 p-4 text-center mx-auto">
-                                <div class="thumbnail">
-                                    <img src="./images/demo.png" alt="kali-logo" class="img-fluid">
-                                </div>
-                                <p class="align-middle">'.$row["content"].'</p>      
-                            </div>
-                        </div>
-                    ';
-                    }
-                }
-                else{
-                    echo "cannot connect to database at the time";
-                }            
+                // echo '
+                //     <div class="row border border-info bg-light my-2">
+                //         <div class="col-md-6 text-left p-4">
+                //             <h1 class="h1">'.$heading->getValue().'</h1>
+                //             <p>'.$hashtags->getValue().'</p>
+                //             <a class="btn btn-info" href="./pages/blogs.php">Know More</a>
+                //         </div>
+                //         <div class="col-md-6 p-4 text-center mx-auto">
+                //             <div class="thumbnail">
+                //                 <img src="./images/demo.png" alt="kali-logo" class="img-fluid">
+                //             </div>
+                //             <p class="align-middle">'.$content->getValue().'</p>      
+                //         </div>
+                //     </div>
+                // ';
             ?>
+            </div>
+            
+            <div class="row popular bg-light">
+                <h1 class="py-2 col-12 heading1">Popular Blogs</h1>
+                
+                <div class="col-md-4 my-2">
+                    <div class="bg-light border border-info p-2 text-left">
+                        <?php 
+                        // echo '<h1 class="h1">'.$heading->getValue().'</h1>'
+                        ?>
+                        <div class="thumbnail">
+                            <img src="./images/demo.png" class="img-fluid" alt="">
+                        </div>           
+                        <p class="lead"><b>How To hack an android device</b></p>
+                        <p>"For Deleting a table or document from the database Firebase provides an option from the right side top end on the table field. With the use of your desired options you can either delete a table row or document, and delete specific fields from the table."</p>
+                        <a href="#" class="btn btn-warning">Explore</a>
+                    </div>
+                </div>        
+            </div>     
 
         </div>
     </div>

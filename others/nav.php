@@ -12,8 +12,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-info" style="background-color: rgb(103, 6, 110) !important; ">
-  <span>welcome To &nbsp;</span> <a class="navbar-brand" href="../" style="font-size:30px;font-family: 'ZCOOL QingKe HuangYou', cursive;">CyberbloG</a>
+  
+<nav class="navbar navbar-expand-lg navbar-light bg-info">
+  <span>welcome To &nbsp;</span><a class="navbar-brand" href="../" style="font-size:30px;font-family: 'ZCOOL QingKe HuangYou', cursive;">CyberbloG</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -29,7 +30,9 @@
       <li class="nav-item">
         <a class="nav-link text-light" href="#">Contact</a>
       </li>
-      <button class="btn ml-auto text-dark btn-warning my-2 my-sm-0">Donate</button>
+      <li class="nav-link">
+        <a class="btn-warning p-2">Donate</a>
+      </li>
     </ul>
   </div>
 </nav> 
