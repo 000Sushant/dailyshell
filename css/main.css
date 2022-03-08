@@ -21,6 +21,9 @@ body{
     width: 65%;
     text-transform: capitalize;
 }
+.author{
+    font-weight: 600;
+}
 .blog .thumbnailImg{
     width: 100%;
 }
@@ -40,16 +43,15 @@ body{
     background-color: red !important;
 }
 .button1{
+    background-color: none;
     border: 3px solid gold;
+    padding: 5% 8%;
     color: black;
     cursor: pointer;
-    padding: 25px 80px;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 700;
     text-decoration: none;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
     transition: all 0.3s;
 }
 .button1:hover,

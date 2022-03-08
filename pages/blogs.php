@@ -1,7 +1,11 @@
 <?php 
 
-// include './connection/db_connect.php';
-
+session_start();
+require '../connections/db_connect.php';
+if(!isset($_POST['activeBlog']) || $_POST['activeBlog'] == false){
+    session_destroy();
+    header("location:../");
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +23,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- mycss -->
-    <link rel="stylesheet" href="./css/main.css?v=1">
+    <link rel="stylesheet" href="../css/main.css?v=0" crossorigin='anonymous'>
 
     <!-- web fonts -->
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
@@ -29,8 +33,51 @@
 </head>
 <body>
     <?php include '../others/nav.php'?> 
-    <div class="container-fluid">
-        Showing blogs
+
+    <!-- head -->
+    <div class="head">
+    <h1 class="text-warning bg-info py-2 text-center">CyberbloG</h1>
     </div>
+
+    <!-- main content -->
+    <div class="container text-center bg-light p-3 mt-4">
+        <?php
+        
+            $sql = "SELECT * from blogs where `blogId` = '$_POST[activeBlog]'";
+            $result = mysqli_query($conn, $sql);
+            
+            if($result){
+                if(mysqli_num_rows($result)==1){
+                    $row = mysqli_fetch_assoc($result);
+                    echo '<h1 class="heading1">'.$row['heading'].'</h1>';
+                    echo '<img src="../images/'.$row['demoImage'].'" class="my-2" style="width:50%" alt="demo image">';  
+                    echo '<p class="text-left">'.$row['content'].'<p>';
+                    echo '
+                    <div class="text-left mb-3">
+                        <span class="text-secondary author">Written By: '.$row['author'].'</span> |
+                        <span class="text-secondary">'.$row['hashtags'].'</span>
+                    </div>';
+                    echo '<a href="../" class="btn btn-info mx-auto">Back to Home</a>';
+                    
+                }
+                else{
+                    echo '            
+                    <div class="alert alert-danger" role="alert">
+                        It seems there isn\'t any blog regarding your search right now, explore more at <a href="../" class="alert-link">home page</a>
+                    </div>                 
+                    ';
+                }
+            }
+            else{
+                echo '
+                <div class="alert alert-danger" role="alert">
+                    couldn\'t reach the database at the moment kindly try again later (Server error)
+                </div>
+                ';
+            }
+    ?>
+    </div>
+
+    <?php include '../others/footer.php'?>
 </body>
 </html>
