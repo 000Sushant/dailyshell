@@ -49,9 +49,9 @@ require 'connections/db_connect.php';
                     <button class="btn btn-outline-warning mx-2">Latest Tech</button>
                 </div>
                 <div class="mt-4 mx-auto d-block text-center ">
-                    <form class="row my-2 my-lg-0 mx-auto">
-                        <input class="form-control ml-auto col-6" type="search" placeholder="Search" aria-label="Search">
-                        <button class="ml-2 mr-auto btn btn-dark my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
+                    <form class="row my-2 my-lg-0 mx-auto" action="pages/searchBlog.php" method="post">
+                        <input class="form-control ml-auto col-6" type="search" placeholder="Search" name="homeSearch" aria-label="Search">
+                        <button class="ml-2 mr-auto btn btn-dark my-2 my-sm-0" type="submit" name="homeSubmit"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
             </div>
@@ -80,6 +80,7 @@ require 'connections/db_connect.php';
                     $sql = "SELECT * FROM blogs INNER JOIN popularblogs ON popularBlogId = blogId";
                     $result = mysqli_query($conn, $sql);
                     $temp = 0;
+                    if($result){
                     while($row = mysqli_fetch_assoc($result)){
                         echo '
                         
@@ -107,6 +108,13 @@ require 'connections/db_connect.php';
                         if($temp == 3){
                             break;
                         }
+                    }}
+                    else{
+                        echo '
+                        <div class="alert alert-danger" role="alert">
+                            couldn\'t reach the database at the moment kindly try again later (Server error)
+                        </div>
+                        ';
                     }
                 ?>
             </div>
