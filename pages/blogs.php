@@ -1,9 +1,7 @@
 <?php 
 
-session_start();
 require '../connections/db_connect.php';
 if(!isset($_POST['activeBlog']) || $_POST['activeBlog'] == false){
-    session_destroy();
     header("location:../");
 }
 ?>
@@ -23,7 +21,7 @@ if(!isset($_POST['activeBlog']) || $_POST['activeBlog'] == false){
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- mycss -->
-    <link rel="stylesheet" href="../css/main.css?v=0" crossorigin='anonymous'>
+    <link rel="stylesheet" href="../css/main.css?v=1" crossorigin='anonymous'>
 
     <!-- web fonts -->
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
@@ -54,8 +52,11 @@ if(!isset($_POST['activeBlog']) || $_POST['activeBlog'] == false){
                     echo '<p class="text-left">'.$row['content'].'<p>';
                     echo '
                     <div class="text-left mb-3">
-                        <span class="text-secondary author">Written By: '.$row['author'].'</span> |
-                        <span class="text-secondary">'.$row['hashtags'].'</span>
+                        <p class="my-0 author text-secondary">
+                            <i class="fa fa-user"></i> '.$row['author'].' |
+                            <i class="fa fa-calendar"></i> '.$row['date'].' |
+                            <i class="text-secondary"></i>'.$row['hashtags'].'
+                        </p>
                     </div>';
                     echo '<a href="../" class="btn btn-info mx-auto">Back to Home</a>';
                     

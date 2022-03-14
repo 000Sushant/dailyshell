@@ -1,9 +1,10 @@
 <?php 
 
-session_start();
 require 'connections/db_connect.php';
 
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +14,8 @@ require 'connections/db_connect.php';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "icon" href = "https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200X200.png" 
+        type = "image/x-icon">
     <title>CyberBlog</title>
     
     <!-- bootstrap -->
@@ -22,7 +25,7 @@ require 'connections/db_connect.php';
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- mycss -->
-    <link rel="stylesheet" href="./css/main.css?v=0" crossorigin='anonymous'>
+    <link rel="stylesheet" href="./css/main.css?v=1" crossorigin='anonymous'>
 
     <!-- web fonts -->
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
@@ -32,7 +35,9 @@ require 'connections/db_connect.php';
 
 </head>
 <body>
-    <?php require './others/nav.php'?> 
+    
+    <?php require './others/nav.php'?>
+
     <div class="container-fluid">
         <!-- head -->
         <div class="row head bg-info" style="position:relative;">
@@ -41,16 +46,34 @@ require 'connections/db_connect.php';
                 <h1 class="text-warning text-center">CyberbloG</h1>
                 <p class="info text-center text-light">learn <b>Hacking, Pen-testing, Bug Bountey</b>, about <b>latest technologies</b> and <b>cyber news</b> at a single place</p>
                 <div class="quickLinks mx-auto text-center">
-                    <button class="btn btn-outline-warning mx-2">Linux</button>
-                    <button class="btn btn-outline-warning mx-2">Windows</button>
-                    <button class="btn btn-outline-warning mx-2">Hacking</button>
-                    <button class="btn btn-outline-warning mx-2">Cyber security</button>
-                    <button class="btn btn-outline-warning mx-2">Virtualization</button>
-                    <button class="btn btn-outline-warning mx-2">Latest Tech</button>
+                    <form class="mx-2 d-inline-block" action="pages/searchBlog.php" method="post">
+                        <input type="hidden" value="linux" name="homeSearch" required/>
+                        <button class="btn btn-outline-warning" type="submit" name="homeSubmit">Linux</button>
+                    </form>
+                    <form class="mx-2 d-inline-block" action="pages/searchBlog.php" method="post">
+                        <input type="hidden" value="windows" name="homeSearch" required/>
+                        <button class="ml-2 mr-auto btn btn-outline-warning my-2 my-sm-0" type="submit" name="homeSubmit">Windows</button>
+                    </form>
+                    <form class="mx-2 d-inline-block" action="pages/searchBlog.php" method="post">
+                        <input type="hidden" value="hacking" name="homeSearch" required/>
+                        <button class="ml-2 mr-auto btn btn-outline-warning my-2 my-sm-0" type="submit" name="homeSubmit">Hacking</button>
+                    </form>
+                    <form class="mx-2 d-inline-block" action="pages/searchBlog.php" method="post">
+                        <input type="hidden" value="cyber security" name="homeSearch" required/>
+                        <button class="ml-2 mr-auto btn btn-outline-warning my-2 my-sm-0" type="submit" name="homeSubmit">Cyber Security</button>
+                    </form>
+                    <form class="mx-2 d-inline-block" action="pages/searchBlog.php" method="post">
+                        <input type="hidden" value="virtualization" name="homeSearch" required/>
+                        <button class="ml-2 mr-auto btn btn-outline-warning my-2 my-sm-0" type="submit" name="homeSubmit">Virtualization</button>
+                    </form>
+                    <form class="mx-2 d-inline-block" action="pages/searchBlog.php" method="post">
+                        <input type="hidden" value="latest tech" name="homeSearch" required/>
+                        <button class="ml-2 mr-auto btn btn-outline-warning my-2 my-sm-0" type="submit" name="homeSubmit">Latest Tech</button>
+                    </form>
                 </div>
                 <div class="mt-4 mx-auto d-block text-center ">
                     <form class="row my-2 my-lg-0 mx-auto" action="pages/searchBlog.php" method="post">
-                        <input class="form-control ml-auto col-6" type="search" placeholder="Search" name="homeSearch" aria-label="Search">
+                        <input class="form-control ml-auto col-6" type="search" placeholder="Search" name="homeSearch" aria-label="Search" required/>
                         <button class="ml-2 mr-auto btn btn-dark my-2 my-sm-0" type="submit" name="homeSubmit"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
@@ -75,10 +98,12 @@ require 'connections/db_connect.php';
                         <a class="btn btn-info mx-auto mb-4" href="./pages/blogs.php">contact</a>
                     </div>
                 </div>
+
                 <?php
 
                     $sql = "SELECT * FROM blogs INNER JOIN popularblogs ON popularBlogId = blogId";
                     $result = mysqli_query($conn, $sql);
+                    
                     $temp = 0;
                     if($result){
                     while($row = mysqli_fetch_assoc($result)){
@@ -87,7 +112,7 @@ require 'connections/db_connect.php';
                         <div class="row carousel-item border-top border-bottom border-info bg-light my-2">
                             <div class="col-md-6 text-left px-5 py-3 mx-auto d-inline-block align-middle">
                                 <h1 class="h1">'.$row['heading'].'</h1>
-                                <p class="mb-0 text-secondary author">Written By: '.$row['author'].'</p>
+                                <p class="mb-0 text-secondary author"><i class="fa fa-user"></i> '.$row['author'].'</p>
                                 <p class="mb-1 text-secondary">'.$row['hashtags'].'</p>
                                 <form action="./pages/blogs.php" method="post">
                                     <input type="hidden" name="activeBlog" value="'.$row['blogId'].'">
@@ -117,6 +142,7 @@ require 'connections/db_connect.php';
                         ';
                     }
                 ?>
+
             </div>
         </div>
         <!-- carousel end -->
@@ -138,7 +164,10 @@ require 'connections/db_connect.php';
                                     <img src="./images/demo.png" class="img-fluid" alt="">
                                 </div>           
                                 <p class="lead"><b>'.$row['heading'].'</b></p>
-                                <p class="my-0 author text-secondary">Written By: '.$row['author'].'</p>
+                                <p class="my-0 author text-secondary align-middle">
+                                    <i class="fa fa-user"></i> '.$row['author'].' &nbsp| 
+                                    &nbsp<i class="fa fa-calendar"></i> '.$row['date'].'
+                                </p> 
                                 <p>"'.substr($row['content'],0,170).'..."</p>
                                 <form action="./pages/blogs.php" method="post">
                                     <input type="hidden" name="activeBlog" value="'.$row['blogId'].'">

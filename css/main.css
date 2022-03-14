@@ -39,9 +39,6 @@ body{
 .afterFooter p{
     font-size: 12px;
 }
-.quicklink{
-    background-color: red !important;
-}
 .button1{
     background-color: none;
     border: 3px solid gold;
@@ -60,4 +57,6 @@ body{
     text-decoration: none;
     background-color: gold;
 }
-
+.check{
+    background-color: red !important;
+}

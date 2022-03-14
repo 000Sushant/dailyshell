@@ -5,7 +5,7 @@
             <a href="#" class=" button1">Request Desire Blog</a>
         </div>
         <div class="col-md-4 text-center my-4">
-            <a href="#" class=" button1">Explore More blogs</a>
+            <a href="http://localhost/cyberblog/pages/searchBlog.php" class=" button1">Explore More blogs</a>
         </div>
         <div class="col-md-4 text-center my-4">
             <a href="#" class="button1">Post Your own Blog</a>
@@ -17,12 +17,13 @@
         <div class="container-fluid py-4 text-center text-light">
             <h1>CyberbloG</h1>
             <div class="links mt-2">
-                <a href="">Home</a> -
+                <a href="http://localhost/cyberblog/">Home</a> -
                 <a href="">Popular Blog</a> -
                 <a href="">Latest Blog</a> -
                 <a href="">Request Blog</a> -
                 <a href="">Post Blog</a> -
-                <a href="">Contact</a>
+                <a href="">Contact</a> -
+                <a href="http://localhost/cyberblog/admin/adminLogin.php">Admin</a>
             </div>
             <p class="text-light mt-4">Join with us and help us and your connections to grow <a href="./pages/blogPost.php" class="text-warning">post a blog now</a></p>
         </div>

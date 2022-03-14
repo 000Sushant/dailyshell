@@ -1,3 +1,38 @@
+<?php
+
+if (isset($_POST['blogInfo'])){
+
+    echo $_POST['blogContent'];
+
+    require '../connections/db_connect.php';
+
+    $stmt = $conn->prepare("INSERT INTO blogs (content) VALUES (?)");
+    // $stmt->bindParam(':title', $title);
+    $stmt->bind_param('s', $blogContent);
+
+    // insert one row
+    // $title = $_POST['title'];
+    $content = $_POST['blogContent'];
+    
+    if($stmt->execute()){
+        echo "data inserted";
+    }
+
+    $sql="INSERT INTO blogs(`content`) values('$_POST[blogInfo]')";
+    $result = mysqli_query($conn, $sql);
+    if($result){
+        echo "data inserted";
+    }
+    else{
+        echo "facing some error";
+    }
+
+    unset($_POST['blogInfo']);
+    // header("location:addBlog.php");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +57,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Source+Sans+Pro&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
 
     <!-- ckeditor -->
-    <script src="../others/ckeditor5c/build/ckeditor.js"></script>
+    <!-- <script src="../others/ckeditor5c/build/ckeditor.js?v=0"></script> -->
+    <script src="https://cdn.tiny.cloud/1/1o1q0am7e9xmnzmg4n0cor2rpl24dyh2tgilp9z8gofuhu5c/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
+
 
 </head>
 <body>
@@ -30,18 +71,44 @@
         
     <div class="container my-2 bg-light py-3">
         <h1 class="text-center text-warning">Add A New Blog</h1>
-        <form action="" method="post">
-            <div id="editor"></div>
+
+        <form action="addBlog.php" class="was-validated" method="post">
+            
+            <label>Enter Your Blog Heading</label>
+            <textarea class="form-control is-invalid col-8 mb-3" name="blogHeading" type="text" placeholder="Blog Heading" required></textarea>
+            
+            <label>Choose the thumbnail image</label>
+            <div class="custom-file mb-3">
+                <input type="file" class="custom-file-input" name="demoImg" required>
+                <label class="custom-file-label col-8">Choose file...</label>
+            </div>
+
+            <label>Enter Your Blog Hashtags</label>
+            <textarea class="form-control is-invalid col-8 mb-3" type="text" name="bloghashtags" placeholder="Blog Hashtags" required></textarea>
+            
+            <!-- summernote wysiwyg-->
+            <textarea id="summernote" name="blogContent"></textarea>
+
+            <button type="submit" name="blogInfo" class="btn btn-info my-2">Save</button>
         </form>
-        <button type="submit" name="submit" class="btn btn-info my-2">Save</button>
     </div>
     
-<script>
-    ClassicEditor
-        .create(document.querySelector('#editor'))
-        .catch(error => {
-            console.error(error)
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#summernote').summernote({
+            placeholder: 'Enter Your Content',
+            tabsize: 2,
+            height: 200
         });
+    });
+    function postForm(){
+        $('textarea[name="blogContent"]').html($('#summernote').code());
+    }
+    // ClassicEditor
+    //     .create(document.querySelector('#editor'))
+    //     .catch(error => {
+    //         console.error(error)
+    //     });
 </script>
 
 </body>

@@ -1,64 +1,9 @@
 <?php
 
-session_start();
 include '../connections/db_connect.php';
 $waiting = true;
 
-if(isset($_POST['homeSubmit'])){
-    $str = mysqli_real_escape_string($conn,$_POST['homeSearch']);
-    $sql = "SELECT * from blogs WHERE `heading` LIKE '%$str%' OR `content` LIKE '%$str%'";
-    $result = mysqli_query($conn, $sql);
-    if($result){
-        if(mysqli_num_rows($result) > 0 ){
-            while($row = mysqli_fetch_assoc($result)){
-                echo $row['heading'];
-            }
-        }
-        else{
-            echo '            
-                <div class="alert alert-danger" role="alert">
-                    It seems there isn\'t any blog regarding your search right now, explore more at <a href="../" class="alert-link">home page</a>
-                </div>                 
-            ';
-        }
-    }
-    else{
-        echo '
-            <div class="alert alert-danger" role="alert">
-                couldn\'t reach the database at the moment kindly try again later (Server error)
-            </div>
-        ';
-    }
-    $waiting = false;
-}
-
-unset($_POST['homeSubmit']);
-if(isset($_POST['submit'])){
-    // security purpose, eliminating sql injection
-    $str = mysqli_real_escape_string($conn,$_POST['blogStr']);
-    $sql = "SELECT * from blogs WHERE `heading` LIKE '%$str%' OR `content` LIKE '%$str%'";
-    $result = mysqli_query($conn, $sql);
-    if($result){
-        if(mysqli_num_rows($result) > 0 ){
-            while($row = mysqli_fetch_assoc($result)){
-                echo $row['heading'];
-            }
-        }
-        else{
-            echo '            
-                <div class="alert alert-danger" role="alert">
-                    It seems there isn\'t any blog regarding your search right now, explore more at <a href="../" class="alert-link">home page</a>
-                </div>                 
-            ';
-        }
-    }
-    else{
-        echo '
-            <div class="alert alert-danger" role="alert">
-                couldn\'t reach the database at the moment kindly try again later (Server error)
-            </div>
-        ';
-    }
+if(isset($_POST['homeSubmit']) || isset($_POST['submit']) || isset($_GET['searchPage'])){
     $waiting = false;
 }
 
@@ -69,7 +14,7 @@ if(isset($_POST['submit'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog List</title>
+    <title>Cyebrblog | Blog List</title>
 
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -93,29 +38,269 @@ if(isset($_POST['submit'])){
     <div class="bg-info head pb-4">
         <div class="container">
             <h1 class="text-center text-warning">CyberbloG</h1>
-            <div class="quickLinks mx-auto text-center my-3">
-                <button class="btn btn-outline-warning mx-2">Linux</button>
-                <button class="btn btn-outline-warning mx-2">Windows</button>
-                <button class="btn btn-outline-warning mx-2">Hacking</button>
-                <button class="btn btn-outline-warning mx-2">Cyber security</button>
-                <button class="btn btn-outline-warning mx-2">Virtualization</button>
-                <button class="btn btn-outline-warning mx-2">Latest Tech</button>
+            <div class="quickLinks d-block text-center my-3 mx-auto">
+                <form class="mx-2 d-inline-block" action="searchBlog.php" method="post">
+                    <input type="hidden" value="linux" name="homeSearch" required/>
+                    <button class="btn btn-outline-warning" type="submit" name="homeSubmit">Linux</button>
+                </form>
+                <form class="mx-2 d-inline-block" action="searchBlog.php" method="post">
+                    <input type="hidden" value="windows" name="homeSearch" required/>
+                    <button class="ml-2 mr-auto btn btn-outline-warning my-2 my-sm-0" type="submit" name="homeSubmit">Windows</button>
+                </form>
+                <form class="mx-2 d-inline-block" action="searchBlog.php" method="post">
+                    <input type="hidden" value="hacking" name="homeSearch" required/>
+                    <button class="ml-2 mr-auto btn btn-outline-warning my-2 my-sm-0" type="submit" name="homeSubmit">Hacking</button>
+                </form>
+                <form class="mx-2 d-inline-block" action="searchBlog.php" method="post">
+                    <input type="hidden" value="cyber security" name="homeSearch" required/>
+                    <button class="ml-2 mr-auto btn btn-outline-warning my-2 my-sm-0" type="submit" name="homeSubmit">Cyber Security</button>
+                </form>
+                <form class="mx-2 d-inline-block" action="searchBlog.php" method="post">
+                    <input type="hidden" value="virtualization" name="homeSearch" required/>
+                    <button class="ml-2 mr-auto btn btn-outline-warning my-2 my-sm-0" type="submit" name="homeSubmit">Virtualization</button>
+                </form>
+                <form class="mx-2 d-inline-block" action="searchBlog.php" method="post">
+                    <input type="hidden" value="latest tech" name="homeSearch" required/>
+                    <button class="ml-2 mr-auto btn btn-outline-warning my-2 my-sm-0" type="submit" name="homeSubmit">Latest Tech</button>
+                </form>
             </div>
             <form class="row my-2 my-lg-0 mx-auto" action="searchBlog.php" method="post">
                 <input type="text" name="blogStr" class="form-control ml-auto col-6" placeholder="Search" required />
-                <button type="submit" name="submit" class="ml-2 mr-auto btn btn-dark my-2 my-sm-0"><i class="fa fa-search"></i></button>
+                <button type="submit" name="submit" class="ml-2 mr-auto btn btn-dark my-2 my-sm-0">
+                    <i class="fa fa-search"></i>
+                </button>
             </form>
         </div>
     </div>
+    
     <?php
-        // checking if user already searched somthing of waiting 
-        if($waiting){
-            echo '
-            <div class="alert alert-success container text-center my-2" role="alert">
-                waiting for you to search your blog
-            </div>
-            ';
-        }
+    if($waiting){
+    echo '
+        <h1 class="heading1 text-center">Top Blogs</h1>';
+    }
+    else{
+        echo '
+        <h1 class="heading1 text-center">Search Result</h1>';
+    }
     ?>
+
+    <!-- showing search result -->
+    <div class="container text-center">
+        <div class="row bg-light py-2">
+
+            <?php
+            
+            // showing all blogs by default 
+            if($waiting){
+
+                //checking the active page
+                if(!isset($_GET['page'])){
+                    $_GET['page'] = 1;
+                    $page = 1;
+                    $sql = "SELECT * from blogs LIMIT 0,3";
+                }
+                else{
+                    $page = $_GET['page'];
+                    $temp_1 = ($page-1)*3;
+                    $temp_2 = $temp_1 + 3;
+                    $sql = "SELECT * from blogs LIMIT $temp_1,$temp_2";
+                }
+
+                
+                $result = mysqli_query($conn, $sql);
+
+                if($result){
+                    
+                    if(mysqli_num_rows($result) > 0 ){
+
+                        // showing all blogs
+                        while($row = mysqli_fetch_assoc($result)){
+                            echo '
+                            <div class="col-md-4 my-2 mx-auto">
+                                <div class="bg-light border d-inline-block border-info p-2 text-left">
+                                    <div class="thumbnail">
+                                        <img src="../images/'.$row['demoImage'].'" class="img-fluid" alt="demo image">
+                                    </div>           
+                                    <p class="lead text-capitalize"><b>'.$row['heading'].'</b></p>
+                                    <p class="my-0 author text-secondary">
+                                    <i class="fa fa-user"></i> '.$row['author'].' |
+                                    <i class="fa fa-calendar"></i> '.$row['date'].'
+                                    </p>
+                                    <p>"'.substr($row['content'],0,170).'..."</p>
+                                    <form action="blogs.php" method="post">
+                                        <input type="hidden" name="activeBlog" value="'.$row['blogId'].'">
+                                        <button type="submit" class="btn btn-info">learn more</button>
+                                    </form>
+                                </div>
+                            </div>
+                            ';
+                        }
+
+                        //calculating total no of pages
+                        $result_pp = 3; //result_per_page
+
+                        $sql = "SELECT * FROM blogs";
+                        $result = mysqli_query($conn, $sql);
+                        $total_rows = mysqli_num_rows($result); 
+                        $total_pages = ceil($total_rows/$result_pp);
+
+                        
+                        //printing pagination list
+                        echo'
+                        <div class="col-12 mt-2 ">
+                            <nav aria-label=" Page navigation example">
+                            <ul class="pagination">';
+
+                            for( $page=1 ;  $page<=$total_pages; $page++){
+                                $waiting = false;
+                                //highlighting active page
+                                $class="";
+
+                                if($page == $_GET['page']){
+                                    $class = "bg-info text-light";
+                                }
+                                echo '<li class=" page-item ">
+                                <a class="page-link '.$class.'" href="searchBlog.php?page='.$page.'">'.$page.'</a>';
+                            }
+                            
+                            
+                            echo'
+                            </ul>
+                            </nav>
+                        </div>';
+
+                    }
+                }
+                else{
+                    echo '
+                        <div class="alert mx-auto w-50 alert-danger" role="alert">
+                            couldn\'t reach the database at the moment kindly try again later (Server error)
+                        </div>
+                    ';
+                }
+            }
+            
+            //showing search result
+            if(isset($_POST['homeSubmit']) || isset($_POST['submit']) || isset($_GET['searchPage'])){
+
+                // checking if the input is from this page or homepage
+                if(isset($_POST['submit'])){
+                    $str = mysqli_real_escape_string($conn,$_POST['blogStr']);
+                }
+                else{
+                    echo $_POST['homeSubmit'];
+                    $str = mysqli_real_escape_string($conn,$_POST['homeSearch']);
+                }
+                
+
+                // //checking the active page
+                // if(!isset($_GET['searchPage'])){
+                //     $_GET['searchPage'] = 1;
+                //     $searchpage = 1;
+                //     $sql = "SELECT * from blogs WHERE `heading` LIKE '%$str%' OR `content` LIKE '%$str%' OR `hashtags` LIKE '%$str%' LIMIT 0,3";
+                // }
+                // else{
+                //     echo "searchpage is set to  ".$_GET['searchPage']."";
+                //     $page = $_GET['searchPage'];
+                //     $temp_1 = ($page-1)*3;
+                //     $temp_2 = $temp_1 + 3;
+                    // $sql = "SELECT * from blogs WHERE `heading` LIKE '%$str%' OR `content` LIKE '%$str%' OR `hashtags` LIKE '%$str%' LIMIT $temp_1,$temp_2";
+                //     echo $sql;
+                // }
+
+                //getting total number of result
+                // $sql_row = "SELECT * from blogs WHERE `heading` LIKE '%$str%' OR `content` LIKE '%$str%' OR `hashtags` LIKE '%$str%'";
+                // $temp_row_result = mysqli_query($conn, $sql_row);
+
+                $sql = "SELECT * from blogs WHERE `heading` LIKE '%$str%' OR `content` LIKE '%$str%' OR `hashtags` LIKE '%$str%'";
+                $result = mysqli_query($conn, $sql);
+                
+                if($result){
+                    if(mysqli_num_rows($result) > 0 ){
+                        
+                        // showing total number or blog found
+                        // $temp = mysqli_num_rows($temp_row_result);
+                        $temp = mysqli_num_rows($result);
+                        echo '<p class="col-12 text-success">'.$temp.' search result found</p>';
+                        while($row = mysqli_fetch_assoc($result)){
+                            echo '
+                            <div class="col-md-4 my-2 mx-auto">
+                                <div class="bg-light border d-inline-block border-info p-2 text-left">
+                                    <div class="thumbnail">
+                                        <img src="../images/'.$row['demoImage'].'" class="img-fluid" alt="demo image">
+                                    </div>           
+                                    <p class="lead text-capitalize"><b>'.$row['heading'].'</b></p>
+                                    <p class="my-0 author text-secondary">
+                                    <i class="fa fa-user"></i> '.$row['author'].' |
+                                    <i class="fa fa-calendar"></i> '.$row['date'].'
+                                    </p>
+                                    <p>"'.substr($row['content'],0,170).'..."</p>
+                                    <form action="blogs.php" method="post">
+                                        <input type="hidden" name="activeBlog" value="'.$row['blogId'].'">
+                                        <button type="submit" class="btn btn-info">learn more</button>
+                                    </form>
+                                </div>
+                            </div>
+                            ';
+                        }
+                    
+                    // //calculating total no of pages
+                    // $result_pp = 3; //result_per_page
+
+                    // $total_rows = mysqli_num_rows($temp_row_result); 
+                    // $total_pages = ceil($total_rows/$result_pp);
+
+                    
+                    // //printing pagination list
+                    // echo'
+                    // <div class="col-12 mt-2 ">
+                    //     <nav aria-label=" Page navigation example">
+                    //     <ul class="pagination">';
+
+                    //     for( $page=1 ;  $page<=$total_pages; $page++){
+                           
+                    //         //highlighting active page
+                    //         $class="";
+                    //         $disabled = "";
+                            
+                    //         if($page == $_GET['searchPage']){
+                    //             $class = "bg-info text-light";
+                    //             $disabled = "disabled";
+                    //         }
+                    //         echo '<li class=" page-item '.$disabled.'">
+                    //         <a class="page-link '.$class.'" href="searchBlog.php?searchPage='.$page.'">'.$page.'</a>
+                    //         </li>';
+                    //     }
+                        
+                        
+                    //     echo'
+                    //     </ul>
+                    //     </nav>
+                    // </div>';
+                    }
+                    else{
+                        echo '            
+                            <div class="alert mx-auto w-50 alert-danger" role="alert">
+                                It seems there isn\'t any blog regarding your search right now,<br> 
+                                <a href="../" class="alert-link">explore more</a> or 
+                                <a href="requestBlog.php" class="alert-link">request your blog</a>
+                            </div>                 
+                        ';
+                    }
+                    
+                }
+                else{
+                    echo '
+                        <div class="alert mx-auto w-50 alert-danger" role="alert">
+                            couldn\'t reach the database at the moment kindly try again later (Server error)
+                        </div>
+                    ';
+                }
+            }
+            ?>
+        </div>
+           
+    </div>
+    <?php include '../others/footer.php'?>
 </body>
 </html>
