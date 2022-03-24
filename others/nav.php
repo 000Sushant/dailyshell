@@ -4,10 +4,40 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <?php
+  
+  if(isset($_SESSION['active'])){
+    echo '
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link text-light" href="http://localhost/cyberblog/admin/adminHome.php">Admin Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="">Add Blogs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="">Latest/Trending</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="#">Add Admin</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="#">Add Contributers</a>
+        </li>
+        <li class="nav-link">
+          <a href="http://localhost/cyberblog/admin/logout.php" class="btn-warning py-2 px-3 text-decoration-none">Logout</a>
+        </li>
+        </ul>
+      </div>
+    ';
+  }
+  else{
+    echo '
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link text-light" href="#">Request Blog</a>
+        <a class="nav-link text-light" href="http://localhost/cyberblog/pages/contact.php">Request Blog</a>
       </li>
       <li class="nav-item">
         <a class="nav-link text-light" href="#">Post Blog</a>
@@ -16,11 +46,19 @@
         <a class="nav-link text-light" href="http://localhost/cyberblog/pages/searchBlog.php">Find Blog</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-light" href="#">Contact</a>
+        <a class="nav-link text-light" href="http://localhost/cyberblog/pages/contributers.php">Contributers</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-light" href="http://localhost/cyberblog/pages/contact.php">Contact</a>
       </li>
       <li class="nav-link">
         <a href="http://localhost/cyberblog/pages/donate.php" class="btn-warning py-2 px-3 text-decoration-none">Donate</a>
       </li>
-    </ul>
-  </div>
+      </ul>
+    </div>
+    ';
+  }
+  
+  ?>
+  
 </nav> 

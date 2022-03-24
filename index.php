@@ -1,9 +1,9 @@
 <?php 
 
+session_start();
 require 'connections/db_connect.php';
 
 ?>
-
 
 
 <!DOCTYPE html>
@@ -35,13 +35,22 @@ require 'connections/db_connect.php';
 
 </head>
 <body>
-    
+    <!-- important notice -->
+    <div class="alert alert-warning alert-dismissible fade show mb-0" role="alert">
+        <strong>Important Notice!</strong>
+        You can earn a chance to become a top contributer and a valuable member of cyberblog by 
+        <a href="http://localhost/cyberblog/pages/postBlog.php" class="alert-link">Posting your own blog</a>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+
     <?php require './others/nav.php'?>
 
     <div class="container-fluid">
         <!-- head -->
-        <div class="row head bg-info" style="position:relative;">
-            <div class="container  mb-4 mx-auto">
+        <div class="row head bg-info" style="position:relative; ">
+            <div class="container mb-4 mx-auto">
                 <i class="fab fa-android w-100 text-center" style='font-size:48px;color:black'></i>
                 <h1 class="text-warning text-center">CyberbloG</h1>
                 <p class="info text-center text-light">learn <b>Hacking, Pen-testing, Bug Bountey</b>, about <b>latest technologies</b> and <b>cyber news</b> at a single place</p>
