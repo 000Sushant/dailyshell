@@ -77,6 +77,9 @@ if(isset($_POST['submit'])){
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Source+Sans+Pro&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
 
+    <!-- captcha -->
+    <!-- <script src="https://www.google.com/recaptcha/api.js"></script> -->
+    
 
 </head>
 
@@ -127,6 +130,12 @@ if(isset($_POST['submit'])){
                         <input type="text" name="cpass" class="form-control mx-auto" placeholder="Confirm Password" >
                     
                         <button class=" mt-3 mx-auto btn btn-dark" type="submit" name="submit">Login</button>
+                
+                        <!-- captcha button -->
+                        <!-- <button class="g-recaptcha" 
+                            data-sitekey="reCAPTCHA_site_key" 
+                            data-callback='onSubmit' 
+                            data-action='submit'>Submit</button> -->
                 </form>
             </div>
         </div>
@@ -134,6 +143,7 @@ if(isset($_POST['submit'])){
 
     <?php include '../others/footer.php'?>
     <script>
+        // script for pageloader
         function onReady(callback) {
         var intervalId = window.setInterval(function() {
             if (document.getElementsByTagName('body')[0] !== undefined) {
@@ -151,6 +161,11 @@ if(isset($_POST['submit'])){
         setVisible('body', true);
         setVisible('#loading', false);
         });
+
+        // captcha function
+        // function onSubmit(token) {
+        //     document.getElementById("demo-form").submit();
+        // }
     </script>
 </body>
 </html>

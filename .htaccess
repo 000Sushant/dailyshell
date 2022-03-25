@@ -1,0 +1,5 @@
+ErrorDocument 400 /cyberblog/pages/error.php
+ErrorDocument 401 /cyberblog/pages/error.php
+ErrorDocument 403 /cyberblog/pages/error.php
+ErrorDocument 404 /cyberblog/pages/error.php
+ErrorDocument 500 /cyberblog/pages/error.php

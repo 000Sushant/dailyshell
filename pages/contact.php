@@ -73,8 +73,12 @@ session_start();
                 <div class="form-check sm-text-center">
                 <input class="form-check-input" type="checkbox" value="" name="policy" id="flexCheckDefault" required>
                 <label class="form-check-label" for="flexCheckDefault">
-                    by checking this box you are accepting all the <a href="#" data-toggle="modal" data-target="#exampleModal">Terms and Conditions</a> 
+                   I am accepting all the <a href="#" data-toggle="modal" data-target="#exampleModal">Terms and Conditions</a> 
                 </label>
+                <br>
+                <input class="form-check-input" type="checkbox" value="" name="policy" id="flexCheckDefault" required>
+                <label class="form-check-label" for="flexCheckDefault">
+                   I have read the terms and conditions mention above
                 </div>
 
 
@@ -87,7 +91,7 @@ session_start();
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalCenterTitle">Honesty Policy</h5>
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Terms And Conditions</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
@@ -110,7 +114,7 @@ session_start();
             </div>
 
             <div class="col-md-6 p-4">
-                <img src="../images/contact.svg" class="img-fluide" alt="contact" width="80%">
+                <img src="../images/contact.svg" class="img-fluide" alt="contact" width="100%">
             </div>
         </div>
 

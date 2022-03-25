@@ -36,7 +36,9 @@
         </div>
     </div>
     <!-- caption, afterFooter -->
-    <div class="row afterFooter text-center bg-dark" >
-        <p class="mb-0 py-2 mx-auto text-light">All credits and copyrights are reserved to the website's owner and developer <a href="" class="text-info">cyberblog</a></p>
+    <div class="row d-block afterFooter text-center bg-dark" >
+        <p class="text-light mb-0 py-2">All illustration artwork credit goes to: <a href="https://www.freepik.com/" class="text-info" target="_blank">Designed by stories / Freepik </a> 
+        &nbsp&nbsp|&nbsp&nbsp
+        All credits and copyrights are reserved to the website's owner and developer <a href="" class="text-info">cyberblog</a></p>
     </div>
 </div>

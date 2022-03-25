@@ -29,7 +29,7 @@ if(isset($_POST['homeSubmit']) || isset($_POST['submit']) || isset($_GET['search
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Source+Sans+Pro&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Source+Sans+Pro&family=Ubuntu&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
 
 </head>
 <body>
@@ -37,31 +37,31 @@ if(isset($_POST['homeSubmit']) || isset($_POST['submit']) || isset($_GET['search
 
     <div class="bg-info head pb-4">
         <div class="container">
-            <h1 class="text-center text-warning">CyberbloG</h1>
+            <h1 class="text-center">CyberbloG</h1>
             <div class="quickLinks d-block text-center my-3 mx-auto">
                 <form class="mx-2 d-inline-block" action="searchBlog.php" method="post">
                     <input type="hidden" value="linux" name="homeSearch" required/>
-                    <button class="btn btn-outline-warning" type="submit" name="homeSubmit">Linux</button>
+                    <button class="btn btn-outline-dark" type="submit" name="homeSubmit">Linux</button>
                 </form>
                 <form class="mx-2 d-inline-block" action="searchBlog.php" method="post">
                     <input type="hidden" value="windows" name="homeSearch" required/>
-                    <button class="ml-2 mr-auto btn btn-outline-warning my-2 my-sm-0" type="submit" name="homeSubmit">Windows</button>
+                    <button class="ml-2 mr-auto btn btn-outline-dark my-2 my-sm-0" type="submit" name="homeSubmit">Windows</button>
                 </form>
                 <form class="mx-2 d-inline-block" action="searchBlog.php" method="post">
                     <input type="hidden" value="hacking" name="homeSearch" required/>
-                    <button class="ml-2 mr-auto btn btn-outline-warning my-2 my-sm-0" type="submit" name="homeSubmit">Hacking</button>
+                    <button class="ml-2 mr-auto btn btn-outline-dark my-2 my-sm-0" type="submit" name="homeSubmit">Hacking</button>
                 </form>
                 <form class="mx-2 d-inline-block" action="searchBlog.php" method="post">
                     <input type="hidden" value="cyber security" name="homeSearch" required/>
-                    <button class="ml-2 mr-auto btn btn-outline-warning my-2 my-sm-0" type="submit" name="homeSubmit">Cyber Security</button>
+                    <button class="ml-2 mr-auto btn btn-outline-dark my-2 my-sm-0" type="submit" name="homeSubmit">Cyber Security</button>
                 </form>
                 <form class="mx-2 d-inline-block" action="searchBlog.php" method="post">
                     <input type="hidden" value="virtualization" name="homeSearch" required/>
-                    <button class="ml-2 mr-auto btn btn-outline-warning my-2 my-sm-0" type="submit" name="homeSubmit">Virtualization</button>
+                    <button class="ml-2 mr-auto btn btn-outline-dark my-2 my-sm-0" type="submit" name="homeSubmit">Virtualization</button>
                 </form>
                 <form class="mx-2 d-inline-block" action="searchBlog.php" method="post">
                     <input type="hidden" value="latest tech" name="homeSearch" required/>
-                    <button class="ml-2 mr-auto btn btn-outline-warning my-2 my-sm-0" type="submit" name="homeSubmit">Latest Tech</button>
+                    <button class="ml-2 mr-auto btn btn-outline-dark my-2 my-sm-0" type="submit" name="homeSubmit">Latest Tech</button>
                 </form>
             </div>
             <form class="row my-2 my-lg-0 mx-auto" action="searchBlog.php" method="post">
@@ -76,11 +76,11 @@ if(isset($_POST['homeSubmit']) || isset($_POST['submit']) || isset($_GET['search
     <?php
     if($waiting){
     echo '
-        <h1 class="heading1 text-center">Top Blogs</h1>';
+        <h1 class="heading1 text-center my-2 mt-3" style="font-family:ubuntu">Top Blogs</h1>';
     }
     else{
         echo '
-        <h1 class="heading1 text-center">Search Result</h1>';
+        <h1 class="heading1 text-center my-2 mt-3" style="font-family:ubuntu">Search Result</h1>';
     }
     ?>
 
@@ -129,7 +129,7 @@ if(isset($_POST['homeSubmit']) || isset($_POST['submit']) || isset($_GET['search
                                     <p>"'.substr($row['content'],0,170).'..."</p>
                                     <form action="blogs.php" method="post">
                                         <input type="hidden" name="activeBlog" value="'.$row['blogId'].'">
-                                        <button type="submit" class="btn btn-info">learn more</button>
+                                        <button type="submit" class="btn btn-dark">learn more</button>
                                     </form>
                                 </div>
                             </div>
@@ -192,26 +192,6 @@ if(isset($_POST['homeSubmit']) || isset($_POST['submit']) || isset($_GET['search
                     $str = mysqli_real_escape_string($conn,$_POST['homeSearch']);
                 }
                 
-
-                // //checking the active page
-                // if(!isset($_GET['searchPage'])){
-                //     $_GET['searchPage'] = 1;
-                //     $searchpage = 1;
-                //     $sql = "SELECT * from blogs WHERE `heading` LIKE '%$str%' OR `content` LIKE '%$str%' OR `hashtags` LIKE '%$str%' LIMIT 0,3";
-                // }
-                // else{
-                //     echo "searchpage is set to  ".$_GET['searchPage']."";
-                //     $page = $_GET['searchPage'];
-                //     $temp_1 = ($page-1)*3;
-                //     $temp_2 = $temp_1 + 3;
-                    // $sql = "SELECT * from blogs WHERE `heading` LIKE '%$str%' OR `content` LIKE '%$str%' OR `hashtags` LIKE '%$str%' LIMIT $temp_1,$temp_2";
-                //     echo $sql;
-                // }
-
-                //getting total number of result
-                // $sql_row = "SELECT * from blogs WHERE `heading` LIKE '%$str%' OR `content` LIKE '%$str%' OR `hashtags` LIKE '%$str%'";
-                // $temp_row_result = mysqli_query($conn, $sql_row);
-
                 $sql = "SELECT * from blogs WHERE `heading` LIKE '%$str%' OR `content` LIKE '%$str%' OR `hashtags` LIKE '%$str%'";
                 $result = mysqli_query($conn, $sql);
                 
@@ -244,39 +224,7 @@ if(isset($_POST['homeSubmit']) || isset($_POST['submit']) || isset($_GET['search
                             ';
                         }
                     
-                    // //calculating total no of pages
-                    // $result_pp = 3; //result_per_page
-
-                    // $total_rows = mysqli_num_rows($temp_row_result); 
-                    // $total_pages = ceil($total_rows/$result_pp);
-
-                    
-                    // //printing pagination list
-                    // echo'
-                    // <div class="col-12 mt-2 ">
-                    //     <nav aria-label=" Page navigation example">
-                    //     <ul class="pagination">';
-
-                    //     for( $page=1 ;  $page<=$total_pages; $page++){
-                           
-                    //         //highlighting active page
-                    //         $class="";
-                    //         $disabled = "";
-                            
-                    //         if($page == $_GET['searchPage']){
-                    //             $class = "bg-info text-light";
-                    //             $disabled = "disabled";
-                    //         }
-                    //         echo '<li class=" page-item '.$disabled.'">
-                    //         <a class="page-link '.$class.'" href="searchBlog.php?searchPage='.$page.'">'.$page.'</a>
-                    //         </li>';
-                    //     }
-                        
-                        
-                    //     echo'
-                    //     </ul>
-                    //     </nav>
-                    // </div>';
+                   
                     }
                     else{
                         echo '            

@@ -6,16 +6,19 @@ body{
     font-family: 'ZCOOL QingKe HuangYou';
     letter-spacing: 1.6px;
     font-size: 42px;
+    color: blanchedalmond !important;
 }
 .head p{
     font-family: 'Source Sans Pro', sans-serif;
     letter-spacing: 1.1px;
 }
 .heading1{
-    font-family: 'ZCOOL QingKe HuangYou';
-    color: rgb(103, 6, 110);
-    /* color: black; */
-    text-decoration: underline gold 3px;
+    /* font-family: 'ZCOOL QingKe HuangYou'; */
+    font-family: ubuntu;
+    font-size: 30px;
+    font-weight: 600;
+    color: rgb(34, 34, 34);
+    text-decoration: underline rgb(39, 162, 211) 4px;
 }
 .popular h1{
     font-family: 'Monoton', cursive;
@@ -32,10 +35,11 @@ body{
 .footer h1{
     font-family: 'ZCOOL QingKe HuangYou';
     color: gold;
+    color:blanchedalmond;
     letter-spacing: 1.5px;
 }
 .footer .links a{
-    color: rgb(103, 6, 110);
+    color: black;
     font-weight: bold;
 }
 .afterFooter p{
@@ -43,9 +47,9 @@ body{
 }
 .button1{
     background-color: none;
-    border: 3px solid gold;
+    border: 3px solid black;
     padding: 5% 8%;
-    color: black;
+    color:rgb(35, 134, 173);
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -55,9 +59,9 @@ body{
 }
 .button1:hover,
 .button1:active {
-    color: black;
+    color:blanchedalmond;
     text-decoration: none;
-    background-color: gold;
+    background-color: rgb(34, 34, 34);
 }
 
 .top{
@@ -80,4 +84,16 @@ body{
     visibility: visible;
     top: 0%;
     position:fixed;
+}
+@media screen and (max-width: 600px) {
+    .resText{
+        font-size: 25px;
+    }
+    .popular h1{
+        width: 100%;
+    }
+    .quickLinks{
+        visibility: hidden;
+        display: none;
+    }
 }
