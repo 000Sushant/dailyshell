@@ -204,15 +204,15 @@ require 'connections/db_connect.php';
                     <h1 class="h2 border-bottom border-info" style="font-family:ubuntu;">How to Become A Contributer</h1>
                     <div class="steps pl-md-2 mt-4">
                         <p><b>Showcase Your Profile | Get Contrubuter's Discount | Comunnity Membership</b></p>
-                        <p><b>Setp 1:</b> Jump to contributers page</p>
-                        <p><b>Setp 2:</b> Choose Anomg the goven list of blogs heading or skip the step</p>
+                        <p><b>Setp 1:</b> Jump to <a href="pages/contributers.php" class="text-dark"><u>contributers page</u></a></p>
+                        <p><b>Setp 2:</b> Choose Anomg the given list of blogs heading or skip the step</p>
                         <p><b>Setp 3:</b> Write choosen/your own blog with proper screenshorts in pdf format</p>
-                        <p><b>Setp 4:</b> Upload the written blog to <a href="./pages/postBlog.php">Post Blog</a> page</p>
+                        <p><b>Setp 4:</b> Upload the written blog to <a href="./pages/postBlog.php" class="text-dark"><u>Post Blog page</u></a></p>
                         <p><b>Setp 5:</b> We will verify and filter out some content if needed and post your blog</p>
                         <p><b>#Note:</b> Top 10 writters will become the top contributers of cyberblog</p>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 text-center">
                     <img src="./images/certify.jpg" alt="certify" width="80% text-center" class="img-fluide">
                 </div>
             </div>

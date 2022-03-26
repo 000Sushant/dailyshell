@@ -25,7 +25,8 @@ if(!isset($_SERVER['REDIRECT_STATUS'])){
 </head>
 <body>
     <div class="container text-center">
-        <img src="http://localhost/cyberblog/images/404.jpg" alt="error" width="700px" class="img-fluide">
+        <img src="http://localhost/cyberblog/images/404.jpg" alt="error" width="700px" class="img-fluid mx-auto d-block">
+        <a href="http://localhost/cyberblog/">Get Back To Home</a>
     </div>
 </body>
 </html>

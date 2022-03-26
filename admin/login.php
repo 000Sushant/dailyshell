@@ -49,9 +49,24 @@ if(isset($_POST['submit'])){
             $error = true;
         }
     }
-    // header("location:./login.php");
 }
 
+// fetching IP Address
+function getIPAddress() {  
+    //whether ip is from the share internet  
+     if(isset($_SERVER['HTTP_CLIENT_IP'])) {  
+                $ip = $_SERVER['HTTP_CLIENT_IP'];
+        }  
+    //whether ip is from the proxy  
+    elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {  
+                $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];  
+     }  
+    //whether ip is from the remote address  
+    else{  
+             $ip = $_SERVER['REMOTE_ADDR'];
+     }  
+     return $ip;  
+}
 
 ?>
 <!DOCTYPE html>
@@ -100,7 +115,7 @@ if(isset($_POST['submit'])){
     if($error){
         echo '
         <div class="alert mt-2 alert-danger alert-dismissible fade show container" role="alert">
-        <strong>Incorrect credentials</strong>, your action has been recorded and monitored. be carefull next time.
+        <strong>Incorrect credentials</strong>, your action and IP address '.getIPAddress().' has been recorded and monitored. be carefull next time.
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
