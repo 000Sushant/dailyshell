@@ -1,10 +1,12 @@
-body{
-    font-family: 'Source Sans Pro', sans-serif;
+*{
+    /* font-family: 'Source Sans Pro', sans-serif; */
+    font-family: 'ubuntu';
 }
 
 .head h1{
-    font-family: 'ZCOOL QingKe HuangYou';
+    font-family: 'ubuntu';
     letter-spacing: 1.6px;
+    font-weight: bold;
     font-size: 42px;
     color: blanchedalmond !important;
 }
@@ -84,6 +86,15 @@ body{
     visibility: visible;
     top: 0%;
     position:fixed;
+}
+.benifits{
+    background-color: blanchedalmond;
+}
+.myfile input{
+    padding: 5px; 
+    background-color: white !important;
+    border: 1px solid rgb(209, 209, 209);
+    border-radius:5px;
 }
 @media screen and (max-width: 600px) {
     .resText{

@@ -16,7 +16,7 @@ require 'connections/db_connect.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel = "icon" href = "https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200X200.png" 
         type = "image/x-icon">
-    <title>CyberBlog</title>
+    <title>cyberRAT</title>
     
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -25,7 +25,7 @@ require 'connections/db_connect.php';
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- mycss -->
-    <link rel="stylesheet" href="./css/main.css?v=2" crossorigin='anonymous'>
+    <link rel="stylesheet" href="./css/main.css?v=1" crossorigin='anonymous'>
 
     <!-- web fonts -->
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
@@ -52,8 +52,9 @@ require 'connections/db_connect.php';
         <div class="row head bg-info" style="position:relative; ">
             <div class="container mb-4 mx-auto">
                 <i class="fab fa-android w-100 text-center" style='font-size:48px;'></i>
-                <h1 class="text-warning text-center">CyberbloggeR</h1>
-                <p class="info text-center text-light">learn <b>Hacking, Pen-testing, Bug Bountey</b>, about <b>latest technologies</b> and <b>cyber news</b> at a single place</p>
+                <h1 class="text-warning text-center"><span style="color:black;font-weight:normal">cyber</span>RAT</h1>
+                <p class="info text-center"><b><<span style="color:blanchedalmond"> We Live For Terminals</span> ></b></p>
+
                 <div class="quickLinks mx-auto text-center">
                     <form class="mx-2 d-inline-block" action="pages/searchBlog.php" method="post">
                         <input type="hidden" value="linux" name="homeSearch" required/>
@@ -102,8 +103,8 @@ require 'connections/db_connect.php';
             <div class="carousel-inner row mx-0">
                 <div class="row carousel-item active border-top border-bottom border-info bg-light my-2" style="border-right:none;">
                     <div class="text-center py-3 align-middle">
-                        <h1 class="mx-auto resText">Welcome to CyberbloG</h1>
-                        <p class="mx-auto">developed by sushant</p>
+                        <h1 class="mx-auto resText">Welcome to cyberRAT</h1>
+                        <p class="mx-auto">A multi platform for asspiring hackers and security experts</p>
                         <img src="./images/welcome.png" alt="welcome" width="400px" class="img-fluid" disabled>
                     </div>
                 </div>
@@ -203,7 +204,7 @@ require 'connections/db_connect.php';
                 <div class="col-md-6 mt-4">
                     <h1 class="h2 border-bottom border-info" style="font-family:ubuntu;">How to Become A Contributer</h1>
                     <div class="steps pl-md-2 mt-4">
-                        <p><b>Showcase Your Profile | Get Contrubuter's Discount | Comunnity Membership</b></p>
+                        <p><b>Showcase Your Position | Part of Ftutre Projects | Comunnity Membership</b></p>
                         <p><b>Setp 1:</b> Jump to <a href="pages/contributers.php" class="text-dark"><u>contributers page</u></a></p>
                         <p><b>Setp 2:</b> Choose Anomg the given list of blogs heading or skip the step</p>
                         <p><b>Setp 3:</b> Write choosen/your own blog with proper screenshorts in pdf format</p>

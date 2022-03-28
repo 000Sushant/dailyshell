@@ -13,7 +13,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- mycss -->
-    <link rel="stylesheet" href="../css/main.css?v=2" crossorigin='anonymous'>
+    <link rel="stylesheet" href="../css/main.css?v=1" crossorigin='anonymous'>
 
     <!-- web fonts -->
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
@@ -26,11 +26,12 @@
     <?php include '../others/nav.php'?>
     
     <div class="head bg-info text-center">
-        logo
         <h1 class="pb-2">Contributers</h1>
     </div>
     <div class="container">
-        <div class="row topContributer px-4 pt-2 pb-4 bg-light">
+
+        <!-- top contributer -->
+        <div class="row topContributer px-4 pt-2 mt-3 pb-4 bg-light border">
 
                 <h1 class="heading1 text-center col-12">Top Contributers</h1>
                 
@@ -57,24 +58,76 @@
                     }
                 ?>  
         </div>
+
+        <!-- contributers -->
+        
+        <div class="row topContributer px-4 pt-2 pb-4 bg-light border mt-3">
+
+                <h1 class="heading1 text-center col-12">Contributers</h1>
+                
+                <?php
+                    for($i=0; $i<4; $i++){
+                        echo '
+                        <div class="col-sm-3  p-1 d-inline-block">
+                            <div class="card p-2">
+                            <div class="card-img-top text-center pt-2">
+                                <img src="../images/contributers/default.png" width="100px" alt="profile">
+                            </div>
+                            <div class="card-body text-center px-2">
+                                <h5 class="card-title text-info">Billo Rani</h5>
+                                <p class="card-text">Blogger</p>
+                                <div class="card-footer bg-transparent px-0 border-info text-center">
+                                    <a href="#" class="mx-1"><img src="../images/linkedin.png" alt="linkedin" width="30px"></a>
+                                    <a href="#" class="mx-1"><img src="../images/instagram.png" alt="instagram" width="30px"></a>
+                                    <a class="mx-1"><img src="../images/facebook.png" alt="facebook" width="30px"></a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        ';
+                    }
+                ?>  
+        </div>
+        <hr>
     </div>
 
     <!-- pending requests -->
-    <div class="container my-3">
+    <!-- <div class="container my-3">
         <hr>
         <h1 class="heading1 text-center">Pending Requests</h1>
         <p class="text-danger text-center mt-4">No pending request at the time</p>
         <hr>
+    </div> -->
+
+    <!-- contributers membership -->
+    <div class="container my-3">
+        <div class="row benifits py-2">
+            <h1 class="heading1 col-12 text-center">Contributer's FAQ</h1>
+            <div class="col-md-8 py-3">
+                <h1 class="h3">Can i also become a contributer?</h1>
+                <p class="">yes you can! Now you can be on the contributers list and use the benifits. what you have to do is just post some blogs.</p>
+                <h1 class="h3">Will everyone who post the blog will become a contributer?</h1>
+                <p class="">No! it will be decided from the contents and number of blogs posted by the person.</p>
+                <h1 class="h3">How will i become a top contributer?</h1>
+                <p class="">It will be decided based on your performance by the admin.</p>
+                <h1 class="h3">what are the benifits of a contributer?</h1>
+                <p class="">You will be the part of our future project, chance to be a member of ethical hacker's community we are building and you can showcase the membership on professional platform and resume</p>
+                <a href="contact.php" class="text-dark"><u><b>Still in doubt?</b></u></a>
+            </div>
+            <div class="col-md-4">
+                <img src="../images/faq.png" alt="faq" class="img-fluid text-center">
+            </div>
+        </div>
     </div>
 
     <!-- how to becoma a contributer -->
     <div class="container">
-            <hr class=" border-info border bg-info">
-            <div class="row">
+        <div class="row">
+                <hr class="col-12 border-info border bg-info">
                 <div class="col-md-6 mt-4">
                     <h1 class="h2 border-bottom border-info" style="font-family:ubuntu;">How to Become A Contributer</h1>
                     <div class="steps pl-md-2 mt-4">
-                        <p><b>Showcase Your Profile | Get Contrubuter's Discount | Comunnity Membership</b></p>
+                        <p><b>Showcase Your Profile | Be part of Fututre Projects | Comunnity Membership</b></p>
                         <p><b>Setp 1:</b> Jump to <a href="contributers.php" class="text-dark"><u>contributers page</u></a></p>
                         <p><b>Setp 2:</b> Choose Anomg the given list of pending blogs heading or skip the step</p>
                         <p><b>Setp 3:</b> Write choosen/your own blog with proper screenshorts in pdf format</p>
@@ -86,8 +139,8 @@
                 <div class="col-md-6 text-center">
                     <img src="../images/certify.jpg" alt="certify" width="80% text-center" class="img-fluide">
                 </div>
+                <hr class="col-12 border-info border bg-info">
             </div>
-            <hr class=" border-info border bg-info">
         </div>
 
         

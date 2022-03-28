@@ -12,14 +12,14 @@ if(isset($_POST['submit'])){
     $pass = mysqli_real_escape_string($conn,$_POST['pass']);
     $cpass = mysqli_real_escape_string($conn,$_POST['cpass']);
     
-    if(strlen($pass)<8 || strlen($cpass)<8 || strlen($id)<6){
+    if(strlen($pass)<8 || strlen($cpass)<8 || !(strlen($id)==6)){
         $error = true;
     }
     else{
 
         if($_POST['pass']===$_POST['cpass']){
 
-            $sql = "SELECT `name`,`userpass` FROM admin_user WHERE userid='$id'";
+            $sql = "SELECT `name`,`userpass` FROM admin_user WHERE `userid`='$id'";
             $result=mysqli_query($conn, $sql);
 
             if($result){
@@ -33,19 +33,22 @@ if(isset($_POST['submit'])){
                         header("location:adminHome.php");
                     }
                     else{
+                        echo 'password isnt matching';
                         $error = true;
                     }
                 }
                 else{
+                    echo 'couldn\'t run the query';
                     $error = true;
                 }
             }
             else{
-                // echo 'error connecting database';
+                echo 'error connecting database';
                 $error = true;
             }
         }
         else{
+            echo 'password dosnt match';
             $error = true;
         }
     }
