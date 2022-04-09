@@ -19,7 +19,7 @@ if(isset($_POST['submit'])){
 
         if($_POST['pass']===$_POST['cpass']){
 
-            $sql = "SELECT `name`,`userpass` FROM admin_user WHERE `userid`='$id'";
+            $sql = "SELECT `name`,`user_pass` FROM admin_user WHERE `user_id`='$id'";
             $result=mysqli_query($conn, $sql);
 
             if($result){
@@ -27,7 +27,7 @@ if(isset($_POST['submit'])){
                 
                     $row=mysqli_fetch_assoc($result);
 
-                    if($pass === $row['userpass']){
+                    if($pass === $row['user_pass']){
                         $_SESSION['active'] = true;
                         $_SESSION['name'] = $row['name'];
                         header("location:adminHome.php");
@@ -93,7 +93,7 @@ function getIPAddress() {
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Source+Sans+Pro&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
 
     <!-- captcha -->
     <!-- <script src="https://www.google.com/recaptcha/api.js"></script> -->

@@ -1,91 +1,23 @@
 <?php
 session_start();
+
+// unauthorized user
 if(!isset($_SESSION['active']) || $_SESSION['active'] == false || strlen($_SESSION['name']) == 0){
-    session_destroy();
     echo '
     <div style="text-align: center; ">
     <img src="../images/404.jpg" alt="404 error" style="max-width:700px;height:auto;">
     </div>
     Illustration Author: <a href="http://www.freepik.com">Designed by stories / Freepik</a>
     ';
+    session_unset();
+    session_destroy();
     die();
 }
 
 include '../connections/db_connect.php';
 
-$showtable = false;
-$error = false;
-$error2 = false;
-$class = "align-bottom";
-$add="active";
-$delete = " ";
-$pending = " ";
+require 'partials/adminBlogOpn.php';
 
-if(isset($_POST['search']) || isset($_POST['delete']) || isset($_SESSION['deleted'])){
-    $delete = "active";
-    $add = " ";
-    $pending = " ";
-}
-
-//on search event
-if(isset($_POST['search'])){
-
-    unset($_SESSION['deleted']);
-    if(strlen($_POST['blog']) >= 3){
-        $str = mysqli_real_escape_string($conn,$_POST['blog']);
-        $sql = "SELECT `heading`,`date`,`blogId` from blogs WHERE `heading` LIKE '%$str%' OR `content` LIKE '%$str%' OR `hashtags` LIKE '%$str%'";
-        $result = mysqli_query($conn, $sql);
-
-        if($result){
-            if(mysqli_num_rows($result) > 0){
-
-                $showtable = true;
-            }
-            else{
-                $error = true;
-            }
-        }
-        else{
-            $error = true;
-        }
-    }
-    else{
-        $error = true;
-    }
-}
-
-
-//on delete event
-if(isset($_POST['delete'])){
-
-    $id = mysqli_real_escape_string($conn,$_POST['id']);
-
-    $sql = "SELECT * FROM blogs WHERE blogId = '$id'";
-    $result = mysqli_query($conn, $sql);
-
-    if(mysqli_num_rows($result) == 1){
-        
-        $_SESSION['deleted'] = $_POST['id'];
-
-        $row = mysqli_fetch_assoc($result);
-        
-        $date = date('Y-m-d', time());
-
-        $sql = "INSERT INTO deletedblogs(`blogId`,`heading`,`date`) values('$row[blogId]','$row[heading]','$date')";
-        $result2 = mysqli_query($conn, $sql);
-
-        if ($result2){
-            header("location:adminBlog.php");
-        }
-        else{
-            $error2 = true;
-        }
-
-    }
-    else{
-        $error2 = true;
-    }
-}
 
 ?>
 <!DOCTYPE html>
@@ -109,56 +41,109 @@ if(isset($_POST['delete'])){
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Source+Sans+Pro&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&family=Source+Sans+Pro&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
 
 </head>
 <body>
     <?php include '../others/nav.php'?>
 
+    <!-- alerts -->
+    <?php
+        //blogrequest and delete blog alerts
+        if($blogreqalert == 1){
+            echo '
+            <div class="alert mt-2 alert-success alert-dismissible fade show container" role="alert">
+            <strong>Successfully Deleted!</strong>The request having ID '.$id.' is successfully deleted from the DB
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            ';
+        }
+        else if($blogreqalert == 2){
+            echo '
+            <div class="alert mt-2 alert-danger alert-dismissible fade show container" role="alert">
+            <strong>Unable to delete!</strong>, Please cross verify your inputs and server connectivity.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            ';
+        }
+        if($addblog == 1){
+            echo '
+            <div class="alert mt-2 alert-success alert-dismissible fade show container" role="alert">
+            <strong>Successfully Uploaded!</strong>The blog has been successfully uploaded to the DB
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            ';
+        }
+        else if($addblog == 2){
+            echo '
+            <div class="alert mt-2 alert-success alert-dismissible fade show container" role="alert">
+            <strong>Already There!</strong>The blog you are trying to upload is already there in the DB
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            ';
+        }
+        else if($addblog == 3){
+            echo '
+            <div class="alert mt-2 alert-success alert-dismissible fade show container" role="alert">
+            <strong>Operation Failed!</strong> Unable to upload the blog, please try again later or check your inputs.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            ';
+        }
+    ?>
+
     <div class="container my-2">
     <div class="row">
         <div class="col-12">
-                <div class="list-group list-group-horizontal-sm" id="list-tab" role="tablist">
-                    <a class="list-group-item list-group-item-info list-group-item-action <?php echo $add?>" id="list-home-list" data-toggle="list" href="#list-add" role="tab" aria-controls="home">Add Blog</a>
-                    <a class="list-group-item list-group-item-info list-group-item-action <?php echo $delete?>" id="list-profile-list" data-toggle="list" href="#list-delete" role="tab" aria-controls="profile">Delete Blog</a>
-                    <a class="list-group-item list-group-item-info list-group-item-action <?php echo $pending?>" id="list-messages-list" data-toggle="list" href="#list-pending" role="tab" aria-controls="messages">Pending Requests</a>
-                </div>
+            <div class="list-group list-group-horizontal-sm" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-info list-group-item-action <?php echo $add?>" id="list-add-list" data-toggle="list" href="#list-add" role="tab" aria-controls="add">Add Blog</a>
+                <a class="list-group-item list-group-item-info list-group-item-action <?php echo $delete?>" id="list-delete-list" data-toggle="list" href="#list-delete" role="tab" aria-controls="delete">Delete Blog</a>
+                <a class="list-group-item list-group-item-info list-group-item-action <?php echo $blogreq?>" id="list-postreq-list" data-toggle="list" href="#list-blogreq" role="tab" aria-controls="blogreq">Blog Requests</a>
+                <a class="list-group-item list-group-item-info list-group-item-action <?php echo $postreq?>" id="list-blogreq-list" data-toggle="list" href="#list-postreq" role="tab" aria-controls="postreq">Post Request</a>
+            </div>
         </div>
   
         <div class="col-12">
             <div class="tab-content" id="nav-tabContent">
                 
                 <!-- Add Blogs -->
-                <div class="tab-pane fade show border border-info my-2 <?php echo $add?>" id="list-add" role="tabpanel" aria-labelledby="list-add-list">
+                <div class="tab-pane fade border border-info my-2 <?php echo $add?>" id="list-add" role="tabpanel" aria-labelledby="list-add-list">
                     <p class="h3 text-center heading1 top py-3">Add Blogs</p>
                     <div class="px-2">
                         <form action="adminBlog.php" method="post">
                             <div class="form-group">
 
-                                <input type="text" class="form-control col-7 mb-3" placeholder="heading">
-                                
-                                <textarea type="text" class="form-control col-7 mb-3" placeholder="content"></textarea>
-                                
-                                <input type="text" class="form-control col-7 mb-3" placeholder="hashtags">
-
-                                <input type="text" class="form-control col-7 mb-3" placeholder="Author">
-                                
-                                <input type="date" class="form-control col-7 mb-3">
+                                <input type="text" class="form-control col-7 mb-3" name="heading" placeholder="heading" required>
+                                <textarea type="text" class="form-control col-7 mb-3" name="content" placeholder="content" required></textarea>                              
+                                <textarea type="text" class="form-control col-7 mb-3" name="smallcontent" placeholder="small content" required></textarea>                              
+                                <input type="text" class="form-control col-7 mb-3" name="hashtags" placeholder="hashtags" required>
+                                <input type="text" class="form-control col-7 mb-3" name="author" placeholder="Author" required>                                
+                                <input type="date" class="form-control col-7 mb-3" name="date" required>
 
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" required/>
                                     <label class="form-check-label ">Are you sure, you want to upoad this blog?</label>
                                 </div>
                                 
-                                <button class="btn btn-dark" >Upload</button>
+                                <button class="btn btn-dark" name="addblog">Upload</button>
                             </div>
-
                         </form>
                     </div>
+                    
                 </div>
 
                 <!-- Deleting Blogs -->
-                <div class="tab-pane fade border border-info my-2 active" id="list-delete" role="tabpanel" aria-labelledby="list-delete-list">
+                <div class="tab-pane fade border border-info my-2 <?php echo $delete?>" id="list-delete" role="tabpanel" aria-labelledby="list-delete-list">
                     
                     <p class="h3 text-center heading1 top py-3">Delete Blogs</p>
 
@@ -200,8 +185,8 @@ if(isset($_POST['delete'])){
                         <div class="px-2">
                         <hr class="bg-success border border-top border-success">
                         <p class="h3 text-center"><u><b>Search Result</b></u></p>
-                        <table class="table table-success">
-                        <thead class="thead-dark">
+                        <table class="table table-info">
+                        <thead class="text-info bg-dark">
                             <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Heading</th>
@@ -237,7 +222,7 @@ if(isset($_POST['delete'])){
                             echo'    
                             </div>
                             <div class="col-md-3 d-inline-block mt-2 align-bottom">
-                                <button class="btn btn-dark" type="submit" name="delete">Delete</button>
+                                <button class="btn btn-danger" type="submit" name="delete">Delete</button>
                             </div>
                         </div>
                         </form>
@@ -247,10 +232,7 @@ if(isset($_POST['delete'])){
                     }
                     //waiting for input
                     else if(!$showtable && !isset($_SESSION['deleted'])){
-                        echo '<div class="col-md-12 text-center"><p class="h3 text-info">waiting for you to search the blog...</p></div>';
-                        echo '<div class="row">';
-                        echo '<div class="col-md-12 text-center"><img class="img-fluid" src="../images/waiting.svg" width="400px" alt="waiting"></div>';
-                        echo '</div>';
+                        echo '<div class="col-md-12"><p class="h3 text-info">waiting for you to search the blog...</p></div>';
                     }
 
                     //show deleted table
@@ -293,13 +275,145 @@ if(isset($_POST['delete'])){
 
                     ?>
                 </div>
+                
+                <!-- Blog Requests -->
+                <div class="tab-pane fade border border-info my-2 <?php echo $blogreq?>" id="list-blogreq" role="tabpanel" aria-labelledby="list-blogreq-list">
+                    <p class="h3 text-center heading1 top py-3">Blog Reqeuests</p>
+                    <form action="adminBlog.php" class="px-2" method="post">
+                                <label class="d-block">Enter Request ID to delete</label>
+                                <input type="number" class="form-control col-md-8 d-inline-block mb-3" name="reqid" placeholder="Requst ID" required>
+                                <button class="btn btn-danger col-md-2 px-2 mx-sm-2 mb-2 d-inline-block" type="submit" name="delblogreq">Delete</button>
+                                <input type="checkbox" required class="mb-2"> confirm
+                            </form>
+                            <div class="px-2">
+                                
+                            
 
-                <div class="tab-pane fade <?php echo $pending?>" id="list-pending" role="tabpanel" aria-labelledby="list-pending-list">Message</div>
-            
-            
+                            <?php
+                            $sql = "SELECT * from blogrequest INNER JOIN blogrequest_user ON blogrequest.blogid = blogrequest_user.blogid";
+                            $result = mysqli_query($conn,$sql);
+                            if($result){
+                                if(mysqli_num_rows($result) > 0){
+                                    echo '
+                                    <table class="table table-info table-responsive mb-1">
+                                        <thead class="bg-dark text-info">
+                                            <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Heading</th>
+                                            <th scope="col">Discription</th>
+                                            <th scope="col">Date<br>(Y-m-d)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                    ';
+                                    while($row = mysqli_fetch_assoc($result)){
+                                        
+                                        echo '
+                                        <tr>
+                                            <th scope="row">'.$row['blogid'].'</th>
+                                            <td>'.$row['name'].'</td>
+                                            <td>'.$row['email'].'</td>
+                                            <td>'.$row['heading'].'</td>
+                                            <td>'.$row['detail'].'</td>
+                                            <td>'.$row['date'].'</td>
+                                        </tr>
+                                        ';
+                                    }
+                                    echo '
+                                    </tbody>
+                                </table>
+                                    ';
+                                }
+                                else{
+                                    echo '<p class="text-danger">you dont have any blog request at the time';
+                                }
+                            }
+                            else{
+                                echo '<p class="text-danger">error fetching table';
+                            }
+                            ?>
+                            
+                            
+                            </div>
+                </div>
+                
+                <!-- post request -->
+                <div class="tab-pane fade border border-info my-2 <?php echo $postreq?>" id="list-postreq" role="tabpanel" aria-labelledby="list-postreq-list">
+                    <p class="h3 text-center heading1 top py-3">Post Request</p>
+                    <form action="adminBlog.php" class="p-2" method="post">
+                        <label class="d-block">Delete Post Request</label>
+                        <input type="number" name="postid" class="form-control col-8 d-inline-block" placeholder="Request ID"/>
+                        <button type="submit" name="postreq" class="btn btn-danger col-2 d-inline-block mx-sm-2">Delete</button>
+                        <input type="checkbox" required> Confirm
+                    </form>
+                    
+                    <div class="px-2">
+                    <?php
+                    
+                        $sql = "SELECT * from postrequest inner join postrequest_user on postrequest.blogid = postrequest_user.blogid";
+                        $result = mysqli_query($conn, $sql);
+                        if($result){
+                            if(mysqli_num_rows($result) > 0){
+                                echo'    
+                                    <table class="table table-info table-responsive mb-1">
+                                        <thead class="bg-dark text-info">
+                                            <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Heading</th>
+                                            <th scope="col">Discription</th>
+                                            <th scope="col">File</th>
+                                            <th scope="col">Linkedin</th>
+                                            <th scope="col">Instagram</th>
+                                            <th scope="col">Twitter</th>
+                                            <th scope="col">Date<br>(Y-m-d)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>';
+                                while($row = mysqli_fetch_assoc($result)){
+                                        
+                                    echo '
+                                    <tr>
+                                        <th scope="row">'.$row['blogid'].'</th>
+                                        <td>'.$row['name'].'</td>
+                                        <td>'.$row['email'].'</td>
+                                        <td>'.$row['heading'].'</td>
+                                        <td>'.$row['content'].'</td>
+                                        <td>'.$row['file'].'<br>[<a href="../files/'.$row['file'].'" target="_BLANK"><i class="fa fa-download"></i></a>]</td>
+                                        <td>'.$row['linkedin'].'</td>
+                                        <td>'.$row['instagram'].'</td>
+                                        <td>'.$row['twitter'].'</td>
+                                        <td>'.$row['date'].'</td>
+                                    </tr>
+                                    ';
+                                }
+                                echo'
+                                </tbody>
+                            </table>';
+                            }
+                            else{
+                                echo '<p class="text-danger">no pending post request at the time';
+                            }
+                        }
+                        else{
+                            echo '<p class="text-danger">Error fetching database';
+                        }
+                        
+                    ?>
+                    </div>
+                </div>
+
+                <!-- home button -->
+                <div class="text-center py-4">
+                    <a href="adminHome.php" class="btn btn-info col-2 mx-auto">Admin Home</a>
+                </div>
             </div>
         </div>
     </div>
     </div>
+<?php include '../others/footer.php'?>
 </body>
 </html>

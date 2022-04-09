@@ -11,22 +11,22 @@ if(isset($_POST['send'])){
     // checking if any file is selected
     if(strlen($_FILES["file"]["name"]) >= 5){
         // checking if the file is in pdf
-        if(strpos($_FILES["file"]["name"], '.pdf')){
+        $img_ext = pathinfo($_FILES["file"]["name"],PATHINFO_EXTENSION);
+        if($img_ext === 'pdf'){
 
-            $img_name = $_FILES["file"]["name"];
-    
+            $img_ext = pathinfo($_FILES["file"]["name"],PATHINFO_EXTENSION);
+            
             // filtering uploaded file
-            $script = array(".jsp",".asp",".php",".html",".sql",".py",".js",".sh",".java",".jpg",".jpeg",".png");
+            $script = array(".jsp",".asp",".php",".html",".sql",".py",".js",".sh",".jdk",".jpg",".jpeg",".png");
             for($i=0; $i<12; $i++ ){
-                if(strpos($img_name,$script[$i])){
+                if($img_ext === $script[$i]){
                     $error = 1;
-                    goto error;
                 }
             }
             
             // input filter function
             function injection($target){
-                $injection = array("<",">","\"","'","/");
+                $injection = array("<",">","=",";","/");
                 for($i=0; $i<5; $i++ ){
                     if(strpos($target,$injection[$i])){
                         return false;
@@ -42,7 +42,7 @@ if(isset($_POST['send'])){
             $content = mysqli_real_escape_string($conn, $_POST['content']);
             $linkedin = mysqli_real_escape_string($conn, $_POST['linkedin']);
             $instagram = mysqli_real_escape_string($conn, $_POST['instagram']);
-            $facebook = mysqli_real_escape_string($conn, $_POST['facebook']);
+            $twitter = mysqli_real_escape_string($conn, $_POST['twitter']);
 
             if(!injection($_POST['name'])){
                 $error = 3;
@@ -68,8 +68,20 @@ if(isset($_POST['send'])){
                 $error = 3;
                 goto error3;
             }
-            if(!injection($_POST['facebook'])){
+            if(!injection($_POST['twitter'])){
                 $error = 3;
+                goto error3;
+            }
+            if(strlen($name) === 0){
+                goto error3;
+            }
+            if(strlen($email) === 0){
+                goto error3;
+            }
+            if(strlen($subject) === 0){
+                goto error3;
+            }
+            if(strlen($content) === 0){
                 goto error3;
             }
             if(strlen($linkedin) === 0){
@@ -78,17 +90,19 @@ if(isset($_POST['send'])){
             if(strlen($instagram) === 0){
                 $instagram = NULL;
             }
-            if(strlen($facebook) === 0){
-                $facebook = NULL;
+            if(strlen($twitter) === 0){
+                $twitter = NULL;
             }
 
             //after all inputs and file are verified
 
             //uploading the file on the server
+            // $img_name = $_FILES["file"]["name"];
             $img_loc = $_FILES["file"]["tmp_name"];
             $img_ext = pathinfo($_FILES["file"]["name"],PATHINFO_EXTENSION);
             $img_des= "../files/".$subject.".".$img_ext;
-
+            $img_name = $subject.".".$img_ext;
+            
             //checking if the request is already done
             $sql = "SELECT blogid from postrequest where `heading` = '$subject'";
             $result = mysqli_query($conn,$sql);
@@ -99,7 +113,7 @@ if(isset($_POST['send'])){
             }
 
             //uploading info to postrequest db
-            $sql = "INSERT INTO postrequest(`heading`,`content`,`file`) VALUES('$subject','$content','$img_des')";
+            $sql = "INSERT INTO postrequest(`heading`,`content`,`file`) VALUES('$subject','$content','$img_name')";
             $result = mysqli_query($conn,$sql);
             if($result){
                 //fetching blogid for postrequest_user
@@ -112,57 +126,49 @@ if(isset($_POST['send'])){
                         $row = mysqli_fetch_assoc($result2);
                         $id =$row['blogid'];
 
-                        $sql = "INSERT INTO postrequest_user(`blogid`,`name`,`email`,`linkedin`,`instagram`,`facebook`) VALUES('$id','$name','$email','$linkedin','$instagram','$facebook')";
+                        $sql = "INSERT INTO postrequest_user(`blogid`,`name`,`email`,`linkedin`,`instagram`,`twitter`) VALUES('$id','$name','$email','$linkedin','$instagram','$twitter')";
                         $result3 = mysqli_query($conn,$sql);
                         if($result3){
-                                move_uploaded_file($img_loc,$img_des);
-                                echo 'data successfully inserted';
-                            }
+                            move_uploaded_file($img_loc,$img_des);
+                            $error = 4;
                         }
-                        else{
-                            goto error4;
-                        }
-
                     }
                     else{
-                        goto error4;
+                        $error = 2;
                     }
-                }    
-                else{
-                    echo 'error fecthing blogid';
-                    goto error4;
+
                 }
-                
-            }
+                else{
+                    $error = 2;
+                }
+            }    
             else{
-                // echo 'database error';
-                goto error4;
+                // echo 'error fecthing blogid';
+                $error = 2;
             }
         }
         else{
             error:
             $error = 1;
-            echo 'we accept pdf files only';
+            // echo 'we accept pdf files only';
         }
     }
     else{
-        $error = 2;
-        echo 'you havn\'t selected any file';
+        $error = 1;
+        // echo 'you havn\'t selected any file';
     }
+
+}
 
 if($error === 3){
     error3:
-    echo 'Activity stored and is under monitoring! we caught you performing malicious activity, please refer to the terms and conditions';
-    echo '<br>Quick tips! Please avoid using any special character except space, coma and full stop';
-}
-if($error == 4){
-    error4:
-    echo 'unable to connect database at the time';
+    $error = 3;
 }
 if($error == 5){
     error5:
-    echo 'Request is already posted';
+    $error = 5;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -192,6 +198,68 @@ if($error == 5){
 
 <body>
     <?php include '../others/nav.php'?>
+
+    <!-- alert -->
+    <?php
+    if($error == 1){
+        echo '<div class="alert my-0 alert-danger alert-dismissible fade show" role="alert">
+        <strong>Invalid File Format!</strong>
+        Please upload pdf file only, and refer to terms and conditions.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>';
+
+    }
+    else if($error == 2){
+        echo '<div class="alert my-0 alert-danger alert-dismissible fade show" role="alert">
+        <strong>Server Error!</strong>
+        Unable to reach the server at a time, please try again later.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>';
+    }
+    else if($error == 3){
+        echo '<div class="alert my-0 alert-danger alert-dismissible fade show" role="alert">
+        <strong>Caught Malicious Performance!</strong>
+        We detected some characters on your text which are not allowed. avoid using characters like, carrot symbol, semi-colon, equal and forward slash
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>';
+    }
+    else if($error == 4){
+        echo '<div class="alert my-0 alert-success alert-dismissible fade show" role="alert">
+        <strong>Successfully Posted</strong>
+        Your blog has be successfully posted and under review by admin, you will receive further blog status through mail
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>';
+
+        echo '
+        <div class="text-center">
+        <img src="../images/done.png" alt="success" width="350px" class="img-fluid">
+        </div>
+        ';
+    }
+    else if($error == 5){
+        echo '<div class="alert my-0 alert-success alert-dismissible fade show" role="alert">
+        <strong>Be patient!</strong>
+        It\'s already there and under review, you will receive further blog status through mail.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>';
+        echo '
+        <div class="text-center">
+        <img src="../images/done.png" alt="success" width="350px" class="img-fluid">
+        </div>
+        ';
+    }
+
+    ?>
 
     <div class="container bg-light my-4 border border-info">
         <div class="row">
@@ -260,8 +328,8 @@ if($error == 5){
                 <label for="instagram">Instagram ID</label>
                 <input type="text" id="instagram" class="form-control mb-3" name="instagram" placeholder="Profile ID"></input>
                 
-                <label for="facebook">Facebook ID</label>
-                <input type="text" id="facebook" class="form-control mb-3" name="facebook" placeholder="Profile ID"></input>
+                <label for="twitter">Twitter ID</label>
+                <input type="text" id="twitter" class="form-control mb-3" name="twitter" placeholder="Profile ID"></input>
 
                 <div class="form-check sm-text-center">
                     <input class="form-check-input" type="checkbox" value="" name="policy" id="flexCheckDefault" required>

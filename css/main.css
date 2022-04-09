@@ -11,7 +11,7 @@
     color: blanchedalmond !important;
 }
 .head p{
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'ubuntu', sans-serif;
     letter-spacing: 1.1px;
 }
 .heading1{
@@ -22,8 +22,16 @@
     color: rgb(34, 34, 34);
     text-decoration: underline rgb(39, 162, 211) 4px;
 }
+.heading2{
+    /* font-family: 'ZCOOL QingKe HuangYou'; */
+    font-family: ubuntu;
+    font-size: 25px;
+    font-weight: 600;
+    color: rgb(34, 34, 34);
+}
 .popular h1{
-    font-family: 'Monoton', cursive;
+    font-family: 'Monoton';
+    /* background-color: red; */
     word-spacing: 5px;
     width: 65%;
     text-transform: capitalize;
@@ -35,10 +43,10 @@
     width: 100%;
 }
 .footer h1{
-    font-family: 'ZCOOL QingKe HuangYou';
-    color: gold;
+    font-family: 'ubuntu';
     color:blanchedalmond;
     letter-spacing: 1.5px;
+    font-weight: bold;
 }
 .footer .links a{
     color: black;
@@ -74,7 +82,7 @@
     border-radius: 50% ;
 }
 .top h1{
-    font-family: 'ZCOOL QingKe HuangYou';
+    font-family: 'ubuntu';
 }
 .loader{
     background-color: white;
@@ -95,6 +103,24 @@
     background-color: white !important;
     border: 1px solid rgb(209, 209, 209);
     border-radius:5px;
+}
+.ratings input{
+    display: none;
+}
+.ratings label{
+    color: rgb(7, 46, 65);
+    float: right;
+}
+.ratings input:not(:checked) ~ label:hover,
+.ratings input:not(:checked) ~ label:hover ~ label{
+    color: rgb(15, 167, 238);
+}
+.ratings input:checked ~ label{
+    color: rgb(15, 167, 238);
+}
+.ratings input#5:checked ~ label{
+    color: rgb(255, 255, 255);
+    text-shadow: 0 0 20px #952;
 }
 @media screen and (max-width: 600px) {
     .resText{

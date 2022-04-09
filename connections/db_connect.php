@@ -3,7 +3,7 @@
 $hostserver = "localhost";
 $username = "root";
 $password = "";
-$database = "cyberblog";
+$database = "cyberrat";
 
 $conn = mysqli_connect($hostserver, $username, $password, $database);
 

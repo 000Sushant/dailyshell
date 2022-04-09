@@ -25,13 +25,15 @@ require 'connections/db_connect.php';
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- mycss -->
-    <link rel="stylesheet" href="./css/main.css?v=1" crossorigin='anonymous'>
+    <link rel="stylesheet" href="./css/main.css?v=4" crossorigin='anonymous'>
 
     <!-- web fonts -->
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Source+Sans+Pro&family=Ubuntu&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Ubuntu&&display=swap" rel="stylesheet">
+
+    
 
 </head>
 <body>
@@ -41,8 +43,8 @@ require 'connections/db_connect.php';
         You can now earn a chance to become a top contributer and a valuable member of cyberblog by 
         <a href="http://localhost/cyberblog/pages/postBlog.php" class="alert-link">Posting your own blog</a>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
 
     <?php require './others/nav.php'?>
@@ -111,7 +113,7 @@ require 'connections/db_connect.php';
 
                 <?php
 
-                    $sql = "SELECT * FROM blogs INNER JOIN popularblogs ON popularBlogId = blogId";
+                    $sql = "SELECT * FROM blogs INNER JOIN popularblogs ON popular_blogid = blogid";
                     $result = mysqli_query($conn, $sql);
                     
                     $temp = 0;
@@ -125,7 +127,7 @@ require 'connections/db_connect.php';
                                 <p class="mb-0 text-secondary author"><i class="fa fa-user"></i> '.$row['author'].'</p>
                                 <p class="mb-1 text-secondary">'.$row['hashtags'].'</p>
                                 <form action="./pages/blogs.php" method="post">
-                                    <input type="hidden" name="activeBlog" value="'.$row['blogId'].'">
+                                    <input type="hidden" name="activeBlog" value="'.$row['blogid'].'">
                                     <button type="submit" class="btn btn-info">learn more</button>
                                 </form>
                                 
@@ -134,7 +136,7 @@ require 'connections/db_connect.php';
                                 <div class="thumbnail">
                                     <img src="./images/demo.png" alt="kali-logo" class="img-fluid">
                                 </div>
-                                <p class="align-middle text-left">'.$row['content'].'</p>      
+                                <p class="align-middle text-left">'.$row['small_content'].'</p>      
                             </div>
                         </div>
                         
@@ -163,7 +165,7 @@ require 'connections/db_connect.php';
                 <h1 class="px-2 col-12 heading1 mt-4">Latest Blogs</h1>
                 
                 <?php
-                    $sql = "SELECT * FROM blogs INNER JOIN latestblogs ON latestBlogId = blogId";
+                    $sql = "SELECT * FROM blogs INNER JOIN latestblogs ON latest_blogid = blogid";
                     $result = mysqli_query($conn, $sql);
                     $temp = 0;
                     while($row = mysqli_fetch_assoc($result)){
@@ -173,15 +175,15 @@ require 'connections/db_connect.php';
                                 <div class="thumbnail">
                                     <img src="./images/demo.png" class="img-fluid" alt="">
                                 </div>           
-                                <p class="lead"><b>'.$row['heading'].'</b></p>
+                                <p class="lead text-capitalize"><b>'.$row['heading'].'</b></p>
                                 <p class="my-0 author text-secondary align-middle">
                                     <i class="fa fa-user"></i> '.$row['author'].' &nbsp| 
                                     &nbsp<i class="fa fa-calendar"></i> '.$row['date'].'
                                 </p> 
-                                <p>"'.substr($row['content'],0,170).'..."</p>
+                                <p class="text-justify">"'.substr($row['small_content'],0,200).'..."</p>
                                 <form action="./pages/blogs.php" method="post">
-                                    <input type="hidden" name="activeBlog" value="'.$row['blogId'].'">
-                                    <button type="submit" class="btn btn-info">learn more</button>
+                                    <input type="hidden" name="activeBlog" value="'.$row['blogid'].'">
+                                    <button type="submit" class="btn btn-dark">learn more</button>
                                 </form>
                             </div>
                         </div>

@@ -49,10 +49,10 @@
         <a class="nav-link text-light" href="http://localhost/cyberblog/pages/contributers.php">Contributers</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-light" href="http://localhost/cyberblog/pages/contact.php">Contact</a>
+        <a class="nav-link text-light" href="http://localhost/cyberblog/pages/aboutus.php">About Us</a>
       </li>
       <li class="nav-link">
-        <a href="http://localhost/cyberblog/pages/donate.php" class="btn-dark py-2 px-3 text-decoration-none">Donate</a>
+        <a href="http://localhost/cyberblog/pages/contact.php" class="btn-dark py-2 px-3 text-decoration-none">Contact</a>
       </li>
       </ul>
     </div>

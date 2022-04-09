@@ -16,7 +16,7 @@ if(isset($_POST['send'])){
     
     // input filter function
     function injection($target){
-        $injection = array("<",">","\"","'","/");
+        $injection = array("<",">",";","=","/");
         for($i=0; $i<5; $i++ ){
             if(strpos($target,$injection[$i])){
                 return false;

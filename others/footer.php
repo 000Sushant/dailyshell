@@ -6,13 +6,13 @@
             <!-- quickLinks -->
             <div class="row bg-light p-5 mt-5 quicklink border-top border-secondary">
                 <div class="col-md-4 text-center my-4">
-                    <a href="http://localhost/cyberblog/pages/requestBlog.php" class=" button1">Request Desire Blog</a>
+                    <a href="http://localhost/cyberblog/pages/contact.php" class=" button1">Request Desire Blog</a>
                 </div>
                 <div class="col-md-4 text-center my-4">
                     <a href="http://localhost/cyberblog/pages/searchBlog.php" class=" button1">Explore More blogs</a>
                 </div>
                 <div class="col-md-4 text-center my-4">
-                    <a href="#" class="button1">Post Your own Blog</a>
+                    <a href="http://localhost/cyberblog/pages/postBlog.php" class="button1">Post Your own Blog</a>
                 </div>
             </div>
             ';
@@ -23,12 +23,13 @@
     <!-- footer -->
     <div class="row footer bg-info">
         <div class="container-fluid py-4 text-center text-light">
-            <h1>CyberbloG</h1>
+            <h1 class="text-center"><span style="color:black;font-weight:normal">cyber</span>RAT</h1>
+    
             <div class="links mt-2">
                 <a href="http://localhost/cyberblog/">Home</a> -
                 <a href="http://localhost/cyberblog/pages/searchBlog.php">Find Blog</a> - 
                 <a href="http://localhost/cyberblog/pages/contact.php">Request Blog</a> -
-                <a href="">Post Blog</a> -
+                <a href="http://localhost/cyberblog/pages/postBlog.php">Post Blog</a> -
                 <a href="http://localhost/cyberblog/pages/contact.php">Contact</a> -
                 <a href="http://localhost/cyberblog/admin/login.php">Admin</a>
             </div>

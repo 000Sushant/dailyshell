@@ -12,7 +12,7 @@ if(!isset($_POST['activeBlog']) || $_POST['activeBlog'] == false){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberBlog</title>
+    <title>CyberRAT | Blogs</title>
 
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -27,14 +27,14 @@ if(!isset($_POST['activeBlog']) || $_POST['activeBlog'] == false){
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Source+Sans+Pro&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
 </head>
 <body>
     <?php include '../others/nav.php'?> 
 
     <!-- head -->
     <div class="head">
-    <h1 class="text-warning bg-info py-2 text-center">CyberbloG</h1>
+    <h1 class="text-warning bg-info py-2 text-center">CyberRAT</h1>
     </div>
 
     <!-- main content -->
@@ -48,8 +48,8 @@ if(!isset($_POST['activeBlog']) || $_POST['activeBlog'] == false){
                 if(mysqli_num_rows($result)==1){
                     $row = mysqli_fetch_assoc($result);
                     echo '<h1 class="heading1">'.$row['heading'].'</h1>';
-                    echo '<img src="../images/'.$row['demoImage'].'" class="my-2" style="width:50%" alt="demo image">';  
-                    echo '<p class="text-left">'.$row['content'].'<p>';
+                    echo '<img src="../images/'.$row['demo_image'].'" class="my-2" style="width:50%" alt="demo image">';  
+                    echo '<div class="text-left my-4">'.$row['content'].'</div>';
                     echo '
                     <div class="text-left mb-3">
                         <p class="my-0 author text-secondary">

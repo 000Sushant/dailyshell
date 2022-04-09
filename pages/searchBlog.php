@@ -119,16 +119,16 @@ if(isset($_POST['homeSubmit']) || isset($_POST['submit']) || isset($_GET['search
                             <div class="col-md-4 my-2 mx-auto">
                                 <div class="bg-light border d-inline-block border-info p-2 text-left">
                                     <div class="thumbnail">
-                                        <img src="../images/'.$row['demoImage'].'" class="img-fluid" alt="demo image">
+                                        <img src="../images/'.$row['demo_image'].'" class="img-fluid" alt="demo image">
                                     </div>           
                                     <p class="lead text-capitalize"><b>'.$row['heading'].'</b></p>
                                     <p class="my-0 author text-secondary">
                                     <i class="fa fa-user"></i> '.$row['author'].' |
                                     <i class="fa fa-calendar"></i> '.$row['date'].'
                                     </p>
-                                    <p>"'.substr($row['content'],0,170).'..."</p>
+                                    <p class="text-justify">"'.substr($row['small_content'],0,200).'..."</p>
                                     <form action="blogs.php" method="post">
-                                        <input type="hidden" name="activeBlog" value="'.$row['blogId'].'">
+                                        <input type="hidden" name="activeBlog" value="'.$row['blogid'].'">
                                         <button type="submit" class="btn btn-dark">learn more</button>
                                     </form>
                                 </div>

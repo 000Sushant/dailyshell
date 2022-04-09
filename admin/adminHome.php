@@ -19,7 +19,7 @@ if(!isset($_SESSION['active']) || $_SESSION['active'] == false || strlen($_SESSI
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyberblog | Admin</title>
+    <title>CyberRAT | Admin</title>
 
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -34,7 +34,7 @@ if(!isset($_SESSION['active']) || $_SESSION['active'] == false || strlen($_SESSI
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Source+Sans+Pro&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
 
 </head>
 <body>
@@ -47,8 +47,8 @@ if(!isset($_SESSION['active']) || $_SESSION['active'] == false || strlen($_SESSI
         <div class="row my-4">
             <h1 class="h3 col-12 text-center mb-3">Logged In as: <?php echo '<span class="text-capitalize">'.$_SESSION['name'].'</span>';?></h1>
             <a href="adminBlog.php" class="btn btn-dark col-7 mx-auto mb-2">Blog Operations</a>
-            <a href="" class="btn btn-dark col-7 mx-auto mb-2">Latest and Trending</a>
-            <a href="" class="btn btn-dark col-7 mx-auto mb-2">Add New Admin</a>
+            <a href="latestTrending.php" class="btn btn-dark col-7 mx-auto mb-2">Latest and Trending</a>
+            <a href="addAdmin.php" class="btn btn-dark col-7 mx-auto mb-2">Add New Admin</a>
             <a href="" class="btn btn-dark col-7 mx-auto mb-2">Contributers</a>
 
             <a href="logout.php" class="mx-auto text-center mt-3 btn btn-danger col-7"><i class="fa fa-gear"></i> logout</a>
