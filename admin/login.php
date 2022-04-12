@@ -2,6 +2,7 @@
 
 session_start();
 $error = false;
+$unmatch = false;
 
 if(isset($_POST['submit'])){
     
@@ -12,48 +13,49 @@ if(isset($_POST['submit'])){
     $pass = mysqli_real_escape_string($conn,$_POST['pass']);
     $cpass = mysqli_real_escape_string($conn,$_POST['cpass']);
     
-    if(strlen($pass)<8 || strlen($cpass)<8 || !(strlen($id)==6)){
+    if(strlen($pass)<1 || strlen($cpass)<1 || !(strlen($id)==6)){
         $error = true;
+        goto out;
     }
-    else{
 
-        if($_POST['pass']===$_POST['cpass']){
+    if($_POST['pass']===$_POST['cpass']){
 
-            $sql = "SELECT `name`,`user_pass` FROM admin_user WHERE `user_id`='$id'";
-            $result=mysqli_query($conn, $sql);
-
-            if($result){
-                if(mysqli_num_rows($result) == 1){
+        $sql = "SELECT `name`,`user_pass` FROM admin_user WHERE `user_id`='$id'";
+        $result=mysqli_query($conn, $sql);
+        
+        if($result){
+            if(mysqli_num_rows($result) == 1){
                 
-                    $row=mysqli_fetch_assoc($result);
+                $row=mysqli_fetch_assoc($result);
+                
+                $isPasswordCorrect = password_verify($_POST['pass'], $row['user_pass']);
 
-                    if($pass === $row['user_pass']){
-                        $_SESSION['active'] = true;
-                        $_SESSION['name'] = $row['name'];
-                        header("location:adminHome.php");
-                    }
-                    else{
-                        echo 'password isnt matching';
-                        $error = true;
-                    }
+                if($isPasswordCorrect){
+                    $_SESSION['active'] = true;
+                    $_SESSION['name'] = $row['name'];
+                    header("location:adminHome.php");
                 }
                 else{
-                    echo 'couldn\'t run the query';
+                    // echo 'password isnt matching';
                     $error = true;
                 }
             }
             else{
-                echo 'error connecting database';
+                // echo 'couldn\'t run the query';
                 $error = true;
             }
         }
         else{
-            echo 'password dosnt match';
+            // echo 'error connecting database';
             $error = true;
         }
     }
+    else{
+        // echo 'password dosnt match';
+        $unmatch = true;
+    }
 }
-
+out:
 // fetching IP Address
 function getIPAddress() {  
     //whether ip is from the share internet  
@@ -118,7 +120,17 @@ function getIPAddress() {
     if($error){
         echo '
         <div class="alert mt-2 alert-danger alert-dismissible fade show container" role="alert">
-        <strong>Incorrect credentials</strong>, your action and IP address '.getIPAddress().' has been recorded and monitored. be carefull next time.
+        <strong>Incorrect credentials!</strong> your action and IP address '.getIPAddress().' has been recorded for monitoring, be carefull next time.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        ';
+    }
+    if($unmatch){
+        echo '
+        <div class="alert mt-2 alert-danger alert-dismissible fade show container" role="alert">
+        <strong>Incorrect credentials!</strong> Password and confirm password is not same.
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -134,7 +146,7 @@ function getIPAddress() {
                 
                 <div class="top row mb-3">
                     <img src="../images/cbc_logo.jpg" alt="logo" class="img-fluid mx-auto logo m-2">
-                    <h1 class="h2 col-12">CyberblogG</h1>
+                    <h1 class="h2 col-12">CyberRAT</h1>
                 </div>
 
                 <form action="login.php" class="form-group text-left px-4" method="post">                  
@@ -142,10 +154,10 @@ function getIPAddress() {
                         <input type="number" name="id" class="form-control mx-auto mb-3" placeholder="Admin ID" >
                         
                         <label class="font-weight-bold">Enter Admin Passsword:</label>
-                        <input type="text" name="pass" class="form-control mx-auto mb-3" placeholder="Admin Password" >
+                        <input type="password" name="pass" class="form-control mx-auto mb-3" placeholder="Admin Password" >
                         
                         <label class="font-weight-bold">Confirm Admin Passsword:</label>
-                        <input type="text" name="cpass" class="form-control mx-auto" placeholder="Confirm Password" >
+                        <input type="password" name="cpass" class="form-control mx-auto" placeholder="Confirm Password" >
                     
                         <button class=" mt-3 mx-auto btn btn-dark" type="submit" name="submit">Login</button>
                 

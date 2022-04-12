@@ -205,7 +205,12 @@ popularend:
                             <input type="number" id="newid" name="newid" class="form-control col-sm-4 d-inline-block mb-2" placeholder="New ID" required/>
                             <input type="number" id="oldid" name="oldid" class="form-control col-sm-4 d-inline-block mb-2" placeholder="Existing ID"/>
                             <button type="submit" name="popular" class="btn btn-dark col-sm-2 d-inline-block mb-2" required>Replace</button>
-                            <input type="checkbox" required> Confirm
+                            <div class="form-check d-inline-block">
+                                <input class="form-check-input" type="checkbox" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                Confirm
+                                </label>
+                            </div>
                         </form>
 
                         <!-- showing popular blogs tables -->
@@ -268,7 +273,12 @@ popularend:
                             <input type="number" id="newid" name="newid" class="form-control col-sm-4 d-inline-block mb-2" placeholder="New ID" required/>
                             <input type="number" id="oldid" name="oldid" class="form-control col-sm-4 d-inline-block mb-2" placeholder="Existing ID"/>
                             <button type="submit" name="latest" class="btn btn-dark col-sm-2 d-inline-block mb-2" required>Replace</button>
-                            <input type="checkbox" required> Confirm
+                            <div class="form-check d-inline-block">
+                                <input class="form-check-input" type="checkbox" id="flexCheck">
+                                <label class="form-check-label" for="flexCheck">
+                                Confirm
+                                </label>
+                            </div>
                         </form>
 
                         <!-- showing latest blogs tables -->
@@ -328,8 +338,8 @@ popularend:
         </div>
     </div>
 
-    <div class="text-center">
-        <a href="adminHome.php" class="btn btn-info col-2 mb-4 my-2">Admin Home</a>
+    <div class="text-center px-3">
+        <a href="adminHome.php" class="btn btn-info col-sm-2 mb-4 my-2">Admin Home</a>
     </div>
 
     <?php include '../others/footer.php'?>

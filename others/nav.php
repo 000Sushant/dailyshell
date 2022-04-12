@@ -14,19 +14,19 @@
           <a class="nav-link text-light" href="http://localhost/cyberblog/admin/adminHome.php">Admin Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" href="">Add Blogs</a>
+          <a class="nav-link text-light" href="http://localhost/cyberblog/admin/adminBlog.php">Add Blogs</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" href="">Latest/Trending</a>
+          <a class="nav-link text-light" href="http://localhost/cyberblog/admin/latestTrending.php">Latest/Trending</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" href="#">Add Admin</a>
+          <a class="nav-link text-light" href="http://localhost/cyberblog/admin/addAdmin.php">Add Admin</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" href="#">Add Contributers</a>
+          <a class="nav-link text-light" href="http://localhost/cyberblog/admin/contributerAdmin.php">Add Contributers</a>
         </li>
         <li class="nav-link">
-          <a href="http://localhost/cyberblog/admin/logout.php" class="btn-dark py-2 px-3 text-decoration-none">Logout</a>
+          <a href="http://localhost/cyberblog/admin/partials/logout.php" class="btn-dark py-2 px-3 text-decoration-none">Logout</a>
         </li>
         </ul>
       </div>

@@ -123,19 +123,19 @@ require 'partials/adminBlogOpn.php';
                         <form action="adminBlog.php" method="post">
                             <div class="form-group">
 
-                                <input type="text" class="form-control col-7 mb-3" name="heading" placeholder="heading" required>
-                                <textarea type="text" class="form-control col-7 mb-3" name="content" placeholder="content" required></textarea>                              
-                                <textarea type="text" class="form-control col-7 mb-3" name="smallcontent" placeholder="small content" required></textarea>                              
-                                <input type="text" class="form-control col-7 mb-3" name="hashtags" placeholder="hashtags" required>
-                                <input type="text" class="form-control col-7 mb-3" name="author" placeholder="Author" required>                                
-                                <input type="date" class="form-control col-7 mb-3" name="date" required>
+                                <input type="text" class="form-control col-sm-7 mb-3" name="heading" placeholder="heading" required>
+                                <textarea type="text" class="form-control col-sm-7 mb-3" name="content" placeholder="content" required></textarea>                              
+                                <textarea type="text" class="form-control col-sm-7 mb-3" name="smallcontent" placeholder="small content" required></textarea>                              
+                                <input type="text" class="form-control col-sm-7 mb-3" name="hashtags" placeholder="hashtags" required>
+                                <input type="text" class="form-control col-sm-7 mb-3" name="author" placeholder="Author" required>                                
+                                <input type="date" class="form-control col-sm-7 mb-3" name="date" required>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" required/>
-                                    <label class="form-check-label ">Are you sure, you want to upoad this blog?</label>
+                                    <input class="form-check-input" type="checkbox" id="checkbox" required/>
+                                    <label class="form-check-label" for="checkbox">Are you sure, you want to upoad this blog?</label>
                                 </div>
                                 
-                                <button class="btn btn-dark" name="addblog">Upload</button>
+                                <button class="btn btn-dark col-sm-2 mt-2" name="addblog">Upload</button>
                             </div>
                         </form>
                     </div>
@@ -280,63 +280,67 @@ require 'partials/adminBlogOpn.php';
                 <div class="tab-pane fade border border-info my-2 <?php echo $blogreq?>" id="list-blogreq" role="tabpanel" aria-labelledby="list-blogreq-list">
                     <p class="h3 text-center heading1 top py-3">Blog Reqeuests</p>
                     <form action="adminBlog.php" class="px-2" method="post">
-                                <label class="d-block">Enter Request ID to delete</label>
-                                <input type="number" class="form-control col-md-8 d-inline-block mb-3" name="reqid" placeholder="Requst ID" required>
-                                <button class="btn btn-danger col-md-2 px-2 mx-sm-2 mb-2 d-inline-block" type="submit" name="delblogreq">Delete</button>
-                                <input type="checkbox" required class="mb-2"> confirm
-                            </form>
-                            <div class="px-2">
-                                
-                            
+                        <label class="d-block">Enter Request ID to delete</label>
+                        <input type="number" class="form-control col-md-8 d-inline-block mb-3" name="reqid" placeholder="Requst ID" required>
+                        <button class="btn btn-danger col-md-2 px-2 mx-sm-2 mb-2 d-inline-block" type="submit" name="delblogreq">Delete</button>
+                        <div class="form-check d-inline-block">
+                            <input class="form-check-input" type="checkbox" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                            Confirm
+                            </label>
+                        </div>
+                    </form>
 
-                            <?php
-                            $sql = "SELECT * from blogrequest INNER JOIN blogrequest_user ON blogrequest.blogid = blogrequest_user.blogid";
-                            $result = mysqli_query($conn,$sql);
-                            if($result){
-                                if(mysqli_num_rows($result) > 0){
-                                    echo '
-                                    <table class="table table-info table-responsive mb-1">
-                                        <thead class="bg-dark text-info">
-                                            <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Heading</th>
-                                            <th scope="col">Discription</th>
-                                            <th scope="col">Date<br>(Y-m-d)</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                    ';
-                                    while($row = mysqli_fetch_assoc($result)){
-                                        
-                                        echo '
+                    <div class="px-2">
+                             
+                        <?php
+                        $sql = "SELECT * from blogrequest INNER JOIN blogrequest_user ON blogrequest.blogid = blogrequest_user.blogid";
+                        $result = mysqli_query($conn,$sql);
+                        if($result){
+                            if(mysqli_num_rows($result) > 0){
+                                echo '
+                                <table class="table table-info table-responsive mb-1">
+                                    <thead class="bg-dark text-info">
                                         <tr>
-                                            <th scope="row">'.$row['blogid'].'</th>
-                                            <td>'.$row['name'].'</td>
-                                            <td>'.$row['email'].'</td>
-                                            <td>'.$row['heading'].'</td>
-                                            <td>'.$row['detail'].'</td>
-                                            <td>'.$row['date'].'</td>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Heading</th>
+                                        <th scope="col">Discription</th>
+                                        <th scope="col">Date<br>(Y-m-d)</th>
                                         </tr>
-                                        ';
-                                    }
+                                    </thead>
+                                    <tbody>
+                                ';
+                                while($row = mysqli_fetch_assoc($result)){
+                                    
                                     echo '
-                                    </tbody>
-                                </table>
+                                    <tr>
+                                        <th scope="row">'.$row['blogid'].'</th>
+                                        <td>'.$row['name'].'</td>
+                                        <td>'.$row['email'].'</td>
+                                        <td>'.$row['heading'].'</td>
+                                        <td>'.$row['detail'].'</td>
+                                        <td>'.$row['date'].'</td>
+                                    </tr>
                                     ';
                                 }
-                                else{
-                                    echo '<p class="text-danger">you dont have any blog request at the time';
-                                }
+                                echo '
+                                </tbody>
+                            </table>
+                                ';
                             }
                             else{
-                                echo '<p class="text-danger">error fetching table';
+                                echo '<p class="text-danger">you dont have any blog request at the time';
                             }
-                            ?>
+                        }
+                        else{
+                            echo '<p class="text-danger">error fetching table';
+                        }
+                        ?>
                             
                             
-                            </div>
+                    </div>
                 </div>
                 
                 <!-- post request -->
@@ -344,9 +348,14 @@ require 'partials/adminBlogOpn.php';
                     <p class="h3 text-center heading1 top py-3">Post Request</p>
                     <form action="adminBlog.php" class="p-2" method="post">
                         <label class="d-block">Delete Post Request</label>
-                        <input type="number" name="postid" class="form-control col-8 d-inline-block" placeholder="Request ID"/>
-                        <button type="submit" name="postreq" class="btn btn-danger col-2 d-inline-block mx-sm-2">Delete</button>
-                        <input type="checkbox" required> Confirm
+                        <input type="number" name="postid" class="form-control col-md-8 d-inline-block mb-3" placeholder="Request ID"/>
+                        <button type="submit" name="postreq" class="btn btn-danger col-md-2 px-2 mx-sm-2 mb-2 d-inline-block">Delete</button>
+                        <div class="form-check d-inline-block">
+                            <input class="form-check-input" type="checkbox" id="flexCheck">
+                            <label class="form-check-label" for="flexCheck">
+                            Confirm
+                            </label>
+                        </div>
                     </form>
                     
                     <div class="px-2">
@@ -408,7 +417,7 @@ require 'partials/adminBlogOpn.php';
 
                 <!-- home button -->
                 <div class="text-center py-4">
-                    <a href="adminHome.php" class="btn btn-info col-2 mx-auto">Admin Home</a>
+                    <a href="adminHome.php" class="btn btn-info col-sm-2 mx-auto">Admin Home</a>
                 </div>
             </div>
         </div>

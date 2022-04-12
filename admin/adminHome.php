@@ -49,9 +49,9 @@ if(!isset($_SESSION['active']) || $_SESSION['active'] == false || strlen($_SESSI
             <a href="adminBlog.php" class="btn btn-dark col-7 mx-auto mb-2">Blog Operations</a>
             <a href="latestTrending.php" class="btn btn-dark col-7 mx-auto mb-2">Latest and Trending</a>
             <a href="addAdmin.php" class="btn btn-dark col-7 mx-auto mb-2">Add New Admin</a>
-            <a href="" class="btn btn-dark col-7 mx-auto mb-2">Contributers</a>
+            <a href="contributerAdmin.php" class="btn btn-dark col-7 mx-auto mb-2">Contributers</a>
 
-            <a href="logout.php" class="mx-auto text-center mt-3 btn btn-danger col-7"><i class="fa fa-gear"></i> logout</a>
+            <a href="./partials/logout.php" class="mx-auto text-center mt-3 btn btn-danger col-7"><i class="fa fa-gear"></i> logout</a>
         </div>
     </div>
 

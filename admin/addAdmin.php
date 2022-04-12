@@ -61,7 +61,7 @@ outaddadmin:
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberRAT | Add Admin</title>
+    <title>Admin | Add Admin</title>
 
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -134,7 +134,13 @@ outaddadmin:
                 <label class="d-block" for="pass">Admin Password</label>
                 <input type="password" id="pass" name="pass" class="form-control col-sm-10 mb-2" placeholder="Password" required/>
                 
-                <input type="checkbox" id="confirm" required> <lable for="confirm">Confirm adding a new admin</lable>
+                <div class="form-check d-inline-block">
+                    <input class="form-check-input" type="checkbox" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                    Are you sure you want to add a new admin?
+                    </label>
+                </div>
+                
                 <button type="submit" name="addAdmin" class="btn btn-dark col-sm-3 d-block mb-2 my-2" required>Add</button>
             </form>
 

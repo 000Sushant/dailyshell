@@ -5,14 +5,29 @@
             echo '
             <!-- quickLinks -->
             <div class="row bg-light p-5 mt-5 quicklink border-top border-secondary">
-                <div class="col-md-4 text-center my-4">
-                    <a href="http://localhost/cyberblog/pages/contact.php" class=" button1">Request Desire Blog</a>
+                <div class="col-md-4 text-center mx-auto my-4">
+                    <a class="fancy" href="http://localhost/cyberblog/pages/contact.php">
+                        <span class="top-key"></span>
+                        <span class="text">Request Desire Blog</span>
+                        <span class="bottom-key-1"></span>
+                        <span class="bottom-key-2"></span>
+                    </a>
                 </div>
-                <div class="col-md-4 text-center my-4">
-                    <a href="http://localhost/cyberblog/pages/searchBlog.php" class=" button1">Explore More blogs</a>
+                <div class="col-md-4 text-center mx-auto my-4">
+                    <a class="fancy" href="http://localhost/cyberblog/pages/searchBlog.php">
+                        <span class="top-key"></span>
+                        <span class="text">Explore More Blog</span>
+                        <span class="bottom-key-1"></span>
+                        <span class="bottom-key-2"></span>
+                    </a>
                 </div>
-                <div class="col-md-4 text-center my-4">
-                    <a href="http://localhost/cyberblog/pages/postBlog.php" class="button1">Post Your own Blog</a>
+                <div class="col-md-4 text-center mx-auto my-4">
+                    <a class="fancy" href="http://localhost/cyberblog/pages/postBlog.php">
+                        <span class="top-key"></span>
+                        <span class="text">Post your own Blog</span>
+                        <span class="bottom-key-1"></span>
+                        <span class="bottom-key-2"></span>
+                    </a>
                 </div>
             </div>
             ';
@@ -33,7 +48,7 @@
                 <a href="http://localhost/cyberblog/pages/contact.php">Contact</a> -
                 <a href="http://localhost/cyberblog/admin/login.php">Admin</a>
             </div>
-            <p class="text-light mt-4">Join with us and help us and your connections to grow <a href="./pages/blogPost.php" class="text-warning">post a blog now</a></p>
+            <p class="blanchedalmond mt-4">Join with us and help us and your connections to grow <a href="./pages/blogPost.php"><u>post a blog now</u></a></p>
         </div>
     </div>
     <!-- caption, afterFooter -->

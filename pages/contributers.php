@@ -1,10 +1,17 @@
+<?php
+
+session_start();
+include '../connections/db_connect.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyberblogger | Contributers</title>
+    <title>CyberRAT | Contributers</title>
 
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -25,79 +32,129 @@
 <body>
     <?php include '../others/nav.php'?>
     
-    <div class="head bg-info text-center">
-        <h1 class="pb-2">Contributers</h1>
-    </div>
+    
     <div class="container">
 
-        <!-- top contributer -->
+        <!-- valuable contributer -->
         <div class="row topContributer px-4 pt-2 mt-3 pb-4 bg-light border">
 
-                <h1 class="heading1 text-center col-12">Top Contributers</h1>
+                <h1 class="heading1 text-center col-12 mb-4">Valuable Contributers</h1>
                 
                 <?php
-                    for($i=0; $i<4; $i++){
-                        echo '
-                        <div class="col-sm-3  p-1 d-inline-block">
-                            <div class="card p-2">
-                            <div class="card-img-top text-center pt-2">
-                                <img src="../images/contributers/default.png" width="100px" alt="profile">
-                            </div>
-                            <div class="card-body text-center px-2">
-                                <h5 class="card-title text-info">Sushant Kumar</h5>
-                                <p class="card-text">Founder | Web Developer | Blogger</p>
-                                <div class="card-footer bg-transparent px-0 border-info text-center">
-                                    <a href="#" class="mx-1"><img src="../images/linkedin.png" alt="linkedin" width="30px"></a>
-                                    <a href="#" class="mx-1"><img src="../images/instagram.png" alt="instagram" width="30px"></a>
-                                    <a class="mx-1"><img src="../images/facebook.png" alt="facebook" width="30px"></a>
+                    $sql = "SELECT * from contributer_user where `position` = 'vc'";
+                    $result = mysqli_query($conn,$sql);
+                    if($result){
+                        if(mysqli_num_rows($result) > 0){
+                            while($row = mysqli_fetch_assoc($result)){
+
+                                // checking if social media link is given
+                                if(strlen($row['linkedin']) == 0){
+                                    $linkedin = "";
+                                }
+                                else{
+                                    $linkedin = "href='https://linkedin/in/".$row['linkedin']."'";
+                                }
+                                if(strlen($row['facebook']) == 0){
+                                    $facebook = "";
+                                }
+                                else{
+                                    $facebook = "href=\"https://www.facebook.com/profile.php?id=".$row['facebook']."\"";
+                                }
+                                if(strlen($row['twitter']) == 0){
+                                    $twitter = "";
+                                }
+                                else{
+                                    $twitter = 'href="https://twitter.com/'.$row['twitter'].'"';
+                                }
+                                // printing cards
+                                echo '
+                                <div class="col-sm-3 p-1 mx-auto d-inline-block">
+                                    <div class="card p-2">
+                                    <div class="card-img-top text-center pt-2">
+                                        <img src="../images/contributers/default.png" width="100px" alt="profile">
+                                    </div>
+                                    <div class="card-body text-center px-2">
+                                        <h5 class="card-title text-info">'.$row['name'].'</h5>
+                                        <p class="card-text">'.$row['contribution'].'</p>
+                                        <div class="card-footer bg-transparent px-0 border-info text-center social">
+                                            <a '.$linkedin.' class="mx-1"><img src="../images/linkedin.png" alt="linkedin" width="30px"></a>
+                                            <a '.$twitter.' class="mx-1"><img src="../images/twitter.png" alt="instagram" width="30px"></a>
+                                            <a '.$facebook.' class="mx-1"><img src="../images/facebook.png" alt="facebook" width="30px"></a>
+                                        </div>
+                                    </div>
+                                    </div>
                                 </div>
-                            </div>
-                            </div>
-                        </div>
-                        ';
+                                ';
+                            }
+                        }
+                        else{
+                            echo '<p class="text-danger d-block mx-auto mt-4">No Valuable Contributer is awarded till now</p>';
+                        }
                     }
                 ?>  
         </div>
 
-        <!-- contributers -->
+        <!-- Top contributers -->
+        <?php
+            $sql = "SELECT * from contributer_user where `position` = 'tc'";
+            $result = mysqli_query($conn,$sql);
+            if($result){
+                if(mysqli_num_rows($result) > 0){
+                    echo'
+                    <div class="row topContributer px-4 pt-2 pb-4 bg-light border mt-3">
+                    <h1 class="heading1 text-center col-12">Top Contributers</h1>';
         
-        <div class="row topContributer px-4 pt-2 pb-4 bg-light border mt-3">
+                    while($row = mysqli_fetch_assoc($result)){
 
-                <h1 class="heading1 text-center col-12">Contributers</h1>
-                
-                <?php
-                    for($i=0; $i<4; $i++){
+                        // checking if social media link is given
+                        if(strlen($row['linkedin']) == 0){
+                            $linkedin = "";
+                        }
+                        else{
+                            $linkedin = "href='https://linkedin/in/".$row['linkedin']."'";
+                        }
+                        if(strlen($row['facebook']) == 0){
+                            $facebook = "";
+                        }
+                        else{
+                            $facebook = "href=\"https://www.facebook.com/profile.php?id=".$row['facebook']."\"";
+                        }
+                        if(strlen($row['twitter']) == 0){
+                            $twitter = "";
+                        }
+                        else{
+                            $twitter = 'href="https://twitter.com/'.$row['twitter'].'"';
+                        }
+                        // printing cards
                         echo '
-                        <div class="col-sm-3  p-1 d-inline-block">
+                        <div class="col-sm-3 p-1 d-inline-block">
                             <div class="card p-2">
                             <div class="card-img-top text-center pt-2">
                                 <img src="../images/contributers/default.png" width="100px" alt="profile">
                             </div>
                             <div class="card-body text-center px-2">
-                                <h5 class="card-title text-info">Billo Rani</h5>
-                                <p class="card-text">Blogger</p>
-                                <div class="card-footer bg-transparent px-0 border-info text-center">
-                                    <a href="#" class="mx-1"><img src="../images/linkedin.png" alt="linkedin" width="30px"></a>
-                                    <a href="#" class="mx-1"><img src="../images/instagram.png" alt="instagram" width="30px"></a>
-                                    <a class="mx-1"><img src="../images/facebook.png" alt="facebook" width="30px"></a>
+                                <h5 class="card-title text-info">'.$row['name'].'</h5>
+                                <p class="card-text">'.$row['contribution'].'</p>
+                                <div class="card-footer bg-transparent px-0 border-info text-center social">
+                                    <a '.$linkedin.' class="mx-1"><img src="../images/linkedin.png" alt="linkedin" width="30px"></a>
+                                    <a '.$twitter.' class="mx-1"><img src="../images/twitter.png" alt="instagram" width="30px"></a>
+                                    <a '.$facebook.' class="mx-1"><img src="../images/facebook.png" alt="facebook" width="30px"></a>
                                 </div>
                             </div>
                             </div>
                         </div>
                         ';
                     }
-                ?>  
-        </div>
-        <hr>
+                    echo '
+                    </div>
+                    <hr>';
+                }
+            }
+                    
+        ?>  
+        
+        
     </div>
-
-    <!-- pending requests -->
-    <!-- <div class="container my-3">
-        <hr>
-        <h1 class="heading1 text-center">Pending Requests</h1>
-        <p class="text-danger text-center mt-4">No pending request at the time</p>
-        <hr>
-    </div> -->
 
     <!-- contributers membership -->
     <div class="container my-3">
@@ -123,7 +180,7 @@
     <!-- how to becoma a contributer -->
     <div class="container">
         <div class="row">
-                <hr class="col-12 border-info border bg-info">
+                <hr class="w-100 border-info border bg-info">
                 <div class="col-md-6 mt-4">
                     <h1 class="h2 border-bottom border-info" style="font-family:ubuntu;">How to Become A Contributer</h1>
                     <div class="steps pl-md-2 mt-4">
@@ -139,7 +196,7 @@
                 <div class="col-md-6 text-center">
                     <img src="../images/certify.jpg" alt="certify" width="80% text-center" class="img-fluide">
                 </div>
-                <hr class="col-12 border-info border bg-info">
+                <hr class="w-100 border-info border bg-info">
             </div>
         </div>
 
