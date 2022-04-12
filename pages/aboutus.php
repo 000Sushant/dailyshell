@@ -1,3 +1,94 @@
+<?php
+
+session_start();
+$feedalert = 0;
+
+if(isset($_POST['submit'])){
+    
+    include '../connections/db_connect.php';
+
+    //assigning star ratings
+    if(isset($_POST['rate-5'])){
+        $star = 5;
+    }
+    else if(isset($_POST['rate-4'])){
+        $star = 4;
+    }
+    else if(isset($_POST['rate-3'])){
+        $star = 3;
+    }
+    else if(isset($_POST['rate-2'])){
+        $star = 2;
+    }
+    else if(isset($_POST['rate-1'])){
+        $star = 1;
+    }
+    else{
+        echo 'check your inputs';
+        goto out;
+    }
+
+    $name = mysqli_real_escape_string($conn,$_POST['name']);
+    $name = htmlentities($name);
+    $email = mysqli_real_escape_string($conn,$_POST['email']);
+    $email = htmlentities($email);
+    $occupation = mysqli_real_escape_string($conn,$_POST['occupation']);
+    $occupation = htmlentities($occupation);
+    $review = mysqli_real_escape_string($conn,$_POST['content']);
+    $review = htmlentities($review);
+
+    // checking if feedback is already uploaded
+    $sql = "SELECT `id` from feedback where `name`= '$name' and `review` = '$review'";
+    $result = mysqli_query($conn,$sql);
+    if($result){
+        if(mysqli_num_rows($result) > 0){
+            // echo 'data is already inserted';
+            $feedalert = 1;
+            goto out;
+        }
+    }
+
+    // inserting the feedback
+    $sql = "INSERT INTO feedback(`name`,`email`,`occupation`,`star`,`review`) VALUES('$name','$email','$occupation','$star','$review')";
+    $result = mysqli_query($conn,$sql);
+    if($result){
+        if(mysqli_affected_rows($conn) > 0){
+            // echo 'review saved';
+            $feedalert = 1;
+        }
+        else{
+            // echo 'unable to save your feedback try again later';
+            $review = 2;
+        }
+    }
+}
+
+out:
+
+// alerts
+if($feedalert == 1){
+    echo '
+    <div class="alert my-0 alert-success alert-dismissible text-center fade show" role="alert">
+    <strong>Thank You for your time!</strong> Your valuable feedback has been successfully uploaded. 
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    ';
+}
+else if($feedalert == 2){
+    echo '
+    <div class="alert my-0 alert-danger alert-dismissible text-center fade show" role="alert">
+    <strong>Unable to upload the feedback!</strong> Kindly check your inputs or please find some time to review us later. 
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    ';
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,134 +141,44 @@
 
         <hr>
 
-        <!-- review carousel -->
-        <div class="row">
-            <div class="col-6">
-                <h3 class="mb-3 heading1">Reviews</h3>
-            </div>
-            <!-- navigation buttons -->
-            <div class="col-6 text-right">
-                <a class="btn btn-dark mb-3 mr-1" href="#carouselExampleIndicators2" role="button" data-slide="prev">
-                    <i class="fa fa-arrow-left"></i>
-                </a>
-                <a class="btn btn-dark mb-3 " href="#carouselExampleIndicators2" role="button" data-slide="next">
-                    <i class="fa fa-arrow-right"></i>
-                </a>
-            </div>
-
-            <div class="col-12">
-                <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
-
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="row">
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <div class="card-img-top text-center pt-2">
-                                            <img src="../images/contributers/default.png" width="100px" alt="profile">
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h4 class="card-title text-info font-weight-bold">Sushant Kumar</h4>
-                                            <p class="card-text font-weight-bold">( Aspiring Ethical Hacker )</p>
-                                            <p class="card-text">This is the best platform i have ever visited related to cyber security.</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <span class="fa fa-star text-info"></span>
-                                            <span class="fa fa-star text-info"></span>
-                                            <span class="fa fa-star text-info"></span>
-                                            <span class="fa fa-star text-info"></span>
-                                            <span class="fa fa-star text-info"></span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <div class="card-img-top text-center pt-2">
-                                            <img src="../images/contributers/default.png" width="100px" alt="profile">
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h4 class="card-title text-info font-weight-bold">Sushant Kumar</h4>
-                                            <p class="card-text font-weight-bold">( Aspiring Ethical Hacker )</p>
-                                            <p class="card-text">This is the best platform i have ever visited related to cyber security.</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <span class="fa fa-star text-info"></span>
-                                            <span class="fa fa-star text-info"></span>
-                                            <span class="fa fa-star text-info"></span>
-                                            <span class="fa fa-star text-info"></span>
-                                            <span class="fa fa-star text-info"></span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <div class="card-img-top text-center pt-2">
-                                            <img src="../images/contributers/default.png" width="100px" alt="profile">
-                                        </div>
-                                        <div class="card-body text-center">
-                                            <h4 class="card-title text-info font-weight-bold">Sushant Kumar</h4>
-                                            <p class="card-text font-weight-bold">( Aspiring Ethical Hacker )</p>
-                                            <p class="card-text">This is the best platform i have ever visited related to cyber security.</p>
-                                        </div>
-                                        <div class="card-footer text-center">
-                                            <span class="fa fa-star text-info"></span>
-                                            <span class="fa fa-star text-info"></span>
-                                            <span class="fa fa-star text-info"></span>
-                                            <span class="fa fa-star text-info"></span>
-                                            <span class="fa fa-star text-info"></span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <hr>
-
         <!-- feedback form -->
         <form action="aboutus.php" class="bg-light px-4 py-3 border" method="post">
             <h1 class="heading1 text-center mb-2">Do You Appreciate our Initiative?</h1>
             <p class="text-center font-weight-bold">( Give us your valuable feedback )</p>
-            <label for="name">Enter Your Full Name:</label>
-            <input type="text" name="name" id="name" placeholder="Full Name" class="form-control col-8">
-            <label for="occupation">Enter Your Occupation:</label>
-            <input type="text" name="occupation" id="occupation" placeholder="occupation" class="form-control col-8">
-            <label for="occupation" class="d-block"><small>Enter your aspiring carrer if you are a student e.g., aspiring network engineer</small></label>
+            <label for="name" class="mb-0">Enter Your Full Name:</label>
+            <input type="text" name="name" id="name" placeholder="Full Name" class="form-control col-sm-8 mb-2" required>
+            <label for="email" class="mb-0">Enter Your Email Address:</label>
+            <input type="text" name="email" id="email" placeholder="Email ID" class="form-control col-sm-8 mb-2" required>
+            <label for="occupation" class=" mb-0">Enter Your Occupation:</label>
+            <input type="text" name="occupation" id="occupation" placeholder="occupation" class="form-control col-sm-8 mb-2" required>
+            <label for="occupation" class="d-block mb-0"><small>Enter your aspiring carrer if you are a student e.g., aspiring network engineer</small></label>
             
             <label for="" class="mt-2 d-block">Star ratings:</label>
             <div class="ratings d-inline-block">
                 <input type="radio" name="rate-5" class="text-left" id="5">
-                <label for="5" title="Excellent" class="fas fa-star"></label>
+                <label for="5" data-toggle="tooltip" data-placement="top" title="Excellent" class="fas fa-star mx-1"></label>
                 <input type="radio" name="rate-4" id="4">
-                <label for="4" title="Very Good" class="fas fa-star"></label>
+                <label for="4" data-toggle="tooltip" data-placement="top" title="Very Good" class="fas fa-star mx-1"></label>
                 <input type="radio" name="rate-3" id="3">
-                <label for="3" title="Good" class="fas fa-star"></label>
+                <label for="3" data-toggle="tooltip" data-placement="top" title="Good" class="fas fa-star mx-1"></label>
                 <input type="radio" name="rate-2" id="2">
-                <label for="2" title="Bad" class="fas fa-star"></label>
+                <label for="2" data-toggle="tooltip" data-placement="top" title="Bad" class="fas fa-star mx-1"></label>
                 <input type="radio" name="rate-1" id="1">
-                <label for="1" title="Very Bad" class="fas fa-star"></label>
+                <label for="1" data-toggle="tooltip" data-placement="top" title="Very Bad" class="fas fa-star mr-1"></label>
             </div>
             <label for="content" class="d-block">Express in Words:</label>
-            <textarea name="content" id="content" rows="3" placeholder="review" class="form-control col-8"></textarea>
+            <textarea name="content" id="content" rows="3" placeholder="review under 150 words" class="form-control col-sm-8" required></textarea>
 
-            <button type="submit" class="btn btn-dark d-block mt-2 col-2">Submit</button>
+            <button type="submit" name="submit" class="btn btn-dark d-block mt-2 col-sm-2">Submit</button>
         </form>
 
     </div>
     
     <?php include '../others/footer.php' ?>
     <script>
-        $(document).ready(function(){
-            $('[data-toggle="popover"]').popover();
-        });
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
     </script>
 </body>
 </html>

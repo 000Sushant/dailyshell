@@ -24,75 +24,15 @@ if(isset($_POST['send'])){
                 }
             }
             
-            // input filter function
-            function injection($target){
-                $injection = array("<",">","=",";","/");
-                for($i=0; $i<5; $i++ ){
-                    if(strpos($target,$injection[$i])){
-                        return false;
-                    }
-                }
-                return true;
-            }
 
             //filtering the inputs
-            $name = mysqli_real_escape_string($conn, $_POST['name']);
-            $email = mysqli_real_escape_string($conn, $_POST['email']);
-            $subject = mysqli_real_escape_string($conn, $_POST['subject']);
-            $content = mysqli_real_escape_string($conn, $_POST['content']);
-            $linkedin = mysqli_real_escape_string($conn, $_POST['linkedin']);
-            $instagram = mysqli_real_escape_string($conn, $_POST['instagram']);
-            $twitter = mysqli_real_escape_string($conn, $_POST['twitter']);
-
-            if(!injection($_POST['name'])){
-                $error = 3;
-                goto error3;
-            }
-            if(!injection($_POST['email'])){
-                $error = 3;
-                goto error3;
-            }
-            if(!injection($_POST['subject'])){
-                $error = 3;
-                goto error3;
-            }
-            if(!injection($_POST['content'])){
-                $error = 3;
-                goto error3;
-            }
-            if(!injection($_POST['linkedin'])){
-                $error = 3;
-                goto error3;
-            }
-            if(!injection($_POST['instagram'])){
-                $error = 3;
-                goto error3;
-            }
-            if(!injection($_POST['twitter'])){
-                $error = 3;
-                goto error3;
-            }
-            if(strlen($name) === 0){
-                goto error3;
-            }
-            if(strlen($email) === 0){
-                goto error3;
-            }
-            if(strlen($subject) === 0){
-                goto error3;
-            }
-            if(strlen($content) === 0){
-                goto error3;
-            }
-            if(strlen($linkedin) === 0){
-                $linkedin = NULL;
-            }
-            if(strlen($instagram) === 0){
-                $instagram = NULL;
-            }
-            if(strlen($twitter) === 0){
-                $twitter = NULL;
-            }
+            $name = htmlentities(mysqli_real_escape_string($conn, $_POST['name']));
+            $email = htmlentities(mysqli_real_escape_string($conn, $_POST['email']));
+            $subject = htmlentities(mysqli_real_escape_string($conn, $_POST['subject']));
+            $content = htmlentities(mysqli_real_escape_string($conn, $_POST['content']));
+            $linkedin = htmlentities(mysqli_real_escape_string($conn, $_POST['linkedin']));
+            $instagram = htmlentities(mysqli_real_escape_string($conn, $_POST['instagram']));
+            $twitter = htmlentities(mysqli_real_escape_string($conn, $_POST['twitter']));
 
             //after all inputs and file are verified
 

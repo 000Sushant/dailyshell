@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 include '../connections/db_connect.php';
 $waiting = true;

@@ -9,33 +9,10 @@ if(isset($_POST['send'])){
     require '../connections/db_connect.php';
 
     //filtering the input
-    $name = mysqli_real_escape_string($conn, $_POST['name']);
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $subject = mysqli_real_escape_string($conn, $_POST['subject']);
-    $content = mysqli_real_escape_string($conn, $_POST['content']);
-    
-    // input filter function
-    function injection($target){
-        $injection = array("<",">",";","=","/");
-        for($i=0; $i<5; $i++ ){
-            if(strpos($target,$injection[$i])){
-                return false;
-            }
-        }
-        return true;
-    }
-    if(!injection($name)){
-        goto error;
-    }
-    if(!injection($email)){
-        goto error;
-    }
-    if(!injection($subject)){
-        goto error;
-    }
-    if(!injection($content)){
-        goto error;
-    }
+    $name = htmlentities(mysqli_real_escape_string($conn, $_POST['name']));
+    $email = htmlentities(mysqli_real_escape_string($conn, $_POST['email']));
+    $subject = htmlentities(mysqli_real_escape_string($conn, $_POST['subject']));
+    $content = htmlentities(mysqli_real_escape_string($conn, $_POST['content']));
 
     $sql = "SELECT blogid from blogrequest where `heading`='$subject'";
     $result = mysqli_query($conn,$sql);
