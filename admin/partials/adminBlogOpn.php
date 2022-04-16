@@ -23,18 +23,21 @@ else if(isset($_POST['delblogreq'])){
     $blogreq = "active show";
     $postreq = "";
 }
+
 else if(isset($_POST['postreq'])){
     $delete = "";
     $add = "";
     $blogreq = "";
     $postreq = "active show";
 }
+
 else{
     $delete = "";
     $add = "active show";
     $blogreq = "";
     $postreq = "";
 }
+
 //delete Blog
 //on search event of delete blog
 if(isset($_POST['search'])){
@@ -201,24 +204,52 @@ if(isset($_POST['addblog'])){
     $smallcontent = mysqli_real_escape_string($conn,$_POST['smallcontent']);
     $hashtags = mysqli_real_escape_string($conn,$_POST['hashtags']);
     $author = mysqli_real_escape_string($conn,$_POST['author']);
-    $date = mysqli_real_escape_string($conn,$_POST['date']);
 
+    // checking if any file is selected
+    
+    if(strlen($_FILES["file"]["name"]) >= 5){
+
+        // checking if the file is in jpg, jpeg or png
+        $img_ext = pathinfo($_FILES["file"]["name"],PATHINFO_EXTENSION);
+
+        if($img_ext === 'jpg' || $img_ext === 'jpeg' || $img_ext === 'png'){
+
+            //setting up image destinatinon and name
+            $img_loc = $_FILES["file"]["tmp_name"];
+            $img_des= "../files/thumbnails/".$author."_".time().".".$img_ext;
+            $img_name = $author."_".time().".".$img_ext;
+        }
+    }
+    else{
+        echo 'wrong file format';
+        goto skip_upload;
+    }
+    
     //checking if blog is already uploaded
-    $sql = "SELECT blogid FROM blogs where `heading` = '$heading' and `author` = '$author'";
-    $result = mysqli_query($conn, $sql);
-    if($result){
-        if(mysqli_num_rows($result) > 0){
-            $addblog = 2;
-            goto skip_upload;
+    $stmt = $conn->prepare("SELECT blogid FROM blogs where `heading` = ? and `author` = ?");
+    $stmt->bind_param('ss',$heading,$author);
+    if($stmt->execute()){
+        $result = $stmt->get_result();
+        if($result){
+            if($result->fetch_assoc()){
+                $addblog = 2;
+                goto skip_upload;
+            }
         }
     }
 
     //inserting data
-    $sql = "INSERT INTO blogs(`heading`,`small_content`,`content`,`hashtags`,`author`,`date`) VALUES('$heading','$smallcontent','$content', '$hashtags', '$author', '$date')";
-    $result = mysqli_query($conn, $sql);
-    if($result){
-        if(mysqli_affected_rows($conn) > 0){
+    $stmt = $conn->prepare("INSERT INTO blogs(`heading`,`small_content`,`content`,`hashtags`,`author`) VALUES(?,?,?,?,?)");
+    $stmt->bind_param('sssss', $heading, $smallcontent, $content, $hashtags, $author);
+
+    if($stmt->execute()){
+        // echo "data inserted";
+        
+        $stmt = $conn->prepare("INSERT INTO blogs(`demo_image`) VALUE(?) where `heading` = '$heading' and `author` = $author" );
+        $stmt->bind_param('s', $img_name);
+        if($stmt->execute()){
             $addblog = 1;
+            move_uploaded_file($img_loc,$img_des);
         }
         else{
             $addblog = 3;
@@ -228,7 +259,10 @@ if(isset($_POST['addblog'])){
         $addblog = 3;
     }
 
-    //skip upload
-    skip_upload:
+
 }
+
+//skip upload
+skip_upload:
+
 ?>

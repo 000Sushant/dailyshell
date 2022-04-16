@@ -2,35 +2,29 @@
 
 if (isset($_POST['blogInfo'])){
 
-    echo $_POST['blogContent'];
-
-    require '../connections/db_connect.php';
-
+    require '../../connections/db_connect.php';
+    
+    $sql = "SELECT blogid from blogs where `heading` = '$heading' and `author` = $author";
+    $result = mysqli_query($conn,$sql);
+    if($result){
+        if(mysqli_num_rows($result) > 0){
+            echo 'a blog with same heading and author is already there';
+            goto out;
+        }
+    }
     $stmt = $conn->prepare("INSERT INTO blogs (content) VALUES (?)");
     // $stmt->bindParam(':title', $title);
-    $stmt->bind_param('s', $blogContent);
+    $content = $_POST['blogContent'];
+    $stmt->bind_param('s', $content);
 
     // insert one row
     // $title = $_POST['title'];
-    $content = $_POST['blogContent'];
     
     if($stmt->execute()){
         echo "data inserted";
     }
-
-    $sql="INSERT INTO blogs(`content`) values('$_POST[blogInfo]')";
-    $result = mysqli_query($conn, $sql);
-    if($result){
-        echo "data inserted";
-    }
-    else{
-        echo "facing some error";
-    }
-
-    unset($_POST['blogInfo']);
-    // header("location:addBlog.php");
 }
-
+out:
 ?>
 
 <!DOCTYPE html>
@@ -58,7 +52,7 @@ if (isset($_POST['blogInfo'])){
 
     <!-- ckeditor -->
     <!-- <script src="../others/ckeditor5c/build/ckeditor.js?v=0"></script> -->
-    <script src="https://cdn.tiny.cloud/1/1o1q0am7e9xmnzmg4n0cor2rpl24dyh2tgilp9z8gofuhu5c/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <!-- <script src="https://cdn.tiny.cloud/1/1o1q0am7e9xmnzmg4n0cor2rpl24dyh2tgilp9z8gofuhu5c/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> -->
     
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
@@ -67,7 +61,7 @@ if (isset($_POST['blogInfo'])){
 
 </head>
 <body>
-    <?php require '../others/nav.php'?>
+    <?php require '../../others/nav.php'?>
         
     <div class="container my-2 bg-light py-3">
         <h1 class="text-center text-warning">Add A New Blog</h1>

@@ -86,7 +86,7 @@ require 'connections/db_connect.php';
                 <div class="mt-4 mx-auto d-block text-center ">
                     <form class="row my-2 my-lg-0 mx-auto" action="pages/searchBlog.php" method="post">
                         <input class="form-control ml-auto col-6 align-middle" type="search" placeholder="Search" name="homeSearch" aria-label="Search" required/>
-                        <button class="ml-2 mr-auto btn btn-dark my-sm-0 " type="submit" name="homeSubmit"><i class="fa fa-search "></i></button>
+                        <button class="ml-2 mr-auto btn btn-dark my-sm-0 " type="submit" name="homeSubmit"><img src="./images/icons/search.svg" alt="search" width="23px"/></button>
                     </form>
                 </div>
             </div>

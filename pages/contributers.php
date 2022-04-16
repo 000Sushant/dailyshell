@@ -23,10 +23,9 @@ include '../connections/db_connect.php';
     <link rel="stylesheet" href="../css/main.css?v=1" crossorigin='anonymous'>
 
     <!-- web fonts -->
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Source+Sans+Pro&family=Ubuntu&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
 
 </head>
 <body>
@@ -70,8 +69,16 @@ include '../connections/db_connect.php';
                                 echo '
                                 <div class="col-sm-3 p-1 mx-auto d-inline-block">
                                     <div class="card p-2">
-                                    <div class="card-img-top text-center pt-2">
-                                        <img src="../images/contributers/default.png" width="100px" alt="profile">
+                                    <div class="card-img-top text-center pt-2">';
+                                    //male or female
+                                        if($row['gender'] == 'm'){
+                                            $profile = "default.png";
+                                        }
+                                        else{
+                                            $profile = "default2.jpg";
+                                        }
+                                        echo'
+                                        <img src="../images/contributers/'.$profile.'" width="100px" style="border-radius:50%" alt="profile">
                                     </div>
                                     <div class="card-body text-center px-2">
                                         <h5 class="card-title text-info">'.$row['name'].'</h5>
@@ -129,8 +136,17 @@ include '../connections/db_connect.php';
                         echo '
                         <div class="col-sm-3 p-1 d-inline-block">
                             <div class="card p-2">
-                            <div class="card-img-top text-center pt-2">
-                                <img src="../images/contributers/default.png" width="100px" alt="profile">
+                            <div class="card-img-top text-center pt-2">';
+                            //male or female
+                            if($row['gender'] == 'm'){
+                                $profile = "default.png";
+                            }
+                            else{
+                                $profile = "default2.jpg";
+                            }
+                            echo'
+                            <img src="../images/contributers/'.$profile.'" width="100px" style="border-radius:50%" alt="profile">
+                        
                             </div>
                             <div class="card-body text-center px-2">
                                 <h5 class="card-title text-info">'.$row['name'].'</h5>
@@ -147,13 +163,60 @@ include '../connections/db_connect.php';
                     }
                     echo '
                     </div>
-                    <hr>';
+                    ';
                 }
             }
                     
         ?>  
-        
-        
+
+    </div>
+    
+    <!-- pending requests -->
+    <div class="container my-4">
+        <hr class="row">
+        <div class="row">
+            <h1 class="heading1 text-center col-12">Pending Blog Requests</h1>
+            <?php 
+                $sql = "SELECT * from pendingblogs";
+                $result = mysqli_query($conn,$sql);
+                if($result){
+                    if(mysqli_num_rows($result) > 0){
+                        $temp = 0;
+                        while($row = mysqli_fetch_assoc($result)){
+                            $temp++;
+                            echo '
+                            <div class="col-12 bg-light py-2 mt-2 border">
+                                <div class="align-middle row">
+                                    <h5 class="h4 d-inline-block mb-0 col-11 text-capitalize">'.$row['heading'].'</h5>
+                                    <p class="d-inline-block mb-0 col-1">
+                                        <a class="text-right btn btn-outline-info" data-toggle="collapse" href="#collapse'.$temp.'" role="button" aria-expanded="false" aria-controls="collapse'.$temp.'">
+                                            <img src="../images/icons/down.svg" alt="down" width="20px">
+                                        </a>
+                                    </p>
+                                </div>
+                                <div class="collapse" id="collapse'.$temp.'">
+                                    <div class="card card-body bg-light mt-2">
+                                        '.$row['content'].'
+                                        <hr>
+                                        <p class="mb-0 align-bottom">
+                                            <img src="../images/icons/user.svg" alt="profile" width="13px">
+                                            <span><i>by '.$row['request'].'</i> | <img src="../images/icons/calendar.svg" alt="profile" width="13px"> <i>on '.$row['date'].'</i></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            ';
+                        }
+                    }
+                    else{
+                        echo '<p class="text-secondary my-4 mx-auto">currently we dont have any pending blog request, <a href="contact.php" class="text-secondary font-weight-bold">send a blog request</a></p>';
+                    }
+                }
+            ?>
+            
+
+        </div>
+        <hr class="row">
     </div>
 
     <!-- contributers membership -->
@@ -180,27 +243,25 @@ include '../connections/db_connect.php';
     <!-- how to becoma a contributer -->
     <div class="container">
         <div class="row">
-                <hr class="w-100 border-info border bg-info">
-                <div class="col-md-6 mt-4">
-                    <h1 class="h2 border-bottom border-info" style="font-family:ubuntu;">How to Become A Contributer</h1>
-                    <div class="steps pl-md-2 mt-4">
-                        <p><b>Showcase Your Profile | Be part of Fututre Projects | Comunnity Membership</b></p>
-                        <p><b>Setp 1:</b> Jump to <a href="contributers.php" class="text-dark"><u>contributers page</u></a></p>
-                        <p><b>Setp 2:</b> Choose Anomg the given list of pending blogs heading or skip the step</p>
-                        <p><b>Setp 3:</b> Write choosen/your own blog with proper screenshorts in pdf format</p>
-                        <p><b>Setp 4:</b> Upload the written blog to <a href="postBlog.php" class="text-dark"><u>Post Blog page</u></a></p>
-                        <p><b>Setp 5:</b> We will verify and filter out some content if needed and post your blog</p>
-                        <p><b>#Note:</b> Top 10 writters will become the top contributers of cyberblog</p>
-                    </div>
+            <hr class="w-100 border-info border bg-info">
+            <div class="col-md-6 mt-4">
+                <h1 class="h2 border-bottom border-info" style="font-family:ubuntu;">How to Become A Contributer</h1>
+                <div class="steps pl-md-2 mt-4">
+                    <p><b>Showcase Your Profile | Be part of Fututre Projects | Comunnity Membership</b></p>
+                    <p><b>Setp 1:</b> Jump to <a href="contributers.php" class="text-dark"><u>contributers page</u></a></p>
+                    <p><b>Setp 2:</b> Choose Anomg the given list of pending blogs heading or skip the step</p>
+                    <p><b>Setp 3:</b> Write choosen/your own blog with proper screenshorts in pdf format</p>
+                    <p><b>Setp 4:</b> Upload the written blog to <a href="postBlog.php" class="text-dark"><u>Post Blog page</u></a></p>
+                    <p><b>Setp 5:</b> We will verify and filter out some content if needed and post your blog</p>
+                    <p><b>#Note:</b> Top 10 writters will become the top contributers of cyberblog</p>
                 </div>
-                <div class="col-md-6 text-center">
-                    <img src="../images/certify.jpg" alt="certify" width="80% text-center" class="img-fluide">
-                </div>
-                <hr class="w-100 border-info border bg-info">
             </div>
+            <div class="col-md-6 text-center">
+                <img src="../images/certify.jpg" alt="certify" width="80% text-center" class="img-fluide">
+            </div>
+            <hr class="w-100 border-info border bg-info">
         </div>
-
-        
+    </div>
 
     <?php include '../others/footer.php'?>    
 </body>

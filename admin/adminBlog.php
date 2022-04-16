@@ -43,6 +43,24 @@ require 'partials/adminBlogOpn.php';
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&family=Source+Sans+Pro&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
 
+    <!-- summernote -->
+    
+    <link href="../others/summernote/summernote-bs4.min.css" rel="stylesheet">
+    <script src="../others/summernote/summernote-bs4.min.js"></script>
+    <!-- summernote script -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#summernote').summernote({
+                placeholder: 'Enter Your Content',
+                tabsize: 2,
+                height: 200
+            });
+        });
+        function postForm(){
+            $('textarea[name="blogContent"]').html($('#summernote').code());
+        }
+    </script>
+
 </head>
 <body>
     <?php include '../others/nav.php'?>
@@ -120,22 +138,30 @@ require 'partials/adminBlogOpn.php';
                 <div class="tab-pane fade border border-info my-2 <?php echo $add?>" id="list-add" role="tabpanel" aria-labelledby="list-add-list">
                     <p class="h3 text-center heading1 top py-3">Add Blogs</p>
                     <div class="px-2">
-                        <form action="adminBlog.php" method="post">
+                        <form action="adminBlog.php" method="post" enctype="multipart/form-data">
                             <div class="form-group">
 
-                                <input type="text" class="form-control col-sm-7 mb-3" name="heading" placeholder="heading" required>
-                                <textarea type="text" class="form-control col-sm-7 mb-3" name="content" placeholder="content" required></textarea>                              
-                                <textarea type="text" class="form-control col-sm-7 mb-3" name="smallcontent" placeholder="small content" required></textarea>                              
-                                <input type="text" class="form-control col-sm-7 mb-3" name="hashtags" placeholder="hashtags" required>
-                                <input type="text" class="form-control col-sm-7 mb-3" name="author" placeholder="Author" required>                                
-                                <input type="date" class="form-control col-sm-7 mb-3" name="date" required>
+                                <input type="text" class="form-control col-sm-10 mb-3" name="heading" placeholder="heading" required>
+                                <input type="text" class="form-control col-sm-10 mb-3" name="hashtags" placeholder="#hashtag1 #hashtag2.." required>
+                                <input type="text" class="form-control col-sm-10 mb-3" name="author" placeholder="Author" required>                                
+                                
+                                <div class="myfile">
+                                    <input type="file" id="file" name="file" class="col-sm-10 " accept="images/*" required>
+                                    <label for="file" class="d-block"><small>upload png, jpeg or jpg file only<span class="text-danger">*</span></small></label>
+                                </div>
+                                
+                                <!-- thumbnail content -->
+                                <textarea type="text" class="form-control col-sm-10 my-2" name="smallcontent" placeholder="small content (250 words)" required></textarea>                              
+                                
+                                <!-- summernote wysiwyg-->
+                                <textarea id="summernote" name="content"></textarea>
 
-                                <div class="form-check">
+                                <div class="form-check text-center mt-4">
                                     <input class="form-check-input" type="checkbox" id="checkbox" required/>
                                     <label class="form-check-label" for="checkbox">Are you sure, you want to upoad this blog?</label>
                                 </div>
                                 
-                                <button class="btn btn-dark col-sm-2 mt-2" name="addblog">Upload</button>
+                                <button class="btn btn-dark col-sm-2 mt-2 mx-auto d-block" type="submit" name="addblog">Upload</button>
                             </div>
                         </form>
                     </div>
@@ -391,7 +417,7 @@ require 'partials/adminBlogOpn.php';
                                         <td>'.$row['email'].'</td>
                                         <td>'.$row['heading'].'</td>
                                         <td>'.$row['content'].'</td>
-                                        <td>'.$row['file'].'<br>[<a href="../files/'.$row['file'].'" target="_BLANK"><i class="fa fa-download"></i></a>]</td>
+                                        <td><a href="../files/'.$row['file'].'" target="_BLANK" class="text-dark"><i class="fa fa-download"></i></a></td>
                                         <td>'.$row['linkedin'].'</td>
                                         <td>'.$row['instagram'].'</td>
                                         <td>'.$row['twitter'].'</td>

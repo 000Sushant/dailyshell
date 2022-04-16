@@ -1,6 +1,7 @@
 <?php 
-
+session_start();
 require '../connections/db_connect.php';
+
 if(!isset($_POST['activeBlog']) || $_POST['activeBlog'] == false){
     header("location:../");
 }
@@ -48,17 +49,17 @@ if(!isset($_POST['activeBlog']) || $_POST['activeBlog'] == false){
                 if(mysqli_num_rows($result)==1){
                     $row = mysqli_fetch_assoc($result);
                     echo '<h1 class="heading1">'.$row['heading'].'</h1>';
-                    echo '<img src="../images/'.$row['demo_image'].'" class="my-2" style="width:50%" alt="demo image">';  
+                    echo '<img src="../files/thumbnails/'.$row['demo_image'].'" class="my-2" style="width:50%" alt="demo image">';  
                     echo '<div class="text-left my-4">'.$row['content'].'</div>';
                     echo '
                     <div class="text-left mb-3">
-                        <p class="my-0 author text-secondary">
+                        <p class="my-0 author text-secondary text-center">
                             <i class="fa fa-user"></i> '.$row['author'].' |
                             <i class="fa fa-calendar"></i> '.$row['date'].' |
                             <i class="text-secondary"></i>'.$row['hashtags'].'
                         </p>
                     </div>';
-                    echo '<a href="../" class="btn btn-info mx-auto">Back to Home</a>';
+                    echo '<a href="searchBlog.php" class="btn btn-info mx-auto col-sm-2 text-center d-block">Back to Home</a>';
                     
                 }
                 else{
@@ -76,8 +77,9 @@ if(!isset($_POST['activeBlog']) || $_POST['activeBlog'] == false){
                 </div>
                 ';
             }
-    ?>
+        ?>
     </div>
+</div>
 
     <?php include '../others/footer.php'?>
 </body>

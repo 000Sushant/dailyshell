@@ -14,7 +14,7 @@ if(isset($_POST['send'])){
         $img_ext = pathinfo($_FILES["file"]["name"],PATHINFO_EXTENSION);
         if($img_ext === 'pdf'){
 
-            $img_ext = pathinfo($_FILES["file"]["name"],PATHINFO_EXTENSION);
+            // $img_ext = pathinfo($_FILES["file"]["name"],PATHINFO_EXTENSION);
             
             // filtering uploaded file
             $script = array(".jsp",".asp",".php",".html",".sql",".py",".js",".sh",".jdk",".jpg",".jpeg",".png");
@@ -39,7 +39,7 @@ if(isset($_POST['send'])){
             //uploading the file on the server
             // $img_name = $_FILES["file"]["name"];
             $img_loc = $_FILES["file"]["tmp_name"];
-            $img_ext = pathinfo($_FILES["file"]["name"],PATHINFO_EXTENSION);
+            // $img_ext = pathinfo($_FILES["file"]["name"],PATHINFO_EXTENSION);
             $img_des= "../files/".$subject.".".$img_ext;
             $img_name = $subject.".".$img_ext;
             

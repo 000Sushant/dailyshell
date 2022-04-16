@@ -47,6 +47,7 @@ if(!isset($_SESSION['active']) || $_SESSION['active'] == false || strlen($_SESSI
         <div class="row my-4">
             <h1 class="h3 col-12 text-center mb-3">Logged In as: <?php echo '<span class="text-capitalize">'.$_SESSION['name'].'</span>';?></h1>
             <a href="adminBlog.php" class="btn btn-dark col-7 mx-auto mb-2">Blog Operations</a>
+            <a href="pendingBlog.php" class="btn btn-dark col-7 mx-auto mb-2">Pending Blog</a>
             <a href="latestTrending.php" class="btn btn-dark col-7 mx-auto mb-2">Latest and Trending</a>
             <a href="addAdmin.php" class="btn btn-dark col-7 mx-auto mb-2">Add New Admin</a>
             <a href="contributerAdmin.php" class="btn btn-dark col-7 mx-auto mb-2">Contributers</a>
