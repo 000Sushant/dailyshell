@@ -45,6 +45,8 @@
                 <a href="http://localhost/cyberblog/pages/searchBlog.php">Find Blog</a> - 
                 <a href="http://localhost/cyberblog/pages/contact.php">Request Blog</a> -
                 <a href="http://localhost/cyberblog/pages/postBlog.php">Post Blog</a> -
+                <a href="http://localhost/cyberblog/pages/contributers.php">Contributer</a> -
+                <a href="http://localhost/cyberblog/pages/aboutus.php">About Us</a> -
                 <a href="http://localhost/cyberblog/pages/contact.php">Contact</a> -
                 <a href="http://localhost/cyberblog/admin/login.php">Admin</a>
             </div>

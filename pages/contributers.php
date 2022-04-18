@@ -187,12 +187,8 @@ include '../connections/db_connect.php';
                             echo '
                             <div class="col-12 bg-light py-2 mt-2 border">
                                 <div class="align-middle row">
-                                    <h5 class="h4 d-inline-block mb-0 col-11 text-capitalize">'.$row['heading'].'</h5>
-                                    <p class="d-inline-block mb-0 col-1">
-                                        <a class="text-right btn btn-outline-info" data-toggle="collapse" href="#collapse'.$temp.'" role="button" aria-expanded="false" aria-controls="collapse'.$temp.'">
-                                            <img src="../images/icons/down.svg" alt="down" width="20px">
-                                        </a>
-                                    </p>
+                                    <a class="h4 mb-0 text-capitalize px-3 text-dark col-11" data-toggle="collapse" href="#collapse'.$temp.'" role="button" aria-expanded="false" aria-controls="collapse'.$temp.'">'.$row['heading'].'</a>
+                                    <p class="col-1 text-center p-0 m-0"><img src="../images/icons/down.svg" alt="arrow" width="18px" data-toggle="collapse" href="#collapse'.$temp.'" role="button" aria-expanded="false" aria-controls="collapse'.$temp.'"></p>
                                 </div>
                                 <div class="collapse" id="collapse'.$temp.'">
                                     <div class="card card-body bg-light mt-2">

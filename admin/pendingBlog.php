@@ -21,62 +21,47 @@ $delete ="";
 $addalert = 0;
 $deletealert = 0;
 
-// for adding new contribuetrs
+// for adding new request
 if(isset($_POST['addcon'])){
+            
+    $name = mysqli_real_escape_string($conn, $_POST['name']);
+    $subject = mysqli_real_escape_string($conn, $_POST['subject']);
+    $content = mysqli_real_escape_string($conn, $_POST['content']);
     
-    if(isset($_POST['position'])){
-        if($_POST['position'] === 'tc' || $_POST['position'] === 'vc'){
-            
-            $name = mysqli_real_escape_string($conn, $_POST['name']);
-            $email = mysqli_real_escape_string($conn, $_POST['email']);
-            $res = mysqli_real_escape_string($conn, $_POST['res']);
-            $position = mysqli_real_escape_string($conn, $_POST['position']);
-            $gender = mysqli_real_escape_string($conn, $_POST['gender']);
-            $linkedin = mysqli_real_escape_string($conn, $_POST['linkedin']);
-            $facebook = mysqli_real_escape_string($conn, $_POST['facebook']);
-            $twitter = mysqli_real_escape_string($conn, $_POST['twitter']);
-            
-            $sql = "SELECT `name` from contributer_user where `email`='$email' and `position` = '$position'";
-            $result = mysqli_query($conn,$sql);
-            
-            if($result){
-                if(mysqli_num_rows($result) > 0){
-                    // echo 'user is already there';
-                    $addalert = 1;
-                    goto end;
-                }
-            }
+    $sql = "SELECT `id` from pendingblogs where `request`='$name' and `heading` = '$subject'";
+    $result = mysqli_query($conn,$sql);
+    
+    if($result){
+        if(mysqli_num_rows($result) > 0){
+            // echo 'request is already there';
+            $addalert = 1;
+            goto end;
+        }
+    }
 
-            $sql = "INSERT into contributer_user(`name`,`email`,`contribution`,`position`,`linkedin`,`facebook`,`twitter`,`gender`) VALUES('$name','$email','$res','$position','$linkedin','$facebook','$twitter','$gender')";
-            $result = mysqli_query($conn,$sql);
-            
-            if($result){
-                if(mysqli_affected_rows($conn) > 0){
-                    // echo 'contributer added successfully';
-                    $addalert = 1;
-                }
-                else{
-                    // echo 'unable to add contributer';
-                    $addalert = 2;
-                }
-            }
-            
+    $sql = "INSERT into pendingblogs(`request`,`heading`,`content`) VALUES('$name','$subject','$content')";
+    $result = mysqli_query($conn,$sql);
+    
+    if($result){
+        if(mysqli_affected_rows($conn) > 0){
+            // echo 'request added successfully';
+            $addalert = 1;
         }
         else{
-            // echo 'invalid position';
+            // echo 'unable to add the request';
             $addalert = 2;
         }
     }
     
 }
 
-//for deleting the existingn contributers
+//for deleting the existing request
 if(isset($_POST['delete'])){
     $add = "";
     $delete ="show active";
     $id = (int)mysqli_real_escape_string($conn,$_POST['id']);
     if($id > 0){
-        $sql = "DELETE from contributer_user where `id` = '$id'";
+        $sql = "DELETE from pendingblogs where `id` = '$id'";
         $result = mysqli_query($conn,$sql);
         if($result){
             if(mysqli_affected_rows($conn) > 0){
@@ -137,8 +122,8 @@ end:
             <!-- page menu  -->
             <div class="col-12 my-2">
                 <div class="list-group list-group-horizontal-sm" id="list-tab" role="tablist">
-                    <a class="list-group-item list-group-item-info list-group-item-action <?php echo $add?>" id="list-add-list" data-toggle="list" href="#list-add" role="tab" aria-controls="add">Add Contributer</a>
-                    <a class="list-group-item list-group-item-info list-group-item-action <?php echo $delete?>" id="list-delete-list" data-toggle="list" href="#list-delete" role="tab" aria-controls="delete">Delete Contributer</a>
+                    <a class="list-group-item list-group-item-info list-group-item-action <?php echo $add?>" id="list-add-list" data-toggle="list" href="#list-add" role="tab" aria-controls="add">Add Request</a>
+                    <a class="list-group-item list-group-item-info list-group-item-action <?php echo $delete?>" id="list-delete-list" data-toggle="list" href="#list-delete" role="tab" aria-controls="delete">Delete Request</a>
                 </div>
             </div>
 
@@ -147,7 +132,7 @@ end:
                 if($addalert == 1){
                     echo '
                     <div class="alert m-2  alert-success alert-dismissible fade show container" role="alert">
-                    <strong>Operation Successful!</strong> New contributer is successfully added having name "'.$name.'"
+                    <strong>Operation Successful!</strong> New blog request is successfully added
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -157,7 +142,7 @@ end:
                 else if($addalert == 2){
                     echo '
                     <div class="alert m-2  alert-danger alert-dismissible fade show container" role="alert">
-                    <strong>Operation Failed!</strong> Choose a valid contributer position or verify your inputs 
+                    <strong>Operation Failed!</strong> There may be some srever issue, try again later 
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -167,7 +152,7 @@ end:
                 if($deletealert == 1){
                     echo '
                     <div class="alert m-2  alert-success alert-dismissible fade show container" role="alert">
-                    <strong>Operation Successful!</strong> Contributer having id "'.$id.'"is successfully deleted
+                    <strong>Operation Successful!</strong> Blog Request having id "'.$id.'"is successfully deleted
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -177,7 +162,7 @@ end:
                 if($deletealert == 2){
                     echo '
                     <div class="alert m-2  alert-danger alert-dismissible fade show container" role="alert">
-                    <strong>Operation Failed!</strong> Check your inputs, maybe the contributer you are trying to delete isn\'t there
+                    <strong>Operation Failed!</strong> Check your inputs, maybe the blog request you are trying to delete isn\'t there
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -191,61 +176,28 @@ end:
                     
                     <!-- add contributer -->
                     <div class="tab-pane fade border border-info my-2 <?php echo $add?>" id="list-add" role="tabpanel" aria-labelledby="list-add-list">
-                        <p class="h3 text-center heading1 top py-3">Add Contributer</p>
-                        <form action="contributerAdmin.php" class="row mx-sm-4 px-2 my-2" method="post">
+                        <p class="h3 text-center heading1 top py-3">Add Blog Request</p>
+                        <form action="pendingBlog.php" class="row mx-sm-4 px-2 my-2" method="post">
 
                             <div class="form-group col-sm-6">
                                 <label for="name">Enter Name</label>
                                 <input type="text" class="form-control mb-2" name="name" id="name" placeholder="Full Name" required>
                             </div>
-                            
-                            <div class="form-group col-sm-6">
-                                <label for="twitter">Enter twitter ID</label>
-                                <input type="text" class="form-control mb-2 " name="twitter" id="twitter" placeholder="twitter ID">
-                            </div>
-                            
-                            <div class="form-group col-sm-6">
-                                <label for="email">Enter Email ID</label>
-                                <input type="text" class="form-control mb-2 " name="email" id="email" placeholder="Email ID">
-                            </div>
 
                             <div class="form-group col-sm-6">
-                                <label for="linkedin">Enter Linkedin ID</label>
-                                <input type="text" class="form-control mb-2 " name="linkedin" id="linkedin" placeholder="Linkedin ID">
-                            </div>
-
-                            <div class="form-group col-sm-6">
-                                <label for="res">Enter Responsibilities</label>
-                                <input type="text" class="form-control mb-2 " name="res" id="res" placeholder="Blogger | Researcher | RAT Member" reqired>
-                            </div>
-
-                            <div class="form-group col-sm-6">
-                                <label for="facebook">Enter Facebook ID</label>
-                                <input type="text" class="form-control mb-2 " name="facebook" id="facebook" placeholder="facebook ID">
-                            </div>
-
-                            <div class="form-group col-sm-6">
-                                <lable>Select Contributer's Position </lable>
-                                <select class="form-control" name="position">
-                                    <option>Select Position</option>
-                                    <option value="tc">Top Contributer</option>
-                                    <option value="vc">Valuable Contributer</option>
-                                </select>
+                                <label for="subject">Enter subject</label>
+                                <input type="text" class="form-control mb-2" name="subject" id="subject" placeholder="subject" required>
                             </div>
                             
                             <div class="form-group col-sm-6">
-                                <lable>Select Gender </lable>
-                                <select class="form-control" name="gender">
-                                    <option>Select Gender</option>
-                                    <option value="m">Male</option>
-                                    <option value="f">Female</option>
-                                </select>
+                                <label for="discription">Enter discription</label>
+                                <textarea name="content" id="discription" class="form-control" cols="30" rows="3"></textarea>
                             </div>
-
+                            
 
                             <div class="custom-control custom-checkbox my-2 text-center col-sm-12">
                                 <input type="checkbox" class="custom-control-input" id="customCheck1" required>
-                                <label class="custom-control-label" for="customCheck1">Do you want to add this contributer ?</label>
+                                <label class="custom-control-label" for="customCheck1">Do you want to add this request?</label>
                             </div>
 
                             <div class="row px-4 w-100 mx-auto">
@@ -255,16 +207,16 @@ end:
                         </form>
                     </div>
                     
-                    <!-- delete contributer -->
+                    <!-- delete request -->
                     <div class="tab-pane fade border border-info my-2 <?php echo $delete?>" id="list-delete" role="tabpanel" aria-labelledby="list-delete-list">
-                        <p class="h3 text-center heading1 top py-3">Delete Contributer</p>
-                        <form action="contributerAdmin.php" class="p-2" method="post">
+                        <p class="h3 text-center heading1 top py-3">Delete Blog Request</p>
+                        <form action="pendingBlog.php" class="p-2" method="post">
                             <label for="id" class="d-block">Enter Contributer ID</label>
                             <input type="number" name="id" id="id" class="form-control col-sm-8 d-inline-block" placeholder="Contributer ID" required/>
                             <button type="submit" name="delete" class="btn btn-danger d-inline-block col-sm-2">Delete</button>
                         </form>
                         <?php
-                            $sql = "SELECT * from contributer_user";
+                            $sql = "SELECT * from pendingblogs";
                             $result = mysqli_query($conn,$sql);
                             if($result){
                                 if(mysqli_num_rows($result) > 0){
@@ -274,9 +226,8 @@ end:
                                     <thead class="text-info bg-dark">
                                         <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Contribution</th>
-                                        <th scope="col">Position</th>
+                                        <th scope="col">heading</th>
+                                        <th scope="col">request</th>
                                         <th scope="col">Date</th>
                                         </tr>
                                     </thead>
@@ -286,14 +237,8 @@ end:
                                         echo'
                                         <tr>
                                         <th scope="row">'.$row['id'].'</th>
-                                        <td>'.$row['name'].'</td>
-                                        <td>'.$row['contribution'].'</td>';
-                                        $position = "Top Contributer";
-                                        if($row['position'] === 'vc'){
-                                            $position = "Valuable Contributer";
-                                        }
-                                        echo'
-                                        <td>'.$position.'</td>
+                                        <td>'.$row['heading'].'</td>
+                                        <td>'.$row['request'].'</td>
                                         <td>'.$row['date'].'</td>
                                         </tr>';
                                     }
@@ -323,12 +268,5 @@ end:
 
     <?php include '../others/footer.php'?>
 
-    <script>
-        // for dropdown
-        $(".dropdown-menu li a").click(function(){
-            $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
-            $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
-        });
-    </script>
 </body>
 </html>
