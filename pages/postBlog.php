@@ -40,7 +40,7 @@ if(isset($_POST['send'])){
             // $img_name = $_FILES["file"]["name"];
             $img_loc = $_FILES["file"]["tmp_name"];
             // $img_ext = pathinfo($_FILES["file"]["name"],PATHINFO_EXTENSION);
-            $img_des= "../files/".$subject.".".$img_ext;
+            $img_des= "../files/reqeustedBlogs/".$subject.".".$img_ext;
             $img_name = $subject.".".$img_ext;
             
             //checking if the request is already done

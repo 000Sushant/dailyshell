@@ -13,6 +13,7 @@ if(isset($_POST['send'])){
     $email = htmlentities(mysqli_real_escape_string($conn, $_POST['email']));
     $subject = htmlentities(mysqli_real_escape_string($conn, $_POST['subject']));
     $content = htmlentities(mysqli_real_escape_string($conn, $_POST['content']));
+    $type = (int)mysqli_real_escape_string($conn, $_POST['type']);
 
     $sql = "SELECT blogid from blogrequest where `heading`='$subject'";
     $result = mysqli_query($conn,$sql);
@@ -22,9 +23,9 @@ if(isset($_POST['send'])){
         if(mysqli_num_rows($result) == 1){
             $alert = 2;
         }
-        else{
+        else if($type == 1 || $type ==2){
             //uploading blog data to blogrequest
-            $sql = "INSERT INTO blogrequest(`heading`,`detail`) VALUES('$subject','$content')";
+            $sql = "INSERT INTO blogrequest(`heading`,`detail`,`type`) VALUES('$subject','$content','$type')";
             $result = mysqli_query($conn,$sql);
             if($result){
 
@@ -59,6 +60,9 @@ if(isset($_POST['send'])){
             else{
                 $alert = 1;
             }
+        }
+        else{
+            $alert = 1;
         }
     }
     else{
@@ -172,17 +176,23 @@ if(false){
             
             <div class="col-md-6">
                 <label for="name">Enter Your Full Name<span class="text-danger">*</span></label>
-                <input type="text" id="name" class="form-control mb-3" name="name" placeholder="Full Name" required></input>
+                <input type="text" id="name" class="form-control mb-2" name="name" placeholder="Full Name" required></input>
             
                 <label for="email">Enter Your Email ID<span class="text-danger">*</span></label>
                 <input type="email" id="email" class="form-control" name="email" placeholder="Email Address" required></input>
-                <small class="form-text text-muted mb-3">We will inform you the status of your request to this Address </small>
+                <small class="form-text text-muted mb-2">We will inform you the status of your request to this Address </small>
             
-                <label for="subject">Enter Your Subject<span class="text-danger">*</span></label>
-                <input type="text" class="form-control mb-3" name="subject" id="subject" placeholder="Subject" required></input>
+                <lable for="type">Select Category</lable>
+                <select class="form-control" name="type" id="type">
+                    <option value="1">Blog Request</option>
+                    <option value="2">Others</option>
+                </select>
+
+                <label for="subject" class="mt-3">Enter Your Subject<span class="text-danger">*</span></label>
+                <input type="text" class="form-control mb-2" name="subject" id="subject" placeholder="Subject" required></input>
 
                 <label for="content">Describe your Content<span class="text-danger">*</span></label>
-                <textarea text="text" name="content" id="content" class="form-control mb-3" cols="30" rows="4" placeholder="Content" required></textarea>
+                <textarea text="text" name="content" id="content" class="form-control mb-2" cols="30" rows="3" placeholder="Content" required></textarea>
 
                 <div class="form-check sm-text-center">
                 <input class="form-check-input" type="checkbox" value="" name="policy" id="flexCheckDefault" required>

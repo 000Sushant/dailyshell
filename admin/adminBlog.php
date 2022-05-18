@@ -44,21 +44,60 @@ require 'partials/adminBlogOpn.php';
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&family=Source+Sans+Pro&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
 
     <!-- summernote -->
-    
     <link href="../others/summernote/summernote-bs4.min.css" rel="stylesheet">
     <script src="../others/summernote/summernote-bs4.min.js"></script>
-    <!-- summernote script -->
+    
     <script type="text/javascript">
-        $(document).ready(function(){
+        //summernote script
+        // $(document).ready(function(){
+        //     $('#summernote').summernote({
+        //         placeholder: 'Enter Your Content',
+        //         tabsize: 2,
+        //         height: 200,
+        //         callback: {
+        //             onImageUpload: function(files, editor, welEditable){
+        //                 for(var i = files.length-1; i>=0; i--){
+        //                     sendFile(files[i],this);
+        //                 }
+        //             }
+        //         }
+        //     });
+        // });
+        
+        $(document).ready(function() {
             $('#summernote').summernote({
                 placeholder: 'Enter Your Content',
                 tabsize: 2,
-                height: 200
+                height: 200,
+                callbacks: {
+                    onImageUpload: function(files, editor, welEditable) {
+                        sendFile(files[0], editor, welEditable);
+                    }
+                }
             });
-        });
-        function postForm(){
-            $('textarea[name="blogContent"]').html($('#summernote').code());
-        }
+
+            function sendFile(file, editor, welEditable) {
+                data = new FormData();
+                data.append("file", file);
+                $.ajax({
+                data: data,
+                type: "POST",
+                url: "./partials/uploadBlogImage.php",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(url) {
+                    editor.insertImage(welEditable, url);
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+                });
+            }
+            });
+            function postForm(){
+                $('textarea[name="blogContent"]').html($('#summernote').code());
+            }
     </script>
 
 </head>
@@ -141,9 +180,9 @@ require 'partials/adminBlogOpn.php';
                         <form action="adminBlog.php" method="post" enctype="multipart/form-data">
                             <div class="form-group">
 
-                                <input type="text" class="form-control col-sm-10 mb-3" name="heading" placeholder="heading" required>
-                                <input type="text" class="form-control col-sm-10 mb-3" name="hashtags" placeholder="#hashtag1 #hashtag2.." required>
-                                <input type="text" class="form-control col-sm-10 mb-3" name="author" placeholder="Author" required>                                
+                                <input type="text" class="form-control col-sm-10 mb-3" name="heading" placeholder="heading" maxlength="50" required>
+                                <input type="text" class="form-control col-sm-10 mb-3" name="hashtags" placeholder="#hashtag1 #hashtag2.."maxlength="150"  required>
+                                <input type="text" class="form-control col-sm-10 mb-3" name="author" placeholder="Author" maxlength="30" required>                                
                                 
                                 <div class="myfile">
                                     <input type="file" id="file" name="file" class="col-sm-10 " accept="images/*" required>
@@ -151,7 +190,7 @@ require 'partials/adminBlogOpn.php';
                                 </div>
                                 
                                 <!-- thumbnail content -->
-                                <textarea type="text" class="form-control col-sm-10 my-2" name="smallcontent" placeholder="small content (250 words)" required></textarea>                              
+                                <textarea type="text" class="form-control col-sm-10 my-2" name="smallcontent" placeholder="small content (250 words)" maxlength="250" required></textarea>                              
                                 
                                 <!-- summernote wysiwyg-->
                                 <textarea id="summernote" name="content"></textarea>
@@ -174,10 +213,20 @@ require 'partials/adminBlogOpn.php';
                     <p class="h3 text-center heading1 top py-3">Delete Blogs</p>
 
                     <?php
-                    if($error2){
+                    if($deletealert == 2){
                         echo '
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>Invalid Id,</strong> unable to delete the desire Blog
+                        <strong>Invalid Id!</strong> unable to delete the desire Blog
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        ';    
+                    }
+                    else if($deletealert == 1){
+                        echo '
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Success!</strong> the blog having id "'.$id.'" is successfully deleted
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -211,13 +260,14 @@ require 'partials/adminBlogOpn.php';
                         <div class="px-2">
                         <hr class="bg-success border border-top border-success">
                         <p class="h3 text-center"><u><b>Search Result</b></u></p>
-                        <table class="table table-info">
+                        <table class="table table-info table-responsive">
                         <thead class="text-info bg-dark">
                             <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Heading</th>
+                            <th scope="col">Content</th>
+                            <th scope="col">Author</th>
                             <th scope="col">Date</th>
-                            <th scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>';
@@ -225,10 +275,11 @@ require 'partials/adminBlogOpn.php';
                         while($row=mysqli_fetch_assoc($result)){
                             echo'
                             <tr>
-                            <th scope="row">'.$row['blogId'].'</th>
+                            <th scope="row">'.$row['blogid'].'</th>
                             <td>'.$row['heading'].'</td>
+                            <td>'.$row['small_content'].'</td>
+                            <td>'.$row['author'].'</td>
                             <td>'.$row['date'].'</td>
-                            <td>Active</td>
                             </tr>';
                         }
                         
@@ -417,7 +468,7 @@ require 'partials/adminBlogOpn.php';
                                         <td>'.$row['email'].'</td>
                                         <td>'.$row['heading'].'</td>
                                         <td>'.$row['content'].'</td>
-                                        <td><a href="../files/'.$row['file'].'" target="_BLANK" class="text-dark"><i class="fa fa-download"></i></a></td>
+                                        <td><a href="../files/requestedBlogs'.$row['file'].'" target="_BLANK" class="text-dark"><i class="fa fa-download"></i></a></td>
                                         <td>'.$row['linkedin'].'</td>
                                         <td>'.$row['instagram'].'</td>
                                         <td>'.$row['twitter'].'</td>

@@ -1,13 +1,13 @@
 <?php
 $showtable = false;
 $error = false;
-$error2 = false;
 $class = "align-bottom";
 $add="active";
 $delete = " ";
 $blogreq = " ";
 $postreq = " ";
 $blogreqalert = 0;
+$deletealert = 0;
 $addblog = 0;
 
 if(isset($_POST['search']) || isset($_POST['delete']) || isset($_SESSION['deleted'])){
@@ -45,7 +45,7 @@ if(isset($_POST['search'])){
     unset($_SESSION['deleted']);
     if(strlen($_POST['blog']) >= 3){
         $str = mysqli_real_escape_string($conn,$_POST['blog']);
-        $sql = "SELECT `heading`,`date`,`blogId` from blogs WHERE `heading` LIKE '%$str%' OR `content` LIKE '%$str%' OR `hashtags` LIKE '%$str%'";
+        $sql = "SELECT * from blogs WHERE `heading` LIKE '%$str%' OR `content` LIKE '%$str%' OR `hashtags` LIKE '%$str%'";
         $result = mysqli_query($conn, $sql);
 
         if($result){
@@ -71,31 +71,34 @@ if(isset($_POST['delete'])){
 
     $id = mysqli_real_escape_string($conn,$_POST['id']);
 
-    $sql = "SELECT * FROM blogs WHERE blogId = '$id'";
+    //deleting thumbail image
+    $sql = "SELECT `demo_image` from blogs where `blogid`='$id'";
     $result = mysqli_query($conn, $sql);
-
-    if(mysqli_num_rows($result) == 1){
-        
-        $_SESSION['deleted'] = $_POST['id'];
-
-        $row = mysqli_fetch_assoc($result);
-        
-        $date = date('Y-m-d', time());
-
-        $sql = "INSERT INTO deletedblogs(`blogid`,`heading`,`upload_date`) values('$row[blogId]','$row[heading]','$date')";
-        $result2 = mysqli_query($conn, $sql);
-
-        if ($result2){
-            header("location:adminBlog.php");
+    if($result){
+        if(mysqli_num_rows($result) > 0){
+            $row = mysqli_fetch_assoc($result);
+            unlink("../files/thumbnail/".$row['demo_image']);
         }
         else{
-            $error2 = true;
+            goto endDelete;
         }
+    }
 
+
+    $sql = "DELETE from blogs where `blogid`='$id'";
+    $result = mysqli_query($conn, $sql);
+    if($result){
+        if(mysqli_affected_rows($conn) > 0){
+            // echo 'blog deleted successfully';
+            $deletealert = 1;
+        }
     }
     else{
-        $error2 = true;
+        endDelete:
+        // echo 'the blog you are trying to delete is not there';
+        $deleteqalert = 2;
     }
+
 }
 
 //blog reqeuest
@@ -149,7 +152,7 @@ if(isset($_POST['postreq'])){
                 $result2 = mysqli_query($conn,"SELECT `file` from postrequest where `blogid`='$id'");
                 if($result2){
                     if(mysqli_num_rows($result2) == 1){
-                        unlink("../files/".$row['file']);
+                        unlink("../files/requestedBlogs/".$row['file']);
 
                         //deleting from postrequest_user db
                         $sql = "DELETE from postrequest where `blogid`='$id'";
@@ -226,28 +229,20 @@ if(isset($_POST['addblog'])){
     }
     
     //checking if blog is already uploaded
-    $stmt = $conn->prepare("SELECT blogid FROM blogs where `heading` = ? and `author` = ?");
-    $stmt->bind_param('ss',$heading,$author);
-    if($stmt->execute()){
-        $result = $stmt->get_result();
-        if($result){
-            if($result->fetch_assoc()){
-                $addblog = 2;
-                goto skip_upload;
-            }
+    $sql = "SELECT blogid FROM blogs where `heading` = '$heading' and `author` = '$author'";
+    $result = mysqli_query($conn,$sql);
+    if($result){
+        if(mysqli_num_rows($result) > 0){
+            $addblog = 2;
+            goto skip_upload;
         }
     }
 
-    //inserting data
-    $stmt = $conn->prepare("INSERT INTO blogs(`heading`,`small_content`,`content`,`hashtags`,`author`) VALUES(?,?,?,?,?)");
-    $stmt->bind_param('sssss', $heading, $smallcontent, $content, $hashtags, $author);
-
-    if($stmt->execute()){
-        // echo "data inserted";
-        
-        $stmt = $conn->prepare("INSERT INTO blogs(`demo_image`) VALUE(?) where `heading` = '$heading' and `author` = $author" );
-        $stmt->bind_param('s', $img_name);
-        if($stmt->execute()){
+    // //inserting data
+    $sql = "INSERT INTO blogs(`heading`,`small_content`,`content`,`hashtags`,`author`,`demo_image`) VALUES('$heading', '$smallcontent', '$content', '$hashtags', '$author','$img_name')";
+    $result = mysqli_query($conn,$sql);
+    if($result){
+        if(mysqli_affected_rows($conn) > 0){
             $addblog = 1;
             move_uploaded_file($img_loc,$img_des);
         }
@@ -258,7 +253,6 @@ if(isset($_POST['addblog'])){
     else{
         $addblog = 3;
     }
-
 
 }
 

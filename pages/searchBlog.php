@@ -99,12 +99,15 @@ if(isset($_POST['homeSubmit']) || isset($_POST['submit']) || isset($_GET['search
                     $_GET['page'] = 1;
                     $page = 1;
                     $sql = "SELECT * from blogs LIMIT 0,3";
+                    // echo $sql;
                 }
                 else{
                     $page = $_GET['page'];
                     $temp_1 = ($page-1)*3;
                     $temp_2 = $temp_1 + 3;
                     $sql = "SELECT * from blogs LIMIT $temp_1,$temp_2";
+                    $sql = "SELECT * from blogs LIMIT 3 OFFSET 3";
+                    // echo $sql;
                 }
 
                 
@@ -163,7 +166,6 @@ if(isset($_POST['homeSubmit']) || isset($_POST['submit']) || isset($_GET['search
                                 echo '<li class=" page-item ">
                                 <a class="page-link '.$class.'" href="searchBlog.php?page='.$page.'">'.$page.'</a>';
                             }
-                            
                             
                             echo'
                             </ul>
