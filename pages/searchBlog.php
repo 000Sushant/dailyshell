@@ -104,9 +104,10 @@ if(isset($_POST['homeSubmit']) || isset($_POST['submit']) || isset($_GET['search
                 else{
                     $page = $_GET['page'];
                     $temp_1 = ($page-1)*3;
-                    $temp_2 = $temp_1 + 3;
+                    // $temp_2 = $temp_1 + 3;
+                    $temp_2 = 3;
                     $sql = "SELECT * from blogs LIMIT $temp_1,$temp_2";
-                    $sql = "SELECT * from blogs LIMIT 3 OFFSET 3";
+                    // $sql = "SELECT * from blogs LIMIT 3 OFFSET 3";
                     // echo $sql;
                 }
 

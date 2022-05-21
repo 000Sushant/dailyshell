@@ -68,36 +68,36 @@ require 'partials/adminBlogOpn.php';
             $('#summernote').summernote({
                 placeholder: 'Enter Your Content',
                 tabsize: 2,
-                height: 200,
-                callbacks: {
-                    onImageUpload: function(files, editor, welEditable) {
-                        sendFile(files[0], editor, welEditable);
-                    }
-                }
+                height: 200
+                // callbacks: {
+                //     onImageUpload: function(files, editor, welEditable) {
+                //         sendFile(files[0], editor, welEditable);
+                //     }
+                // }
             });
 
-            function sendFile(file, editor, welEditable) {
-                data = new FormData();
-                data.append("file", file);
-                $.ajax({
-                data: data,
-                type: "POST",
-                url: "./partials/uploadBlogImage.php",
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function(url) {
-                    editor.insertImage(welEditable, url);
-                },
-                error: function (data) {
-                    console.log(data);
-                }
-                });
-            }
+            // function sendFile(file, editor, welEditable) {
+            //     data = new FormData();
+            //     data.append("file", file);
+            //     $.ajax({
+            //     data: data,
+            //     type: "POST",
+            //     url: "./partials/uploadBlogImage.php",
+            //     cache: false,
+            //     contentType: false,
+            //     processData: false,
+            //     success: function(url) {
+            //         editor.insertImage(welEditable, url);
+            //     },
+            //     error: function (data) {
+            //         console.log(data);
+            //     }
+            //     });
+            // }
             });
-            function postForm(){
-                $('textarea[name="blogContent"]').html($('#summernote').code());
-            }
+            // function postForm(){
+            //     $('textarea[name="blogContent"]').html($('#summernote').code());
+            // }
     </script>
 
 </head>
