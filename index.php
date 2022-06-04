@@ -31,7 +31,7 @@ require 'connections/db_connect.php';
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Ubuntu&&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Ubuntu&family=Courgette&display=swap" rel="stylesheet">
 
     
 
@@ -53,9 +53,12 @@ require 'connections/db_connect.php';
         <!-- head -->
         <div class="row head bg-info" style="position:relative; ">
             <div class="container mb-4 mx-auto">
-                <i class="fab fa-android w-100 text-center" style='font-size:48px;'></i>
-                <h1 class="text-warning text-center"><span style="color:black;font-weight:normal">cyber</span>RAT</h1>
-                <p class="info text-center"><b><<span style="color:blanchedalmond"> We Live For Terminals</span> ></b></p>
+                <div class="text-center">
+                    <img src="images/logo.png" class="img-fluide" alt="logo" width="80px">
+                </div>
+                <!-- <i class="fab fa-android w-100 text-center" style='font-size:48px;'></i> -->
+                <h1 class="text-warning text-center" style="font-family: 'Courgette', cursive;"><span style="font-family: 'Courgette', cursive;color:black;font-weight:normal;">Daily</span>Shell</h1>
+                <p class="info text-center" style="font-family: 'Courgette', cursive;"><b><<span style="font-family: 'Courgette', cursive; color:blanchedalmond;"> We Live For Terminals</span> ></b></p>
 
                 <div class="quickLinks mx-auto text-center">
                     <form class="mx-2 d-inline-block" action="pages/searchBlog.php" method="post">

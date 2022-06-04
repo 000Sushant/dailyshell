@@ -38,7 +38,10 @@
     <!-- footer -->
     <div class="row footer bg-info">
         <div class="container-fluid py-4 text-center text-light">
-            <h1 class="text-center"><span style="color:black;font-weight:normal">cyber</span>RAT</h1>
+            <div class="text-center">
+                <img src="http://localhost/cyberblog/images/logo.png" class="img-fluide" alt="logo" width="80px">
+            </div>
+            <h1 class="text-center" style="font-family: 'Courgette', cursive;"><span style="color:black;font-weight:normal; font-family: 'Courgette', cursive;">Daily</span>Shell</h1>
     
             <div class="links mt-2">
                 <a href="http://localhost/cyberblog/">Home</a> -

@@ -18,7 +18,6 @@ include '../connections/db_connect.php';
 
 require 'partials/adminBlogOpn.php';
 
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,22 +46,18 @@ require 'partials/adminBlogOpn.php';
     <link href="../others/summernote/summernote-bs4.min.css" rel="stylesheet">
     <script src="../others/summernote/summernote-bs4.min.js"></script>
     
-    <script type="text/javascript">
-        //summernote script
-        // $(document).ready(function(){
-        //     $('#summernote').summernote({
-        //         placeholder: 'Enter Your Content',
-        //         tabsize: 2,
-        //         height: 200,
-        //         callback: {
-        //             onImageUpload: function(files, editor, welEditable){
-        //                 for(var i = files.length-1; i>=0; i--){
-        //                     sendFile(files[i],this);
-        //                 }
-        //             }
-        //         }
-        //     });
-        // });
+    <!-- tinymce editer -->
+    <script src="https://cdn.tiny.cloud/1/1o1q0am7e9xmnzmg4n0cor2rpl24dyh2tgilp9z8gofuhu5c/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+  <script>
+    tinymce.init({
+      selector: '#wysiwyg',
+      plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
+      toolbar_mode: 'floating',
+    });
+  </script>
+
+    <!-- <script type="text/javascript">
         
         $(document).ready(function() {
             $('#summernote').summernote({
@@ -98,7 +93,7 @@ require 'partials/adminBlogOpn.php';
             // function postForm(){
             //     $('textarea[name="blogContent"]').html($('#summernote').code());
             // }
-    </script>
+    </script> -->
 
 </head>
 <body>
@@ -106,6 +101,7 @@ require 'partials/adminBlogOpn.php';
 
     <!-- alerts -->
     <?php
+        
         //blogrequest and delete blog alerts
         if($blogreqalert == 1){
             echo '
@@ -192,8 +188,8 @@ require 'partials/adminBlogOpn.php';
                                 <!-- thumbnail content -->
                                 <textarea type="text" class="form-control col-sm-10 my-2" name="smallcontent" placeholder="small content (250 words)" maxlength="250" required></textarea>                              
                                 
-                                <!-- summernote wysiwyg-->
-                                <textarea id="summernote" name="content"></textarea>
+                                <!-- tinymce wysiwyg-->
+                                <textarea id="wysiwyg" name="content"></textarea>
 
                                 <div class="form-check text-center mt-4">
                                     <input class="form-check-input" type="checkbox" id="checkbox" required/>

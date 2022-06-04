@@ -77,7 +77,7 @@ if(isset($_POST['delete'])){
     if($result){
         if(mysqli_num_rows($result) > 0){
             $row = mysqli_fetch_assoc($result);
-            unlink("../files/thumbnail/".$row['demo_image']);
+            unlink("../../files/thumbnail/".$row['demo_image']);
         }
         else{
             goto endDelete;
@@ -227,8 +227,9 @@ if(isset($_POST['addblog'])){
         echo 'wrong file format';
         goto skip_upload;
     }
-    
+
     //checking if blog is already uploaded
+    
     $sql = "SELECT blogid FROM blogs where `heading` = '$heading' and `author` = '$author'";
     $result = mysqli_query($conn,$sql);
     if($result){

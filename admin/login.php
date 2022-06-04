@@ -95,7 +95,7 @@ function getIPAddress() {
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&family=Courgette&display=swap" rel="stylesheet">
 
     <!-- captcha -->
     <!-- <script src="https://www.google.com/recaptcha/api.js"></script> -->
@@ -145,8 +145,8 @@ function getIPAddress() {
             <div class="col-md-5 mt-3 mx-auto text-center bg-light border border-info">
                 
                 <div class="top row mb-3">
-                    <img src="../images/cbc_logo.jpg" alt="logo" class="img-fluid mx-auto logo m-2">
-                    <h1 class="h2 col-12">CyberRAT</h1>
+                    <img src="../images/logo.png" alt="logo" class="img-fluid mx-auto logo m-2">
+                    <h1 class="h2 col-12" style="font-family: 'Courgette', cursive;">Daily Shell</h1>
                 </div>
 
                 <form action="login.php" class="form-group text-left px-4" method="post">                  
