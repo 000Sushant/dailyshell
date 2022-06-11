@@ -58,7 +58,7 @@ require 'connections/db_connect.php';
                 </div>
                 <!-- <i class="fab fa-android w-100 text-center" style='font-size:48px;'></i> -->
                 <h1 class="text-warning text-center" style="font-family: 'Courgette', cursive;"><span style="font-family: 'Courgette', cursive;color:black;font-weight:normal;">Daily</span>Shell</h1>
-                <p class="info text-center" style="font-family: 'Courgette', cursive;"><b><<span style="font-family: 'Courgette', cursive; color:blanchedalmond;"> We Live For Terminals</span> ></b></p>
+                <p class="info text-center" style="font-family: 'Courgette', cursive;"><b><<span style="font-family: 'Courgette', cursive; color:blanchedalmond;"> We Live For The Terminal</span> ></b></p>
 
                 <div class="quickLinks mx-auto text-center">
                     <form class="mx-2 d-inline-block" action="pages/searchBlog.php" method="post">
