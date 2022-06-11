@@ -25,7 +25,7 @@ $deletealert = 0;
 if(isset($_POST['addcon'])){
     
     if(isset($_POST['position'])){
-        if($_POST['position'] === 'tc' || $_POST['position'] === 'vc'){
+        if($_POST['position'] === 'tc' || $_POST['position'] === 'ec'){
             
             $name = mysqli_real_escape_string($conn, $_POST['name']);
             $email = mysqli_real_escape_string($conn, $_POST['email']);
@@ -229,7 +229,7 @@ end:
                                 <select class="form-control" name="position">
                                     <option>Select Position</option>
                                     <option value="tc">Top Contributer</option>
-                                    <option value="vc">Valuable Contributer</option>
+                                    <option value="ec">Elite Contributer</option>
                                 </select>
                             </div>
                             
@@ -289,8 +289,8 @@ end:
                                         <td>'.$row['name'].'</td>
                                         <td>'.$row['contribution'].'</td>';
                                         $position = "Top Contributer";
-                                        if($row['position'] === 'vc'){
-                                            $position = "Valuable Contributer";
+                                        if($row['position'] === 'ec'){
+                                            $position = "Elite Contributer";
                                         }
                                         echo'
                                         <td>'.$position.'</td>

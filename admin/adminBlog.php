@@ -49,51 +49,60 @@ require 'partials/adminBlogOpn.php';
     <!-- tinymce editer -->
     <script src="https://cdn.tiny.cloud/1/1o1q0am7e9xmnzmg4n0cor2rpl24dyh2tgilp9z8gofuhu5c/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
-  <script>
+    <script>
+
+        const image_upload_handler_callback = (blobInfo, progress) => new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.withCredentials = false;
+            xhr.open('POST', './partials/uploadBlogImage.php');
+            
+            xhr.upload.onprogress = (e) => {
+                progress(e.loaded / e.total * 100);
+            };
+            
+            xhr.onload = () => {
+                if (xhr.status === 403) {
+                    reject({ message: 'HTTP Error: ' + xhr.status, remove: true });
+                    return;
+                }
+            
+                if (xhr.status < 200 || xhr.status >= 300) {
+                    reject('HTTP Error: ' + xhr.status);
+                    return;
+                }
+            
+                const json = JSON.parse(xhr.responseText);
+            
+                if (!json || typeof json.location != 'string') {
+                    reject('Invalid JSON: ' + xhr.responseText);
+                    return;
+                }
+            
+                resolve(json.location);
+            };
+            
+            xhr.onerror = () => {
+            reject('Image upload failed due to a XHR Transport error. Code: ' + xhr.status);
+            };
+            
+            const formData = new FormData();
+            formData.append('file', blobInfo.blob(), blobInfo.filename());
+            
+            xhr.send(formData);
+        });
+
     tinymce.init({
-      selector: '#wysiwyg',
-      plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
-      toolbar_mode: 'floating',
+        selector: '#wysiwyg',
+        plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
+        toolbar_mode: 'floating',
+
+        // without images_upload_url set, Upload tab won't show up
+        images_upload_url: './partials/uploadBlogImage.php',
+        
+        // override default upload handler to simulate successful upload
+        images_upload_handler: image_upload_handler_callback
     });
   </script>
-
-    <!-- <script type="text/javascript">
-        
-        $(document).ready(function() {
-            $('#summernote').summernote({
-                placeholder: 'Enter Your Content',
-                tabsize: 2,
-                height: 200
-                // callbacks: {
-                //     onImageUpload: function(files, editor, welEditable) {
-                //         sendFile(files[0], editor, welEditable);
-                //     }
-                // }
-            });
-
-            // function sendFile(file, editor, welEditable) {
-            //     data = new FormData();
-            //     data.append("file", file);
-            //     $.ajax({
-            //     data: data,
-            //     type: "POST",
-            //     url: "./partials/uploadBlogImage.php",
-            //     cache: false,
-            //     contentType: false,
-            //     processData: false,
-            //     success: function(url) {
-            //         editor.insertImage(welEditable, url);
-            //     },
-            //     error: function (data) {
-            //         console.log(data);
-            //     }
-            //     });
-            // }
-            });
-            // function postForm(){
-            //     $('textarea[name="blogContent"]').html($('#summernote').code());
-            // }
-    </script> -->
 
 </head>
 <body>

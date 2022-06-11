@@ -34,13 +34,13 @@ include '../connections/db_connect.php';
     
     <div class="container">
 
-        <!-- valuable contributer -->
+        <!-- Elite contributer -->
         <div class="row topContributer px-4 pt-2 mt-3 pb-4 bg-light border">
 
-                <h1 class="heading1 text-center col-12 mb-4">Valuable Contributers</h1>
+                <h1 class="heading1 text-center col-12 mb-4">Elite Contributers</h1>
                 
                 <?php
-                    $sql = "SELECT * from contributer_user where `position` = 'vc'";
+                    $sql = "SELECT * from contributer_user where `position` = 'ec'";
                     $result = mysqli_query($conn,$sql);
                     if($result){
                         if(mysqli_num_rows($result) > 0){
@@ -95,7 +95,7 @@ include '../connections/db_connect.php';
                             }
                         }
                         else{
-                            echo '<p class="text-danger d-block mx-auto mt-4">No Valuable Contributer is awarded till now</p>';
+                            echo '<p class="text-danger d-block mx-auto mt-4">No Elite Contributer is awarded till now</p>';
                         }
                     }
                 ?>  
