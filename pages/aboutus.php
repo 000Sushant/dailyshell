@@ -174,6 +174,14 @@ else if($feedalert == 2){
 
     </div>
     
+    <div class="container">
+        <hr>
+        <h1 class="heading1 text-capitalize text-center">Credits</h1>
+        google font
+        freepik
+        
+    </div>
+
     <?php include '../others/footer.php' ?>
     <script>
         $(function () {

@@ -14,9 +14,9 @@ require 'connections/db_connect.php';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel = "icon" href = "https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200X200.png" 
-        type = "image/x-icon">
-    <title>cyberRAT</title>
+    <link rel="icon" type = "image/x-icon" href ="./images/logo2.png">
+    
+    <title>DailyShell</title>
     
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -54,7 +54,7 @@ require 'connections/db_connect.php';
         <div class="row head bg-info" style="position:relative; ">
             <div class="container mb-4 mx-auto">
                 <div class="text-center">
-                    <img src="images/logo.png" class="img-fluide" alt="logo" width="80px">
+                    <img src="images/logo.png" class="img-fluide" alt="logo" width="100px">
                 </div>
                 <!-- <i class="fab fa-android w-100 text-center" style='font-size:48px;'></i> -->
                 <h1 class="text-warning text-center" style="font-family: 'Courgette', cursive;"><span style="font-family: 'Courgette', cursive;color:black;font-weight:normal;">Daily</span>Shell</h1>
