@@ -89,7 +89,7 @@ function getIPAddress() {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- mycss -->
-    <link rel="stylesheet" href="../css/main.css?v=3" crossorigin='anonymous'>
+    <link rel="stylesheet" href="../css/main.css?v=5" crossorigin='anonymous'>
 
     <!-- web fonts -->
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
@@ -146,7 +146,8 @@ function getIPAddress() {
                 
                 <div class="top row mb-3">
                     <img src="../images/logo.png" alt="logo" class="img-fluid mx-auto logo m-2">
-                    <h1 class="h2 col-12" style="font-family: 'Courgette', cursive;">Daily Shell</h1>
+                    <!-- <h1 class="h2 col-12" style="font-family: 'Courgette', cursive;">Daily Shell</h1> -->
+                    <h1 class="col-12 blanchedalmond text-center" style="font-family: 'Courgette', cursive; font-weight:bold;"><span style="font-family: 'Courgette', cursive;color:black;font-weight:normal;">Daily</span>Shell</h1>
                 </div>
 
                 <form action="login.php" class="form-group text-left px-4" method="post">                  

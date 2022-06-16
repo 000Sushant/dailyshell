@@ -1,10 +1,10 @@
 <?php 
  
 // Only these origins are allowed to upload images 
-$accepted_origins = array("http://localhost", "http://example.com"); 
+$accepted_origins = array("http://localhost", "http://localhost/admin/adminBlog.php"); 
  
 // Set the upload folder 
-$imageFolder = "../../files/blogs"; 
+$imageFolder = "../../files/blogs/"; 
  
 if (isset($_SERVER['HTTP_ORIGIN'])) { 
     // same-origin requests won't set an origin. If the origin is set, it must be valid. 

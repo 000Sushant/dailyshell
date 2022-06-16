@@ -111,16 +111,19 @@ else if($feedalert == 2){
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Ubuntu&family=Courgette&display=swap" rel="stylesheet">
+
 
 </head>
 <body>
     <?php include '../others/nav.php' ?>
     <!-- head -->
     <div class=" mb-4 mx-auto head bg-info py-3">
-        <i class="fab fa-android w-100 text-center" style='font-size:48px;'></i>
-        <h1 class="text-warning text-center"><span style="color:black;font-weight:normal">cyber</span>RAT</h1>
-        <p class="info text-center"><b><<span style="color:blanchedalmond"> We Live For Terminals</span> ></b></p>
+        <div class="text-center">
+            <img src="../images/logo.png" class="img-fluide" alt="logo" width="100px">
+        </div>
+        <h1 class="blanchedalmond text-center" style="font-family: 'Courgette', cursive;"><span style="font-family: 'Courgette', cursive;color:black;font-weight:normal;">Daily</span>Shell</h1>
+        <p class="info text-center" style="font-family: 'Courgette', cursive;"><b><<span style="font-family: 'Courgette', cursive; color:blanchedalmond;"> We Live For The Terminal</span> ></b></p>
     </div>
 
     <div class="container">
@@ -174,12 +177,39 @@ else if($feedalert == 2){
 
     </div>
     
-    <div class="container">
-        <hr>
-        <h1 class="heading1 text-capitalize text-center">Credits</h1>
-        google font
-        freepik
-        
+    <div class="container mt-3" style="background-color:blanchedalmond">
+       
+        <h1 class=" heading1 text-capitalize px-4 pt-4">Credits</h1>
+        <p class="px-4 pb-4">(A website is never a work of an individual, special thanks to others plugins and resources for the contribution)</p>
+        <div class="row my-4">
+
+            <div class="col-md-6 text-center">
+                <p class="h3"><u><b>Google Fonts</b></u></p> 
+                    <p>(for font styles and ideas)</p>
+                    <p class="h4" style="font-family: 'Courgette', cursive;">Courgette</p>
+                    <p class="h4" style="font-family: 'monoton', cursive;"> Monoton</p>
+                    <p class="h4" style="font-family: 'ubuntu', cursive;"> Ubuntu</p>
+            </div>
+            <div class="col-md-6 text-center">
+                <p class="h3"><u><b>Freepik</b></u></p>
+                <p>(for providing time saving vector arts)</p> 
+                
+    
+            </div>
+            <div class="col-md-6 text-center">
+                <p class="h3"><u><b>Tinymce Editor</b></u></p>
+                <p>(for providing ease in resource editing)</p> 
+                
+    
+            </div>
+            <div class="col-md-6 text-center">
+                <p class="h3"><u><b>Fontawesome</b></u></p>
+                <p>(for providing svg icons for bette visuals)</p> 
+                
+    
+            </div>
+        </div>
+    
     </div>
 
     <?php include '../others/footer.php' ?>

@@ -95,12 +95,8 @@ require 'partials/adminBlogOpn.php';
         selector: '#wysiwyg',
         plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
         toolbar_mode: 'floating',
-
-        // without images_upload_url set, Upload tab won't show up
         images_upload_url: './partials/uploadBlogImage.php',
-        
-        // override default upload handler to simulate successful upload
-        images_upload_handler: image_upload_handler_callback
+        images_upload_handler: image_upload_handler_callback,
     });
   </script>
 
