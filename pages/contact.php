@@ -186,6 +186,7 @@ if(false){
                 <select class="form-control" name="type" id="type">
                     <option value="1">Blog Request</option>
                     <option value="2">Others</option>
+
                 </select>
 
                 <label for="subject" class="mt-3">Enter Your Subject<span class="text-danger">*</span></label>

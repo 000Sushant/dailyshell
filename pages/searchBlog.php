@@ -15,7 +15,7 @@ if(isset($_POST['homeSubmit']) || isset($_POST['submit']) || isset($_GET['search
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyebrblog | Blog List</title>
+    <title>DailyShell | Blog List</title>
 
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -30,15 +30,18 @@ if(isset($_POST['homeSubmit']) || isset($_POST['submit']) || isset($_GET['search
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Source+Sans+Pro&family=Ubuntu&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Ubuntu&family=Courgette&display=swap" rel="stylesheet">
+    
 </head>
 <body>
     <?php require '../others/nav.php'?>
 
     <div class="bg-info head pb-4">
         <div class="container">
-            <h1 class="text-center">CyberbloG</h1>
+        <div class="text-center">
+            <img src="../images/logo.png" class="img-fluide" alt="logo" width="100px">
+        </div>
+        <h1 class="blanchedalmond text-center" style="font-family: 'Courgette', cursive;"><span style="font-family: 'Courgette', cursive;color:black;font-weight:normal;">Daily</span>Shell</h1>
             <div class="quickLinks d-block text-center my-3 mx-auto">
                 <form class="mx-2 d-inline-block" action="searchBlog.php" method="post">
                     <input type="hidden" value="linux" name="homeSearch" required/>
@@ -77,11 +80,11 @@ if(isset($_POST['homeSubmit']) || isset($_POST['submit']) || isset($_GET['search
     <?php
     if($waiting){
     echo '
-        <h1 class="heading1 text-center my-2 mt-3" style="font-family:ubuntu">Top Blogs</h1>';
+        <h1 class="heading1 text-center my-2 mt-3" style="font-family:courgette">Top Blogs</h1>';
     }
     else{
         echo '
-        <h1 class="heading1 text-center my-2 mt-3" style="font-family:ubuntu">Search Result</h1>';
+        <h1 class="heading1 text-center my-2 mt-3" style="font-family:courgette">Search Result</h1>';
     }
     ?>
 

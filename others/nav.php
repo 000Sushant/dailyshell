@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-info" style="line-height:25px">
-  <span style="font-family: 'Courgette', cursive;">welcome To &nbsp;</span><a class="navbar-brand" href="http://localhost/cyberblog" style="font-size:30px;font-family: 'Courgette', cursive;">Daily<span style="color:blanchedalmond;font-weight:bold; font-family: 'Courgette', cursive;">Shell</span></a>
+  <img src="http://localhost/cyberblog/images/logo.png" width="50px" alt="logo"></span><a class="navbar-brand" href="http://localhost/cyberblog" style="font-size:30px;font-family: 'Courgette', cursive;">Daily<span style="color:blanchedalmond;font-weight:bold; font-family: 'Courgette', cursive;">Shell</span></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>

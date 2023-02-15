@@ -22,21 +22,26 @@ if(!isset($_POST['activeBlog']) || $_POST['activeBlog'] == false){
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- mycss -->
-    <link rel="stylesheet" href="../css/main.css?v=1" crossorigin='anonymous'>
+    <link rel="stylesheet" href="../css/main.css?v=2" crossorigin='anonymous'>
 
     <!-- web fonts -->
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Ubuntu&family=Courgette&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <?php include '../others/nav.php'?> 
 
     <!-- head -->
-    <div class="head">
-    <h1 class="text-warning bg-info py-2 text-center">CyberRAT</h1>
-    </div>
+    <!-- <div class=" mb-4 mx-auto head bg-info py-3">
+        <div class="text-center">
+            <img src="../images/logo.png" class="img-fluide" alt="logo" width="100px">
+        </div>
+        <h1 class="blanchedalmond text-center" style="font-family: 'Courgette', cursive;"><span style="font-family: 'Courgette', cursive;color:black;font-weight:normal;">Daily</span>Shell</h1>
+        <p class="info text-center" style="font-family: 'Courgette', cursive;"><b><<span style="font-family: 'Courgette', cursive; color:blanchedalmond;"> We Live For The Terminal</span> ></b></p>
+    </div> -->
 
     <!-- main content -->
     <div class="container text-center bg-light p-3 mt-4">
@@ -48,7 +53,7 @@ if(!isset($_POST['activeBlog']) || $_POST['activeBlog'] == false){
             if($result){
                 if(mysqli_num_rows($result)==1){
                     $row = mysqli_fetch_assoc($result);
-                    echo '<h1 class="heading1">'.$row['heading'].'</h1>';
+                    echo '<h1 class="heading1 text-capitalize">'.$row['heading'].'</h1>';
                     echo '<img src="../files/thumbnails/'.$row['demo_image'].'" class="my-2" style="width:50%" alt="demo image">';  
                     echo '<div class="text-left my-4">'.$row['content'].'</div>';
                     echo '

@@ -28,7 +28,7 @@ if(isset($_POST['submit'])){
                 
                 $row=mysqli_fetch_assoc($result);
                 
-                $isPasswordCorrect = password_verify($_POST['pass'], $row['user_pass']);
+                $isPasswordCorrect = password_verify($pass, $row['user_pass']);
 
                 if($isPasswordCorrect){
                     $_SESSION['active'] = true;
